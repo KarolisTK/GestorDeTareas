@@ -18,7 +18,6 @@ namespace GestorDeTareas
         private string _NombreTarea { get; set; }
         private string _DescripcionTarea { get; set; }
         private DateTime _FechaCreacionTarea { get; set; }
-        private DateTime _FechaLimiteTarea { get; set; }
         private EstadoTarea _EstadoTarea { get; set; }
         private bool _EstaEliminado { get; set; }
 
