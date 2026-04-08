@@ -3,12 +3,28 @@
   "WorkspaceRootPath": "C:\\Users\\Oceano\\Desktop\\GestorDeTareas\\GestorDeTareas\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{491895EC-49FE-76B6-7881-371302C59611}|GestorDeTareas.csproj|c:\\users\\oceano\\desktop\\gestordetareas\\gestordetareas\\.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{491895EC-49FE-76B6-7881-371302C59611}|GestorDeTareas.csproj|solutionrelative:.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{491895EC-49FE-76B6-7881-371302C59611}|GestorDeTareas.csproj|c:\\users\\oceano\\desktop\\gestordetareas\\gestordetareas\\tareasimple.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{491895EC-49FE-76B6-7881-371302C59611}|GestorDeTareas.csproj|solutionrelative:tareasimple.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{491895EC-49FE-76B6-7881-371302C59611}|GestorDeTareas.csproj|c:\\users\\oceano\\desktop\\gestordetareas\\gestordetareas\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{491895EC-49FE-76B6-7881-371302C59611}|GestorDeTareas.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{491895EC-49FE-76B6-7881-371302C59611}|GestorDeTareas.csproj|c:\\users\\oceano\\desktop\\gestordetareas\\gestordetareas\\tarea.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{491895EC-49FE-76B6-7881-371302C59611}|GestorDeTareas.csproj|solutionrelative:tarea.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{491895EC-49FE-76B6-7881-371302C59611}|GestorDeTareas.csproj|c:\\users\\oceano\\desktop\\gestordetareas\\gestordetareas\\clasetarea.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{491895EC-49FE-76B6-7881-371302C59611}|GestorDeTareas.csproj|solutionrelative:clasetarea.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{491895EC-49FE-76B6-7881-371302C59611}|GestorDeTareas.csproj|c:\\users\\oceano\\desktop\\gestordetareas\\gestordetareas\\listadotareas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{491895EC-49FE-76B6-7881-371302C59611}|GestorDeTareas.csproj|solutionrelative:listadotareas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{491895EC-49FE-76B6-7881-371302C59611}|GestorDeTareas.csproj|c:\\users\\oceano\\desktop\\gestordetareas\\gestordetareas\\tipotareasimple.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{491895EC-49FE-76B6-7881-371302C59611}|GestorDeTareas.csproj|solutionrelative:tipotareasimple.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -27,28 +43,76 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Tarea.cs",
-              "DocumentMoniker": "C:\\Users\\Oceano\\Desktop\\GestorDeTareas\\GestorDeTareas\\Tarea.cs",
-              "RelativeDocumentMoniker": "Tarea.cs",
-              "ToolTip": "C:\\Users\\Oceano\\Desktop\\GestorDeTareas\\GestorDeTareas\\Tarea.cs*",
-              "RelativeToolTip": "Tarea.cs*",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAABYAAAANAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-07T07:47:49.26Z",
+              "Title": ".gitignore",
+              "DocumentMoniker": "C:\\Users\\Oceano\\Desktop\\GestorDeTareas\\GestorDeTareas\\.gitignore",
+              "RelativeDocumentMoniker": ".gitignore",
+              "ToolTip": "C:\\Users\\Oceano\\Desktop\\GestorDeTareas\\GestorDeTareas\\.gitignore",
+              "RelativeToolTip": ".gitignore",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAKsBAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-04-08T07:25:29.786Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ClaseTarea.cs",
-              "DocumentMoniker": "C:\\Users\\Oceano\\Desktop\\GestorDeTareas\\GestorDeTareas\\ClaseTarea.cs",
-              "RelativeDocumentMoniker": "ClaseTarea.cs",
-              "ToolTip": "C:\\Users\\Oceano\\Desktop\\GestorDeTareas\\GestorDeTareas\\ClaseTarea.cs",
-              "RelativeToolTip": "ClaseTarea.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Oceano\\Desktop\\GestorDeTareas\\GestorDeTareas\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\Oceano\\Desktop\\GestorDeTareas\\GestorDeTareas\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-31T11:47:06.984Z",
+              "WhenOpened": "2026-04-07T11:30:00.493Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Tarea.cs",
+              "DocumentMoniker": "C:\\Users\\Oceano\\Desktop\\GestorDeTareas\\GestorDeTareas\\Tarea.cs",
+              "RelativeDocumentMoniker": "Tarea.cs",
+              "ToolTip": "C:\\Users\\Oceano\\Desktop\\GestorDeTareas\\GestorDeTareas\\Tarea.cs",
+              "RelativeToolTip": "Tarea.cs",
+              "ViewState": "AgIAAHQAAAAAAAAAAAAcwHkAAABTAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-07T07:47:49.26Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "TareaSimple.cs",
+              "DocumentMoniker": "C:\\Users\\Oceano\\Desktop\\GestorDeTareas\\GestorDeTareas\\TareaSimple.cs",
+              "RelativeDocumentMoniker": "TareaSimple.cs",
+              "ToolTip": "C:\\Users\\Oceano\\Desktop\\GestorDeTareas\\GestorDeTareas\\TareaSimple.cs",
+              "RelativeToolTip": "TareaSimple.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-07T10:28:38.929Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "listadoTareas.cs",
+              "DocumentMoniker": "C:\\Users\\Oceano\\Desktop\\GestorDeTareas\\GestorDeTareas\\listadoTareas.cs",
+              "RelativeDocumentMoniker": "listadoTareas.cs",
+              "ToolTip": "C:\\Users\\Oceano\\Desktop\\GestorDeTareas\\GestorDeTareas\\listadoTareas.cs",
+              "RelativeToolTip": "listadoTareas.cs",
+              "ViewState": "AgIAAAcAAAAAAAAAAAAzwBQAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-07T10:37:37.825Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "TipoTareaSimple.cs",
+              "DocumentMoniker": "C:\\Users\\Oceano\\Desktop\\GestorDeTareas\\GestorDeTareas\\TipoTareaSimple.cs",
+              "RelativeDocumentMoniker": "TipoTareaSimple.cs",
+              "ToolTip": "C:\\Users\\Oceano\\Desktop\\GestorDeTareas\\GestorDeTareas\\TipoTareaSimple.cs",
+              "RelativeToolTip": "TipoTareaSimple.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-07T10:31:33.394Z"
             }
           ]
         }

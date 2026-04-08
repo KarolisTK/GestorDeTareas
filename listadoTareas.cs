@@ -18,3 +18,21 @@ public class ListadoTareas : Tarea
         new ListadoTareas(5, "Revisión de código", "Revisar PR #42 y dejar comentarios", DateTime.Today.AddDays(2), EstadoTarea.abandonada, false, false)
     };
 }
+public class ListadoTareasSimples : TareaSimple
+{
+    public ListadoTareasSimples(int idTarea, string nombreTarea, string descripcionTarea, DateTime fechaCreacionTarea, EstadoTarea estadoTarea, bool estaEliminado, bool estacompleta, TipoTareaSimple tipoTareaSimple)
+        : base(idTarea, nombreTarea, descripcionTarea, fechaCreacionTarea, estadoTarea, estaEliminado, estacompleta, tipoTareaSimple)
+    {
+    }
+
+    private static List<ListadoTareasSimples> _tareas = new()
+    {
+        new ListadoTareasSimples(1, "Comprar alimentos", "Comprar leche, pan y frutas", DateTime.Today.AddDays(1), EstadoTarea.finalizada, false, false, TipoTareaSimple.Base),
+        new ListadoTareasSimples(2, "Preparar informe", "Resumen semanal del estado del proyecto", DateTime.Today.AddDays(3), EstadoTarea.NoIniciada, false, false, TipoTareaSimple.Base),
+        new ListadoTareasSimples(3, "Llamar al cliente", "Confirmar requisitos y fecha de entrega", DateTime.Today, EstadoTarea.pausada, false, false, TipoTareaSimple.Base),
+        new ListadoTareasSimples(4, "Actualizar dependencias", "Actualizar paquetes NuGet a versiones compatibles", DateTime.Today.AddDays(7), EstadoTarea.finalizada, false, false, TipoTareaSimple.Base),
+        new ListadoTareasSimples(5, "Revisión de código", "Revisar PR #42 y dejar comentarios", DateTime.Today.AddDays(2), EstadoTarea.abandonada, false, false, TipoTareaSimple.Base)
+    };
+
+    public static List<ListadoTareasSimples> ObtenerTareasDePrueba() => _tareas;
+}

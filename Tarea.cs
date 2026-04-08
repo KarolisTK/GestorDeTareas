@@ -97,27 +97,31 @@ namespace GestorDeTareas
 
         public Tarea(int idTarea, string nombreTarea, string descripcionTarea, DateTime fechaCreacionTarea, EstadoTarea estadoTarea, bool estaEliminado, bool estacompleta)
         {
-            _IdTarea = idTarea;
-            _NombreTarea = nombreTarea;
-            _DescripcionTarea = descripcionTarea;
-            _FechaCreacionTarea = fechaCreacionTarea;
-            _EstadoTarea = estadoTarea;
-            _EstaEliminado = estaEliminado;
-            _EstaCompleta= estacompleta;
+            IdTarea = idTarea;
+            NombreTarea = nombreTarea;
+            DescripcionTarea = descripcionTarea;
+            FechaCreacionTarea = fechaCreacionTarea;
+            EstadoTarea = estadoTarea;
+            EstaEliminado = estaEliminado;
+            EstaCompleta= estacompleta;
         }
 
         public virtual void CrearTarea(string nombreTarea, string descripcionTarea)
         {
-            _NombreTarea = nombreTarea;
-            _DescripcionTarea = descripcionTarea;
-            _FechaCreacionTarea = DateTime.Now;
-            _EstadoTarea = EstadoTarea.NoIniciada;
-            _EstaEliminado = false;
+            NombreTarea = nombreTarea;
+            DescripcionTarea = descripcionTarea;
+            FechaCreacionTarea = DateTime.Now;
+            EstadoTarea = EstadoTarea.NoIniciada;
+            EstaEliminado = false;
         }
 
-        public void EditarTarea(int idTarea, string nuevoNombreTarea, string NuevaDescripcionTarea, EstadoTarea NuevoEstadoTarea)
+        public virtual List<Tarea> ObtenerListadoTareas()
         {
-            foreach(var tarea in ListadoTareas.ObtenerTareasDePrueba())
+            return ListadoTareas.ObtenerTareasDePrueba().Cast<Tarea>().ToList();
+        }
+        public virtual void EditarTarea(int idTarea, string nuevoNombreTarea, string NuevaDescripcionTarea, EstadoTarea NuevoEstadoTarea)
+        {
+            foreach(var tarea in ObtenerListadoTareas())
             {
                 if (tarea.IdTarea == idTarea)
                 {
@@ -128,10 +132,10 @@ namespace GestorDeTareas
             }
         }
 
-        public void EliminarTarea(int idTarea, bool estaEliminado)
+        public virtual void EliminarTarea(int idTarea, bool estaEliminado)
         {
             bool eliminarTarea = true;
-            foreach(var tarea in ListadoTareas.ObtenerTareasDePrueba())
+            foreach(var tarea in ObtenerListadoTareas())
             {
                 if(tarea.IdTarea == idTarea && !tarea.EstaEliminado)
                 {
@@ -141,9 +145,9 @@ namespace GestorDeTareas
             }
         }
 
-        public void CambiarEstadoTarea(int idTarea, EstadoTarea nuevoEstadoTarea)
+        public virtual void CambiarEstadoTarea(int idTarea, EstadoTarea nuevoEstadoTarea)
         {
-            foreach(var tarea in ListadoTareas.ObtenerTareasDePrueba())
+            foreach(var tarea in ObtenerListadoTareas())
             {
                 if (tarea.IdTarea == IdTarea && !tarea.EstaEliminado)
                 {
@@ -157,9 +161,9 @@ namespace GestorDeTareas
             }
         }
 
-        public void CompletarTarea(int idtarea)
+        public virtual void CompletarTarea(int idtarea)
         {
-            foreach (var tarea in ListadoTareas.ObtenerTareasDePrueba())
+            foreach (var tarea in ObtenerListadoTareas())
             {
                 if (tarea.IdTarea == idtarea)
                 {
@@ -171,7 +175,7 @@ namespace GestorDeTareas
 
         public void PriorizarTarea(int idTarea)
         {
-            foreach(var tarea in ListadoTareas.ObtenerTareasDePrueba())
+            foreach(var tarea in ObtenerListadoTareas())
             {
                 if(tarea.IdTarea == idTarea)
                 {
@@ -185,7 +189,7 @@ namespace GestorDeTareas
 
         public void quitarPrioridadTarea(int idTarea)
         {
-            foreach (var tarea in ListadoTareas.ObtenerTareasDePrueba())
+            foreach (var tarea in ObtenerListadoTareas())
             {
                 if (tarea.IdTarea == idTarea)
                 {
@@ -197,12 +201,12 @@ namespace GestorDeTareas
             }
         }
 
-        public void AsignarTarea(int idTarea, string nombreUsuario)
+        public virtual void AsignarTarea(int idTarea, string nombreUsuario)
         {
             throw new NotImplementedException();
         }
 
-        public void quitarAsignacionTarea(int idTarea)
+        public virtual void quitarAsignacionTarea(int idTarea)
         {
             throw new NotImplementedException();
         }
