@@ -4,11 +4,10 @@ using System.Text;
 
 namespace GestorDeTareas
 {
-    public enum TipoTareaSimple
+    public enum TipoTarea
     {
         Base,
+        Simple,
         Urgente,
-        Recurrente,
-        Secundaria
     }
 }

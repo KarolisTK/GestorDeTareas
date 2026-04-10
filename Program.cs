@@ -1,21 +1,37 @@
-﻿using GestorDeTareas;
+﻿using AutoMapper;
+using GestorDeTareas;
+using GestorDeTareas.DTOs;
 
-class Program
+var dto = new TareaDTO
 {
-    static void Main()
-    {
-        var gestor = new ListadoTareasSimples(
-            0, "", "", DateTime.Now,
-            EstadoTarea.NoIniciada, false, false, TipoTareaSimple.Base
-        );
+    NombreTarea = "tarea",
+    DescripcionTarea = "descripcion de tarea Urgente",
+    FechaCreacionTarea = System.DateTime.Now,
+    EstadoTarea = EstadoTarea.NoIniciada,
+    EstaEliminado = false,
+    TipoTarea = TipoTarea.Urgente
+};
 
-        gestor.EditarTarea(2, "EDITADO", "Nueva descripción", EstadoTarea.finalizada);
+var Tareas = new TareaService();
 
-        var lista = ListadoTareasSimples.ObtenerTareasDePrueba();
+Tareas.CrearTarea(dto);
 
-        foreach (var campo in lista)
-        {
-            Console.WriteLine($"{campo.IdTarea} - {campo.NombreTarea} - {campo.DescripcionTarea} - {campo.EstadoTarea} - {campo.EstaEliminado} - {campo.TipoTareaSimple}");
-        }
-    }
-}
+var modificacionDeLDato = new TareaDTO
+{
+    NombreTarea = "tarea modificada",
+    DescripcionTarea = "descripcion de tarea Urgente modificada",
+    FechaCreacionTarea = System.DateTime.Now,
+    EstadoTarea = EstadoTarea.NoIniciada,
+    EstaEliminado = false,
+    TipoTarea = TipoTarea.Urgente
+};
+
+
+
+Tareas.SacarTareasPorPantalla();
+
+Tareas.EditarTarea(1, modificacionDeLDato);
+
+Tareas.SacarTareasPorPantalla();
+
+
