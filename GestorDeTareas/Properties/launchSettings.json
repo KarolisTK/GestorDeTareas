@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "GestorDeTareas": {
+      "commandName": "Project",
+      "workingDirectory": "C:\\Users\\Oceano\\Desktop\\GestorDeTareas"
+    }
+  }
+}
