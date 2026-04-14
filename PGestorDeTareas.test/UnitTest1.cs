@@ -70,7 +70,7 @@ namespace PGestorDeTareas.test
                 EstaEliminado = false,
                 TipoTarea = TipoTarea.Urgente
             };
-            var resultado = _service.AplicarCambiosDeEdiccionAUnaTarea(_tarea, tareaEditada);
+            var resultado = _service.MapearCambiosEdiccionTarea(_tarea, tareaEditada);
             Assert.That(resultado.NombreTarea, Is.EqualTo("tarea Editada"));
 
         }
@@ -83,7 +83,7 @@ namespace PGestorDeTareas.test
             {
                 EstaEliminado = true
             };
-            var resultado = _service.MarcarTareaComoEliminada(_tarea, tareaEliminada);
+            var resultado = _service.MapearTareaComoEliminada(_tarea, tareaEliminada);
             Assert.That(resultado.EstaEliminado, Is.True);
 
         }
