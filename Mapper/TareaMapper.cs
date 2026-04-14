@@ -8,7 +8,7 @@ namespace GestorDeTareas.Mapper
 {
     public static class TareaMapper
     {
-        public static Tarea ToModel(TareaDTO dto, int id)
+        public static Tarea ToModel(TareaDTO dto, string id)
         {
             return new Tarea
             {

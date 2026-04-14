@@ -1,51 +1,69 @@
 ﻿using GestorDeTareas.DTOs;
 using GestorDeTareas.Mapper;
-using System.Text.Json;
-using File = System.IO.File;
 
 namespace GestorDeTareas
 {
     public class TareaService
     {
-        private string _Ruta = "Tareas.json";
+        private TareaRepository _repository;
 
-        private List<Tarea> CargarListaEnJson()
+        TareaRepository repository = new TareaRepository();
+        public Tarea MapearTarea(TareaDTO dto)
         {
-            if (!File.Exists(_Ruta)) return new List<Tarea>();
-            return JsonSerializer.Deserialize<List<Tarea>>(File.ReadAllText(_Ruta));
+            var id = Guid.NewGuid();
+            var parseID = id.ToString();
+            return TareaMapper.ToModel(dto, parseID);
         }
 
-        public Tarea CargarSoloUnaTareaPorID(int id)
-        {
-            var Tareas = CargarListaEnJson();
-            var TareaFiltrada = Tareas.Where(u => u.IdTarea == id).FirstOrDefault();
-            return TareaFiltrada;
-        }
         public void CrearTarea(TareaDTO dto)
         {
-            var ID = new Random().Next(1000);
-            var tarea = TareaMapper.ToModel(dto, ID);
-            var lista = CargarListaEnJson();
+            var lista = repository.CargarListaEnJson();
+            var tarea = MapearTarea(dto);
             lista.Add(tarea);
-            File.WriteAllText(_Ruta, JsonSerializer.Serialize(lista, new JsonSerializerOptions { WriteIndented = true }));
+            repository.GuardarListaEnJson(lista);
         }
 
-        public void EditarTarea(int id, TareaDTO dto)
+        public Tarea AplicarCambiosDeEdiccionAUnaTarea(Tarea tarea, TareaDTO dto)
         {
-            var lista = CargarListaEnJson();
-            var tarea = lista.FirstOrDefault(t => t.IdTarea == id);
             tarea.NombreTarea = dto.NombreTarea;
             tarea.DescripcionTarea = dto.DescripcionTarea;
-            File.WriteAllText(_Ruta, JsonSerializer.Serialize(lista, new JsonSerializerOptions { WriteIndented = true }));
+            return tarea;
+        }
+
+        public void EditarTarea(string id, TareaDTO dto)
+        {
+            var lista = repository.CargarListaEnJson();
+            var tareaFiltrada = lista.FirstOrDefault(t => t.IdTarea == id);
+            AplicarCambiosDeEdiccionAUnaTarea(tareaFiltrada, dto);
+            repository.GuardarListaEnJson(lista);
+        }
+
+        public Tarea MarcarTareaComoEliminada(Tarea tarea, TareaDTO dto)
+        {
+            tarea.EstaEliminado = dto.EstaEliminado;
+            return tarea;
+        }
+        public void EliminarTarea(string id, TareaDTO dto)
+        {
+            var lista = repository.CargarListaEnJson();
+            var tareaFiltrada = lista.FirstOrDefault(t => t.IdTarea == id);
+            var marcadaComoEliminada = MarcarTareaComoEliminada(tareaFiltrada, dto);
+            repository.GuardarListaEnJson(lista);
         }
 
         public void SacarTareasPorPantalla()
         {
-            var ListaDeTareas = CargarListaEnJson();
+            var ListaDeTareas = repository.CargarListaEnJson();
             foreach (var tarea in ListaDeTareas)
             {
                 Console.WriteLine(tarea.NombreTarea + " " + tarea.DescripcionTarea);
             }
+        }
+
+        public void SacarSoloUnaTareaPorPantalla(string id)
+        {
+            var tareaPorId = repository.CargarSoloUnaTareaPorID(id);
+            Console.WriteLine(tareaPorId.NombreTarea + " " + tareaPorId.DescripcionTarea + " " + tareaPorId.EstaEliminado);
         }
     }
 }

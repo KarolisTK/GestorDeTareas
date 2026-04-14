@@ -11,11 +11,7 @@ var dto = new TareaDTO
     EstaEliminado = false,
     TipoTarea = TipoTarea.Urgente
 };
-
-var Tareas = new TareaService();
-
-Tareas.CrearTarea(dto);
-
+var tareas = new TareaService();
 var modificacionDeLDato = new TareaDTO
 {
     NombreTarea = "tarea modificada",
@@ -26,12 +22,20 @@ var modificacionDeLDato = new TareaDTO
     TipoTarea = TipoTarea.Urgente
 };
 
+var eliminarTarea = new TareaDTO
+{
+    EstaEliminado = true,
+};
 
+//tareas.CrearTarea(dto);
+//tareas.SacarTareasPorPantalla();
+Console.WriteLine("-------------------------------------------------------");
+tareas.EditarTarea("69696a8f-e9d6-41ae-894c-1ccb1d2e3c10", modificacionDeLDato);
+tareas.SacarSoloUnaTareaPorPantalla("69696a8f-e9d6-41ae-894c-1ccb1d2e3c10");
+Console.WriteLine("-------------------------------------------------------");
+tareas.EliminarTarea("69696a8f-e9d6-41ae-894c-1ccb1d2e3c10", eliminarTarea);
+tareas.SacarSoloUnaTareaPorPantalla("69696a8f-e9d6-41ae-894c-1ccb1d2e3c10");
+Console.WriteLine("-------------------------------------------------------");
 
-Tareas.SacarTareasPorPantalla();
-
-Tareas.EditarTarea(1, modificacionDeLDato);
-
-Tareas.SacarTareasPorPantalla();
 
 
