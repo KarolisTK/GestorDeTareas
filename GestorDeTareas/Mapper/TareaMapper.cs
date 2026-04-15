@@ -8,7 +8,7 @@ namespace GestorDeTareas.Mapper
 {
     public static class TareaMapper
     {
-        public static Tarea ToModel(TareaDTO dto, string id)
+        public static Tarea CrearEntidad(CrearTareaDTO dto, string id)
         {
             return new Tarea
             {
@@ -22,17 +22,22 @@ namespace GestorDeTareas.Mapper
 
             };
         }
-        public static TareaDTO ToDto(Tarea tarea)
+        public static void ModificarEntidad(Tarea tarea, EditarTareaDTO dto)
         {
-            return new TareaDTO
-            {
-                NombreTarea = tarea.NombreTarea,
-                DescripcionTarea = tarea.DescripcionTarea,
-                FechaCreacionTarea = tarea.FechaCreacionTarea,
-                EstadoTarea = tarea.EstadoTarea,
-                EstaEliminado = tarea.EstaEliminado,
-                TipoTarea = tarea.TipoTarea,
-            };
+            if (dto.NombreTarea != null)
+                tarea.NombreTarea = dto.NombreTarea;
+
+            if (dto.DescripcionTarea != null)
+                tarea.DescripcionTarea = dto.DescripcionTarea;
+
+            if (dto.EstadoTarea != null)
+                tarea.EstadoTarea = dto.EstadoTarea;
+
+            if (dto.TipoTarea != null)
+                tarea.TipoTarea = dto.TipoTarea;
+
+            if (dto.EstaEliminado.HasValue)
+                tarea.EstaEliminado = dto.EstaEliminado.Value;
         }
     }
 }

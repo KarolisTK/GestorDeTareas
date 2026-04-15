@@ -10,7 +10,7 @@ namespace PGestorDeTareas.test
         private TareaRepository repository;
         private TareaService _service;
         private Tarea _tarea;
-        private TareaDTO _tareaDTO;
+        private CrearTareaDTO _tareaDTO;
 
         [SetUp]
         public void Setup()
@@ -26,7 +26,7 @@ namespace PGestorDeTareas.test
                 EstaEliminado = false,
                 TipoTarea = TipoTarea.Urgente
             };
-            _tareaDTO = new TareaDTO
+            _tareaDTO = new CrearTareaDTO
             {
                 NombreTarea = "tarea",
                 DescripcionTarea = "descripcion de tarea Urgente",
@@ -61,30 +61,16 @@ namespace PGestorDeTareas.test
 
         public void EditarUnaTarea_()
         {
-            var tareaEditada = new TareaDTO
+            var tareaEditada = new EditarTareaDTO
             {
                 NombreTarea = "tarea Editada",
                 DescripcionTarea = "descripcion de tarea Urgente Editada",
-                FechaCreacionTarea = System.DateTime.Now,
                 EstadoTarea = EstadoTarea.NoIniciada,
                 EstaEliminado = false,
                 TipoTarea = TipoTarea.Urgente
             };
-            var resultado = _service.MapearCambiosEdiccionTarea(_tarea, tareaEditada);
+            var resultado = _service.MapearEdiccionTarea(_tarea, tareaEditada);
             Assert.That(resultado.NombreTarea, Is.EqualTo("tarea Editada"));
-
-        }
-
-        [Test]
-
-        public void EliminarUnaTarea()
-        {
-            var tareaEliminada = new TareaDTO
-            {
-                EstaEliminado = true
-            };
-            var resultado = _service.MapearTareaComoEliminada(_tarea, tareaEliminada);
-            Assert.That(resultado.EstaEliminado, Is.True);
 
         }
     }

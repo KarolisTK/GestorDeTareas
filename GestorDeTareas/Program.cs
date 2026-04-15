@@ -2,7 +2,7 @@
 using GestorDeTareas;
 using GestorDeTareas.DTOs;
 
-var dto = new TareaDTO
+var dto = new CrearTareaDTO
 {
     NombreTarea = "tarea",
     DescripcionTarea = "descripcion de tarea Urgente",
@@ -12,44 +12,43 @@ var dto = new TareaDTO
     TipoTarea = TipoTarea.Urgente
 };
 var tareas = new TareaService();
-var modificacionDeLDato = new TareaDTO
+var modificacionDeLDato = new EditarTareaDTO
 {
     NombreTarea = "tarea modificada",
     DescripcionTarea = "descripcion de tarea Urgente modificada",
-    FechaCreacionTarea = System.DateTime.Now,
     EstadoTarea = EstadoTarea.NoIniciada,
     EstaEliminado = false,
-    TipoTarea = TipoTarea.Urgente
+    TipoTarea = TipoTarea.Simple
 };
 
-var eliminarTarea = new TareaDTO
+var eliminarTarea = new EditarTareaDTO
 {
     EstaEliminado = true,
 };
 
-var modificarTarea = new TareaDTO
+var modificarTarea = new EditarTareaDTO
 {
-    EstadoTarea = EstadoTarea.iniciada
+    EstadoTarea = EstadoTarea.finalizada
 };
-var modificarTarea2 = new TareaDTO
+var modificarTarea2 = new EditarTareaDTO
 {
     TipoTarea = TipoTarea.Urgente
 };
 
 //tareas.CrearTarea(dto);
 //tareas.SacarTareasPorPantalla();
-//Console.WriteLine("-------------------------------------------------------");
-//tareas.EditarTarea("eb5b8439-59be-4a12-b8dc-801b7bde4530", modificacionDeLDato);
-//tareas.SacarSoloUnaTareaPorPantalla("eb5b8439-59be-4a12-b8dc-801b7bde4530");
-//Console.WriteLine("-------------------------------------------------------");
-//tareas.EliminarTarea("eb5b8439-59be-4a12-b8dc-801b7bde4530", eliminarTarea);
-//tareas.SacarSoloUnaTareaPorPantalla("eb5b8439-59be-4a12-b8dc-801b7bde4530");
-//Console.WriteLine("-------------------------------------------------------");
-//tareas.CambiarEstadoTarea("eb5b8439-59be-4a12-b8dc-801b7bde4530", modificarTarea);
-tareas.MostrarTarea("eb5b8439-59be-4a12-b8dc-801b7bde4530");
 Console.WriteLine("-------------------------------------------------------");
-tareas.CambiarTipoTarea("eb5b8439-59be-4a12-b8dc-801b7bde4530", modificarTarea2);
-tareas.MostrarTarea("eb5b8439-59be-4a12-b8dc-801b7bde4530");
+tareas.EditarTarea("0114a580-6984-4065-a388-90e193773177", modificacionDeLDato);
+tareas.MostrarTarea("0114a580-6984-4065-a388-90e193773177");
+Console.WriteLine("-------------------------------------------------------");
+tareas.EliminarTarea("0114a580-6984-4065-a388-90e193773177");
+tareas.MostrarTarea("0114a580-6984-4065-a388-90e193773177");
+Console.WriteLine("-------------------------------------------------------");
+tareas.EditarTarea("0114a580-6984-4065-a388-90e193773177", modificarTarea);
+tareas.MostrarTarea("0114a580-6984-4065-a388-90e193773177");
+Console.WriteLine("-------------------------------------------------------");
+tareas.EditarTarea("0114a580-6984-4065-a388-90e193773177", modificarTarea2);
+tareas.MostrarTarea("0114a580-6984-4065-a388-90e193773177");
 
 
 
