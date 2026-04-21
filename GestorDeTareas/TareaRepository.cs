@@ -13,7 +13,7 @@ namespace GestorDeTareas
         {
             _Ruta = ruta;
         }
-        public List<Tarea> CargarListaEnJson()
+        public List<Tarea> CargarListaDeUsuarios()
         {
             if (!File.Exists(_Ruta)) return new List<Tarea>();
             return JsonSerializer.Deserialize<List<Tarea>>(File.ReadAllText(_Ruta));
@@ -21,12 +21,12 @@ namespace GestorDeTareas
 
         public Tarea CargarSoloUnaTareaPorID(int id)
         {
-            var Tareas = CargarListaEnJson();
+            var Tareas = CargarListaDeUsuarios();
             var TareaFiltrada = Tareas.Where(u => u.IdTarea == id).FirstOrDefault();
             return TareaFiltrada;
         }
 
-        public void GuardarListaEnJson(List<Tarea> lista)
+        public void GuardarLista(List<Tarea> lista)
         {
             File.WriteAllText(_Ruta, JsonSerializer.Serialize(lista, new JsonSerializerOptions { WriteIndented = true }));
         }

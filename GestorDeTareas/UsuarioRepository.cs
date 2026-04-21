@@ -8,28 +8,25 @@ namespace GestorDeTareas
 {
     public class UsuarioRepository
     {
+        private readonly AppDbContext _context = new AppDbContext();
         private readonly string _Ruta;
 
-        public UsuarioRepository(string ruta = "Usuarios.json")
+        public List<Usuario> CargarListaDeUsuarios()
         {
-            _Ruta = ruta;
-        }
-        public List<Usuario> CargarListaEnJson()
-        {
-            if (!File.Exists(_Ruta)) return new List<Usuario>();
-            return JsonSerializer.Deserialize<List<Usuario>>(File.ReadAllText(_Ruta));
+            return _context.Usuario.ToList();
         }
 
         public Usuario CargarSoloUnUsuarioPorID(int id)
         {
-            var Usuario = CargarListaEnJson();
+            var Usuario = CargarListaDeUsuarios();
             var UsuarioFiltrado = Usuario.Where(u => u.IdUsuario == id).FirstOrDefault();
             return UsuarioFiltrado;
         }
 
-        public void GuardarListaEnJson(List<Usuario> lista)
+        public void GuardarLista(Usuario usuario)
         {
-            File.WriteAllText(_Ruta, JsonSerializer.Serialize(lista, new JsonSerializerOptions { WriteIndented = true }));
+            _context.Usuario.Add(usuario);
+            _context.SaveChanges();
         }
     }
 }

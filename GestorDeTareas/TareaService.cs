@@ -22,34 +22,34 @@ namespace GestorDeTareas
         public void CrearTarea(CrearTareaDTO dto)
         {
             var idUsuarioSesion = Sesion.IdUsuarioSesionActiva;
-            var lista = repository.CargarListaEnJson();
+            var lista = repository.CargarListaDeUsuarios();
             var tarea = MapearTarea(dto);
             lista.Add(tarea);
-            repository.GuardarListaEnJson(lista);
-            var listaDeTareas = tareasPorUsuarioRepsoitory.CargarListaEnJson();
+            repository.GuardarLista(lista);
+            var listaDeTareas = tareasPorUsuarioRepsoitory.CargarListaDeUsuarios();
             var dtoTareas = new TareasPorUsuarioDTO(idUsuarioSesion, tarea.IdTarea);
             var NuevaAsignacion = tareasPorUsuariosService.MapearAsignacionTareasPorUsuario(dtoTareas);
             listaDeTareas.Add(NuevaAsignacion);
-            tareasPorUsuarioRepsoitory.GuardarListaEnJson(listaDeTareas);
+            tareasPorUsuarioRepsoitory.GuardarLista(listaDeTareas);
         }
         public void EditarTarea(int id, EditarTareaDTO dto)
         {
-            var lista = repository.CargarListaEnJson();
+            var lista = repository.CargarListaDeUsuarios();
             var tareaFiltrada = FiltrarTareasParaTarea(lista, id);
             MapearEdiccionTarea(tareaFiltrada, dto);
-            repository.GuardarListaEnJson(lista);
+            repository.GuardarLista(lista);
         }
         public void EliminarTarea(int id)
         {
-            var lista = repository.CargarListaEnJson();
+            var lista = repository.CargarListaDeUsuarios();
             var tareaFiltrada = FiltrarTareasParaTarea(lista, id);
             tareaFiltrada.EstaEliminado = true;
-            repository.GuardarListaEnJson(lista);
+            repository.GuardarLista(lista);
         }
 
         public void SacarTareasPorPantalla()
         {
-            var ListaDeTareas = repository.CargarListaEnJson();
+            var ListaDeTareas = repository.CargarListaDeUsuarios();
             foreach (var tarea in ListaDeTareas)
             {
                 Console.WriteLine(tarea.NombreTarea + " " + tarea.DescripcionTarea);

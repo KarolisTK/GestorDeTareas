@@ -57,6 +57,7 @@ var eliminarUsuario = new EditarUsuarioDTO
 {
     EstaEliminado = true
 };
+usuarios.IniciarSesion("test@test.com", "test");
 
 //tareas.CrearTarea(dto);
 //tareas.SacarTareasPorPantalla();
@@ -74,23 +75,16 @@ var eliminarUsuario = new EditarUsuarioDTO
 //tareas.MostrarTarea(1779872948);
 
 
-//usuarios.SacarUsuariosPorPantalla();
-//Console.WriteLine("-------------------------------------------------------");
-//usuarios.EditarUsuario(1595013434, editarNombreUsuario);
-//usuarios.MostrarTarea(1595013434);
-//Console.WriteLine("-------------------------------------------------------");
-//usuarios.EliminarUsuario(1595013434);
-//usuarios.MostrarTarea(1595013434);
-//Console.WriteLine("-------------------------------------------------------");
-//usuarios.EditarUsuario(1595013434, editaremaileUsuario);
-//usuarios.MostrarTarea(1595013434);
-//Console.WriteLine("-------------------------------------------------------");
-//usuarios.EditarUsuario(1595013434, editarContraseñaeUsuario);
-//usuarios.MostrarTarea(1595013434);
+usuarios.SacarUsuariosPorPantalla();
+usuarios.EditarUsuario(editarNombreUsuario);
+usuarios.EliminarUsuario();
+usuarios.EditarUsuario(editaremaileUsuario);
+usuarios.EditarUsuario(editarContraseñaeUsuario);
+
 
 
 
 //usuarios.CrearUsuario(usuario);
-//usuarios.IniciarSesion("test@test.com", "test");
+
 //tareas.CrearTarea(dto);
 

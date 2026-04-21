@@ -15,13 +15,13 @@ namespace GestorDeTareas
             _Ruta = ruta;
         }
 
-        public List<TareasPorUsuario> CargarListaEnJson()
+        public List<TareasPorUsuario> CargarListaDeUsuarios()
         {
             if (!File.Exists(_Ruta)) return new List<TareasPorUsuario>();
             return JsonSerializer.Deserialize<List<TareasPorUsuario>>(File.ReadAllText(_Ruta));
         }
 
-        public void GuardarListaEnJson(List<TareasPorUsuario> lista)
+        public void GuardarLista(List<TareasPorUsuario> lista)
         {
             File.WriteAllText(_Ruta, JsonSerializer.Serialize(lista, new JsonSerializerOptions { WriteIndented = true }));
         }

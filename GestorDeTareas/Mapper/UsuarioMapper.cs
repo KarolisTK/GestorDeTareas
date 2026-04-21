@@ -8,11 +8,10 @@ namespace GestorDeTareas.Mapper
 {
     public class UsuarioMapper
     {
-        public static Usuario CrearUsuario(int id, UsuarioDTO dto)
+        public static Usuario CrearUsuario( UsuarioDTO dto)
         {
             return new Usuario
             {
-                IdUsuario = id,
                 NombreUsuario = dto.NombreUsuario,
                 CorreoUsuario = dto.CorreoUsuario,
                 ContrasenaUsuario = dto.ContrasenaUsuario,

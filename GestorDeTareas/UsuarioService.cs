@@ -12,8 +12,7 @@ namespace GestorDeTareas
         UsuarioRepository repository = new UsuarioRepository();
         public Usuario MapearUsuario(UsuarioDTO dto)
         {
-            var id = new Random().Next();
-            return UsuarioMapper.CrearUsuario(id, dto);
+            return UsuarioMapper.CrearUsuario(dto);
         }
         public Usuario MapearEdiccionUsuario(Usuario usuario, EditarUsuarioDTO dto)
         {
@@ -22,29 +21,27 @@ namespace GestorDeTareas
         }
         public void CrearUsuario(UsuarioDTO dto)
         {
-            var lista = repository.CargarListaEnJson();
             var usuario = MapearUsuario(dto);
-            lista.Add(usuario);
-            repository.GuardarListaEnJson(lista);
+            repository.GuardarLista(usuario);
         }
-        public void EditarUsuario(int id, EditarUsuarioDTO dto)
+        public void EditarUsuario(EditarUsuarioDTO dto)
         {
-            var lista = repository.CargarListaEnJson();
-            var usuarioFiltrado = FiltrarUsuariosPorUsuario(lista, id);
+            var lista = repository.CargarListaDeUsuarios();
+            var usuarioFiltrado = FiltrarUsuariosPorUsuario(lista, Sesion.IdUsuarioSesionActiva);
             MapearEdiccionUsuario(usuarioFiltrado, dto);
-            repository.GuardarListaEnJson(lista);
+            repository.GuardarLista(usuarioFiltrado);
         }
-        public void EliminarUsuario(int id)
+        public void EliminarUsuario()
         {
-            var lista = repository.CargarListaEnJson();
-            var usuarioFiltrado = FiltrarUsuariosPorUsuario(lista, id);
+            var lista = repository.CargarListaDeUsuarios();
+            var usuarioFiltrado = FiltrarUsuariosPorUsuario(lista, Sesion.IdUsuarioSesionActiva);
             usuarioFiltrado.EstaEliminado = true;
-            repository.GuardarListaEnJson(lista);
+            repository.GuardarLista(usuarioFiltrado);
         }
 
         public void IniciarSesion(string CorreoUsuario, string ContrasenaUsuario)
         {
-            var lista = repository.CargarListaEnJson();
+            var lista = repository.CargarListaDeUsuarios();
             var usuarioFiltrado = FiltrarUsuariosPorEmailYContrasena(lista, CorreoUsuario, ContrasenaUsuario);
             if (usuarioFiltrado != null)
             {
@@ -55,7 +52,7 @@ namespace GestorDeTareas
 
         public void SacarUsuariosPorPantalla()
         {
-            var listaDeUsuarios = repository.CargarListaEnJson();
+            var listaDeUsuarios = repository.CargarListaDeUsuarios();
             foreach (var usuario in listaDeUsuarios)
             {
                 Console.WriteLine(usuario.NombreUsuario + " " + usuario.CorreoUsuario);
@@ -75,18 +72,6 @@ namespace GestorDeTareas
             }
             return null;
            
-        }
-
-        public void MostrarTarea(int id)
-        {
-            var usuario = repository.CargarSoloUnUsuarioPorID(id);
-
-            Console.WriteLine("================================");
-            Console.WriteLine($"  Nombre:      {usuario.NombreUsuario}");
-            Console.WriteLine($"  CorreoUsuario: {usuario.CorreoUsuario}");
-            Console.WriteLine($"  Contraseña:      {usuario.ContrasenaUsuario.GetHashCode()}");
-            Console.WriteLine($"  Eliminada:   {(usuario.EstaEliminado.GetValueOrDefault() ? "Sí" : "No")}");
-            Console.WriteLine("================================");
         }
     }
 }
