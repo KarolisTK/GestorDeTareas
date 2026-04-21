@@ -42,6 +42,17 @@ namespace GestorDeTareas
             repository.GuardarListaEnJson(lista);
         }
 
+        public void IniciarSesion(string email, string password)
+        {
+            var lista = repository.CargarListaEnJson();
+            var usuarioFiltrado = FiltrarUsuariosPorEmailYContrasena(lista, email, password);
+            if (usuarioFiltrado != null)
+            {
+                Sesion.IdUsuarioSesionActiva = usuarioFiltrado.IdUsuario;
+            }
+
+        }
+
         public void SacarUsuariosPorPantalla()
         {
             var listaDeUsuarios = repository.CargarListaEnJson();
@@ -54,6 +65,16 @@ namespace GestorDeTareas
         public Usuario FiltrarUsuariosPorUsuario(List<Usuario> usuario, string id)
         {
             return usuario.FirstOrDefault(t => t.IdUsuario == id);
+        }
+
+        public Usuario FiltrarUsuariosPorEmailYContrasena(List<Usuario> usuario, string email, string contrasena)
+        {
+            if(email != null && contrasena != null)
+            {
+                return usuario.FirstOrDefault(t => t.Email == email && t.Password == contrasena);
+            }
+            return null;
+           
         }
 
         public void MostrarTarea(string id)

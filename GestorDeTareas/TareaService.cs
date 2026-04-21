@@ -1,11 +1,14 @@
 ﻿using GestorDeTareas.DTOs;
 using GestorDeTareas.Mapper;
+using GestorDeTareas.Models;
 
 namespace GestorDeTareas
 {
     public class TareaService
     {
         TareaRepository repository = new TareaRepository();
+        TareasPorUsuariosRepository tareasPorUsuarioRepsoitory = new TareasPorUsuariosRepository();
+        TareasPorUsuariosService tareasPorUsuariosService = new TareasPorUsuariosService();
         public Tarea MapearTarea(CrearTareaDTO dto)
         {
             var id = Guid.NewGuid().ToString();
@@ -18,10 +21,16 @@ namespace GestorDeTareas
         }
         public void CrearTarea(CrearTareaDTO dto)
         {
+            var idUsuarioSesion = Sesion.IdUsuarioSesionActiva;
             var lista = repository.CargarListaEnJson();
             var tarea = MapearTarea(dto);
             lista.Add(tarea);
             repository.GuardarListaEnJson(lista);
+            var listaDeTareas = tareasPorUsuarioRepsoitory.CargarListaEnJson();
+            var dtoTareas = new TareasPorUsuarioDTO(idUsuarioSesion, tarea.IdTarea);
+            var NuevaAsignacion = tareasPorUsuariosService.MapearAsignacionTareasPorUsuario(dtoTareas);
+            listaDeTareas.Add(NuevaAsignacion);
+            tareasPorUsuarioRepsoitory.GuardarListaEnJson(listaDeTareas);
         }
         public void EditarTarea(string id, EditarTareaDTO dto)
         {

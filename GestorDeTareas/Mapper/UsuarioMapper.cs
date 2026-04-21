@@ -16,7 +16,6 @@ namespace GestorDeTareas.Mapper
                 Name = dto.Name,
                 Email = dto.Email,
                 Password = dto.Password,
-                Tareas = dto.Tareas,
                 EstaEliminado = false,
                 
             };

@@ -75,19 +75,19 @@ var eliminarUsuario = new EditarUsuarioDTO
 
 //usuarios.CrearUsuario(usuario);
 //usuarios.SacarUsuariosPorPantalla();
-Console.WriteLine("-------------------------------------------------------");
-usuarios.EditarUsuario("e7c3cc78-7735-4162-a73a-e60badcde9a1", editarNombreUsuario);
-usuarios.MostrarTarea("e7c3cc78-7735-4162-a73a-e60badcde9a1");
-Console.WriteLine("-------------------------------------------------------");
-usuarios.EliminarUsuario("e7c3cc78-7735-4162-a73a-e60badcde9a1");
-usuarios.MostrarTarea("e7c3cc78-7735-4162-a73a-e60badcde9a1");
-Console.WriteLine("-------------------------------------------------------");
-usuarios.EditarUsuario("e7c3cc78-7735-4162-a73a-e60badcde9a1", editaremaileUsuario);
-usuarios.MostrarTarea("e7c3cc78-7735-4162-a73a-e60badcde9a1");
-Console.WriteLine("-------------------------------------------------------");
-usuarios.EditarUsuario("e7c3cc78-7735-4162-a73a-e60badcde9a1", editarContraseñaeUsuario);
-usuarios.MostrarTarea("e7c3cc78-7735-4162-a73a-e60badcde9a1");
+//Console.WriteLine("-------------------------------------------------------");
+//usuarios.EditarUsuario("e7c3cc78-7735-4162-a73a-e60badcde9a1", editarNombreUsuario);
+//usuarios.MostrarTarea("e7c3cc78-7735-4162-a73a-e60badcde9a1");
+//Console.WriteLine("-------------------------------------------------------");
+//usuarios.EliminarUsuario("e7c3cc78-7735-4162-a73a-e60badcde9a1");
+//usuarios.MostrarTarea("e7c3cc78-7735-4162-a73a-e60badcde9a1");
+//Console.WriteLine("-------------------------------------------------------");
+//usuarios.EditarUsuario("e7c3cc78-7735-4162-a73a-e60badcde9a1", editaremaileUsuario);
+//usuarios.MostrarTarea("e7c3cc78-7735-4162-a73a-e60badcde9a1");
+//Console.WriteLine("-------------------------------------------------------");
+//usuarios.EditarUsuario("e7c3cc78-7735-4162-a73a-e60badcde9a1", editarContraseñaeUsuario);
+//usuarios.MostrarTarea("e7c3cc78-7735-4162-a73a-e60badcde9a1");
 
-
-
+usuarios.IniciarSesion("testEditado", "testEditado");
+tareas.CrearTarea(dto);
 
