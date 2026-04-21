@@ -8,7 +8,7 @@ namespace GestorDeTareas.Mapper
 {
     public class TareasPorUsuarioMapper
     {
-        public static TareasPorUsuario CrearAsignacionTareasPorUsuario(string id, TareasPorUsuarioDTO dto)
+        public static TareasPorUsuario CrearAsignacionTareasPorUsuario(int id, TareasPorUsuarioDTO dto)
         {
             return new TareasPorUsuario
             {

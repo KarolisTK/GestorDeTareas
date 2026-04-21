@@ -19,7 +19,7 @@ namespace GestorDeTareas
             return JsonSerializer.Deserialize<List<Tarea>>(File.ReadAllText(_Ruta));
         }
 
-        public Tarea CargarSoloUnaTareaPorID(string id)
+        public Tarea CargarSoloUnaTareaPorID(int id)
         {
             var Tareas = CargarListaEnJson();
             var TareaFiltrada = Tareas.Where(u => u.IdTarea == id).FirstOrDefault();

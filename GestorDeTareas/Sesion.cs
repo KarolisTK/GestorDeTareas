@@ -6,6 +6,6 @@ namespace GestorDeTareas
 {
     public static class Sesion
     {
-        public static string IdUsuarioSesionActiva {  get; set; }
+        public static int IdUsuarioSesionActiva {  get; set; }
     }
 }

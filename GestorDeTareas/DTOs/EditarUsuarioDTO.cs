@@ -6,9 +6,9 @@ namespace GestorDeTareas.DTOs
 {
     public class EditarUsuarioDTO
     {
-        public string Name { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
+        public string NombreUsuario { get; set; }
+        public string CorreoUsuario { get; set; }
+        public string ContrasenaUsuario { get; set; }
         public bool? EstaEliminado { get; set; }
     }
 }

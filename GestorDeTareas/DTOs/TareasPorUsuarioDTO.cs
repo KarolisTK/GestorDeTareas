@@ -6,10 +6,10 @@ namespace GestorDeTareas.DTOs
 {
     public class TareasPorUsuarioDTO
     {
-        public string IdTarea {  get; set; }
-        public string IdUsuario { get; set; }
+        public int IdTarea {  get; set; }
+        public int IdUsuario { get; set; }
 
-        public TareasPorUsuarioDTO(string idtarea, string idusuario)
+        public TareasPorUsuarioDTO(int idtarea, int idusuario)
         {
             IdTarea = idtarea;
             IdUsuario = idusuario;

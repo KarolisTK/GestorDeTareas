@@ -8,7 +8,7 @@ namespace GestorDeTareas.Mapper
 {
     public static class TareaMapper
     {
-        public static Tarea CrearEntidad(CrearTareaDTO dto, string id)
+        public static Tarea CrearEntidad(CrearTareaDTO dto, int id)
         {
             return new Tarea
             {

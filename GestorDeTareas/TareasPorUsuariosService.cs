@@ -11,7 +11,7 @@ namespace GestorDeTareas
     {
         public TareasPorUsuario MapearAsignacionTareasPorUsuario(TareasPorUsuarioDTO dto)
         {
-            var id = Guid.NewGuid().ToString();
+            var id = new Random().Next();
             return TareasPorUsuarioMapper.CrearAsignacionTareasPorUsuario(id,dto);
         }
     }

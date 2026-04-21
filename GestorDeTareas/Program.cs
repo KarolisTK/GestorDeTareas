@@ -37,21 +37,21 @@ var modificarTarea2 = new EditarTareaDTO
 var usuarios = new UsuarioService();
 var usuario = new UsuarioDTO
 {
-    Name = "test",
-    Email = "test@test.com",
-    Password = "test",
+    NombreUsuario = "test",
+    CorreoUsuario = "test@test.com",
+    ContrasenaUsuario = "test",
 };
 var editarNombreUsuario = new EditarUsuarioDTO
 {
-    Name = "testEditado",
+    NombreUsuario = "testEditado",
 };
 var editaremaileUsuario = new EditarUsuarioDTO
 {
-    Email = "testEditado",
+    CorreoUsuario = "testEditado",
 };
 var editarContraseñaeUsuario = new EditarUsuarioDTO
 {
-    Password = "testEditado",
+    ContrasenaUsuario = "testEditado",
 };
 var eliminarUsuario = new EditarUsuarioDTO
 {
@@ -61,33 +61,36 @@ var eliminarUsuario = new EditarUsuarioDTO
 //tareas.CrearTarea(dto);
 //tareas.SacarTareasPorPantalla();
 //Console.WriteLine("-------------------------------------------------------");
-//tareas.EditarTarea("0114a580-6984-4065-a388-90e193773177", modificacionDeLDato);
-//tareas.MostrarTarea("0114a580-6984-4065-a388-90e193773177");
+//tareas.EditarTarea(1779872948, modificacionDeLDato);
+//tareas.MostrarTarea(1779872948);
 //Console.WriteLine("-------------------------------------------------------");
-//tareas.EliminarTarea("0114a580-6984-4065-a388-90e193773177");
-//tareas.MostrarTarea("0114a580-6984-4065-a388-90e193773177");
+//tareas.EliminarTarea(1779872948);
+//tareas.MostrarTarea(1779872948);
 //Console.WriteLine("-------------------------------------------------------");
-//tareas.EditarTarea("0114a580-6984-4065-a388-90e193773177", modificarTarea);
-//tareas.MostrarTarea("0114a580-6984-4065-a388-90e193773177");
+//tareas.EditarTarea(1779872948, modificarTarea);
+//tareas.MostrarTarea(1779872948);
 //Console.WriteLine("-------------------------------------------------------");
-//tareas.EditarTarea("0114a580-6984-4065-a388-90e193773177", modificarTarea2);
-//tareas.MostrarTarea("0114a580-6984-4065-a388-90e193773177");
+//tareas.EditarTarea(1779872948, modificarTarea2);
+//tareas.MostrarTarea(1779872948);
 
-//usuarios.CrearUsuario(usuario);
+
 //usuarios.SacarUsuariosPorPantalla();
 //Console.WriteLine("-------------------------------------------------------");
-//usuarios.EditarUsuario("e7c3cc78-7735-4162-a73a-e60badcde9a1", editarNombreUsuario);
-//usuarios.MostrarTarea("e7c3cc78-7735-4162-a73a-e60badcde9a1");
+//usuarios.EditarUsuario(1595013434, editarNombreUsuario);
+//usuarios.MostrarTarea(1595013434);
 //Console.WriteLine("-------------------------------------------------------");
-//usuarios.EliminarUsuario("e7c3cc78-7735-4162-a73a-e60badcde9a1");
-//usuarios.MostrarTarea("e7c3cc78-7735-4162-a73a-e60badcde9a1");
+//usuarios.EliminarUsuario(1595013434);
+//usuarios.MostrarTarea(1595013434);
 //Console.WriteLine("-------------------------------------------------------");
-//usuarios.EditarUsuario("e7c3cc78-7735-4162-a73a-e60badcde9a1", editaremaileUsuario);
-//usuarios.MostrarTarea("e7c3cc78-7735-4162-a73a-e60badcde9a1");
+//usuarios.EditarUsuario(1595013434, editaremaileUsuario);
+//usuarios.MostrarTarea(1595013434);
 //Console.WriteLine("-------------------------------------------------------");
-//usuarios.EditarUsuario("e7c3cc78-7735-4162-a73a-e60badcde9a1", editarContraseñaeUsuario);
-//usuarios.MostrarTarea("e7c3cc78-7735-4162-a73a-e60badcde9a1");
+//usuarios.EditarUsuario(1595013434, editarContraseñaeUsuario);
+//usuarios.MostrarTarea(1595013434);
 
-usuarios.IniciarSesion("testEditado", "testEditado");
-tareas.CrearTarea(dto);
+
+
+//usuarios.CrearUsuario(usuario);
+//usuarios.IniciarSesion("test@test.com", "test");
+//tareas.CrearTarea(dto);
 

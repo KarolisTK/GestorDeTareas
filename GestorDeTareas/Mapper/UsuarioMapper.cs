@@ -8,28 +8,28 @@ namespace GestorDeTareas.Mapper
 {
     public class UsuarioMapper
     {
-        public static Usuario CrearUsuario(string id, UsuarioDTO dto)
+        public static Usuario CrearUsuario(int id, UsuarioDTO dto)
         {
             return new Usuario
             {
                 IdUsuario = id,
-                Name = dto.Name,
-                Email = dto.Email,
-                Password = dto.Password,
+                NombreUsuario = dto.NombreUsuario,
+                CorreoUsuario = dto.CorreoUsuario,
+                ContrasenaUsuario = dto.ContrasenaUsuario,
                 EstaEliminado = false,
                 
             };
         }
         public static void ModificarUsuario(Usuario usuario, EditarUsuarioDTO dto)
         {
-            if (dto.Name != null)
-                usuario.Name = dto.Name;
+            if (dto.NombreUsuario != null)
+                usuario.NombreUsuario = dto.NombreUsuario;
 
-            if (dto.Email != null)
-                usuario.Email = dto.Email;
+            if (dto.CorreoUsuario != null)
+                usuario.CorreoUsuario = dto.CorreoUsuario;
 
-            if (dto.Password != null)
-                usuario.Password = dto.Password;
+            if (dto.ContrasenaUsuario != null)
+                usuario.ContrasenaUsuario = dto.ContrasenaUsuario;
 
             if (dto.EstaEliminado != null)
                 usuario.EstaEliminado = dto.EstaEliminado;

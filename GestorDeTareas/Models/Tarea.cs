@@ -5,7 +5,7 @@ using System.Text;
 
 public class Tarea
 {
-    private string _IdTarea;
+    private int _IdTarea;
     private string _NombreTarea;
     private string _DescripcionTarea;
     private DateTime _FechaCreacionTarea;
@@ -13,7 +13,7 @@ public class Tarea
     private bool? _EstaEliminado;
     private TipoTarea? _TipoTarea;
 
-    public string IdTarea { get { return _IdTarea; } set { _IdTarea = value; } }
+    public int IdTarea { get { return _IdTarea; } set { _IdTarea = value; } }
     public string NombreTarea { get { return _NombreTarea; } set { _NombreTarea = value; } }
     public string DescripcionTarea { get { return _DescripcionTarea; } set { _DescripcionTarea = value; } }
     public DateTime FechaCreacionTarea { get => _FechaCreacionTarea; set { _FechaCreacionTarea = value; } }

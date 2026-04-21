@@ -20,7 +20,7 @@ namespace GestorDeTareas
             return JsonSerializer.Deserialize<List<Usuario>>(File.ReadAllText(_Ruta));
         }
 
-        public Usuario CargarSoloUnUsuarioPorID(string id)
+        public Usuario CargarSoloUnUsuarioPorID(int id)
         {
             var Usuario = CargarListaEnJson();
             var UsuarioFiltrado = Usuario.Where(u => u.IdUsuario == id).FirstOrDefault();

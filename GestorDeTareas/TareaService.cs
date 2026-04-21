@@ -11,7 +11,7 @@ namespace GestorDeTareas
         TareasPorUsuariosService tareasPorUsuariosService = new TareasPorUsuariosService();
         public Tarea MapearTarea(CrearTareaDTO dto)
         {
-            var id = Guid.NewGuid().ToString();
+            var id = new Random().Next();
             return TareaMapper.CrearEntidad(dto, id);
         }
         public Tarea MapearEdiccionTarea(Tarea tarea, EditarTareaDTO dto)
@@ -32,14 +32,14 @@ namespace GestorDeTareas
             listaDeTareas.Add(NuevaAsignacion);
             tareasPorUsuarioRepsoitory.GuardarListaEnJson(listaDeTareas);
         }
-        public void EditarTarea(string id, EditarTareaDTO dto)
+        public void EditarTarea(int id, EditarTareaDTO dto)
         {
             var lista = repository.CargarListaEnJson();
             var tareaFiltrada = FiltrarTareasParaTarea(lista, id);
             MapearEdiccionTarea(tareaFiltrada, dto);
             repository.GuardarListaEnJson(lista);
         }
-        public void EliminarTarea(string id)
+        public void EliminarTarea(int id)
         {
             var lista = repository.CargarListaEnJson();
             var tareaFiltrada = FiltrarTareasParaTarea(lista, id);
@@ -56,12 +56,12 @@ namespace GestorDeTareas
             }
         }
 
-        public Tarea FiltrarTareasParaTarea(List<Tarea> lista, string id)
+        public Tarea FiltrarTareasParaTarea(List<Tarea> lista, int id)
         {
             return lista.FirstOrDefault(t => t.IdTarea == id);
         }
 
-        public void MostrarTarea(string id)
+        public void MostrarTarea(int id)
         {
             var tarea = repository.CargarSoloUnaTareaPorID(id);
 

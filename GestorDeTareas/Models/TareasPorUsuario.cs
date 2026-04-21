@@ -6,12 +6,12 @@ namespace GestorDeTareas.Models
 {
     public class TareasPorUsuario
     {
-        private string _IdTareaPorUsuario;
-        private string _IdTarea;
-        private string _IdUsuario;
+        private int _IdTareaPorUsuario;
+        private int _IdTarea;
+        private int _IdUsuario;
 
-        public string IdTareaPorUsuario { get { return _IdTareaPorUsuario; } set { _IdTareaPorUsuario = value; } }
-        public string IdTarea { get { return _IdTarea; }set { _IdTarea = value; } }
-        public string IdUsuario { get { return _IdUsuario; }set { _IdUsuario = value; } }
+        public int IdTareaPorUsuario { get { return _IdTareaPorUsuario; } set { _IdTareaPorUsuario = value; } }
+        public int IdTarea { get { return _IdTarea; }set { _IdTarea = value; } }
+        public int IdUsuario { get { return _IdUsuario; }set { _IdUsuario = value; } }
     }
 }
