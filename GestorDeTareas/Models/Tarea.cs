@@ -1,9 +1,7 @@
 ﻿using GestorDeTareas;
-using System;
-using System.Collections.Generic;
+using GestorDeTareas.DTOs;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
 public class Tarea
 {
@@ -19,12 +17,51 @@ public class Tarea
 
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int IdTarea { get { return _IdTarea; } set { _IdTarea = value; } }
-    public string NombreTarea { get { return _NombreTarea; } set { _NombreTarea = value; } }
-    public string DescripcionTarea { get { return _DescripcionTarea; } set { _DescripcionTarea = value; } }
-    public DateTime FechaCreacionTarea { get => _FechaCreacionTarea; set { _FechaCreacionTarea = value; } }
-    public EstadosTarea? EstadosTarea { get => _EstadosTarea; set { _EstadosTarea = value; } }
-    public bool? EstaEliminado {  get => _EstaEliminado; set { _EstaEliminado = value; } }
-    public TiposTarea? TiposTarea { get => _TiposTarea; set { _TiposTarea = value; } }
-    public int IdUsuarioDeLaTarea { get => _IdUsuarioDeLaTarea; set { _IdUsuarioDeLaTarea = value; } }
+    public int IdTarea { get { return _IdTarea; } private set { _IdTarea = value; } }
+    public string NombreTarea { get { return _NombreTarea; } private set { _NombreTarea = value; } }
+    public string DescripcionTarea { get { return _DescripcionTarea; } private set { _DescripcionTarea = value; } }
+    public DateTime FechaCreacionTarea { get => _FechaCreacionTarea; private set { _FechaCreacionTarea = value; } }
+    public EstadosTarea? EstadosTarea { get => _EstadosTarea; private set { _EstadosTarea = value; } }
+    public bool? EstaEliminado {  get => _EstaEliminado; private set { _EstaEliminado = value; } }
+    public TiposTarea? TiposTarea { get => _TiposTarea; private set { _TiposTarea = value; } }
+    public int IdUsuarioDeLaTarea { get => _IdUsuarioDeLaTarea; private set { _IdUsuarioDeLaTarea = value; } }
+
+    public Tarea CrearTareaConDto(CrearTareaDTO dto)
+    {
+        return new Tarea
+        {
+            NombreTarea = dto.NombreTarea,
+            DescripcionTarea = dto.DescripcionTarea,
+            FechaCreacionTarea = dto.FechaCreacionTarea,
+            EstadosTarea = dto.EstadosTarea,
+            EstaEliminado = dto.EstaEliminado,
+            TiposTarea = dto.TiposTarea,
+            IdUsuarioDeLaTarea = Sesion.IdUsuarioSesionActiva
+
+        };
+    }
+    public void EditarTareaConDTO(EditarTareaDTO dto)
+    {
+        if (dto.NombreTarea != null)
+            NombreTarea = dto.NombreTarea;
+
+        if (dto.DescripcionTarea != null)
+            DescripcionTarea = dto.DescripcionTarea;
+
+        if (dto.EstadosTarea != null)
+            EstadosTarea = dto.EstadosTarea;
+
+        if (dto.TiposTarea != null)
+            TiposTarea = dto.TiposTarea;
+
+        if (dto.EstaEliminado.HasValue)
+            EstaEliminado = dto.EstaEliminado.Value;
+    }
+
+    public void MarcarTareaComoEliminada(Tarea tareaFiltrada)
+    {
+        tareaFiltrada.EstaEliminado = true;
+    }
 }
+
+

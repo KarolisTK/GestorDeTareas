@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using GestorDeTareas;
+﻿using GestorDeTareas;
 using GestorDeTareas.DTOs;
 
 var dto = new CrearTareaDTO
@@ -57,22 +56,22 @@ var eliminarUsuario = new EditarUsuarioDTO
 {
     EstaEliminado = true
 };
-usuarios.CrearUsuario(usuario);
+//usuarios.CrearUsuario(usuario);
 usuarios.IniciarSesion("test@test.com", "test");
 
 tareas.CrearTarea(dto);
 //tareas.SacarTareasPorPantalla();
 //Console.WriteLine("-------------------------------------------------------");
-tareas.EditarTarea(1, modificacionDeLDato);
+tareas.EditarTarea(3, modificacionDeLDato);
 //tareas.MostrarTarea(1779872948);
 //Console.WriteLine("-------------------------------------------------------");
-tareas.EliminarTarea(1);
+tareas.EliminarTarea(3);
 //tareas.MostrarTarea(1779872948);
 //Console.WriteLine("-------------------------------------------------------");
-tareas.EditarTarea(1, modificarTarea);
+tareas.EditarTarea(3, modificarTarea);
 //tareas.MostrarTarea(1779872948);
 //Console.WriteLine("-------------------------------------------------------");
-tareas.EditarTarea(1, modificarTarea2);
+tareas.EditarTarea(3, modificarTarea2);
 //tareas.MostrarTarea(1779872948);
 //usuarios.SacarUsuariosPorPantalla();
 //usuarios.EditarUsuario(editarNombreUsuario);

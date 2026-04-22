@@ -1,7 +1,5 @@
 ﻿using GestorDeTareas.DTOs;
 using GestorDeTareas.Mapper;
-using GestorDeTareas.Models;
-
 namespace GestorDeTareas
 {
     public class TareaService
@@ -25,21 +23,15 @@ namespace GestorDeTareas
         }
         public void EditarTarea(int id, EditarTareaDTO dto)
         {
-            var lista = repository.CargarListaDeUsuarios();
-            var tareaFiltrada = FiltrarTareasParaTarea(lista, id);
+            var tareaFiltrada = repository.CargarSoloUnaTareaPorID(id);
             var tareaFiltradaEditada = MapearEdiccionTarea(tareaFiltrada, dto);
             repository.GuardarTarea(tareaFiltradaEditada);
         }
         public void EliminarTarea(int id)
         {
-            var lista = repository.CargarListaDeUsuarios();
-            var tareaFiltrada = FiltrarTareasParaTarea(lista, id);
-            tareaFiltrada.EstaEliminado = true;
+            var tareaFiltrada = repository.CargarSoloUnaTareaPorID(id);
+            TareaMapper.EliminarEntidad(tareaFiltrada);
             repository.GuardarTarea(tareaFiltrada);
-        }
-        public Tarea FiltrarTareasParaTarea(List<Tarea> lista, int id)
-        {
-            return lista.FirstOrDefault(t => t.IdTarea == id);
         }
     }
 }
