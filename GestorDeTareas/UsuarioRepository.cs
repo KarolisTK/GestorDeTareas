@@ -9,11 +9,10 @@ namespace GestorDeTareas
     public class UsuarioRepository
     {
         private readonly AppDbContext _context = new AppDbContext();
-        private readonly string _Ruta;
 
         public List<Usuario> CargarListaDeUsuarios()
         {
-            return _context.Usuario.ToList();
+            return _context.Usuarios.ToList();
         }
 
         public Usuario CargarSoloUnUsuarioPorID(int id)
@@ -23,16 +22,16 @@ namespace GestorDeTareas
             return UsuarioFiltrado;
         }
 
-        public void GuardarLista(Usuario usuario)
+        public void GuardarTarea(Usuario usuario)
         {
             if(usuario.IdUsuario != 0)
             {
-                _context.Usuario.Update(usuario);
+                _context.Usuarios.Update(usuario);
                 _context.SaveChanges();
             }
             else
             {
-                _context.Usuario.Add(usuario);
+                _context.Usuarios.Add(usuario);
                 _context.SaveChanges();
             }
             

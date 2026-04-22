@@ -4,7 +4,7 @@ using System.Text;
 
 namespace GestorDeTareas
 {
-    public enum TipoTarea
+    public enum TiposTarea
     {
         Base,
         Simple,

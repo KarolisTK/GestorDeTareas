@@ -9,8 +9,9 @@ namespace GestorDeTareas.DTOs
         public string NombreTarea { get; set; }
         public string DescripcionTarea { get; set; }
         public DateTime FechaCreacionTarea { get; set; }
-        public EstadoTarea? EstadoTarea { get; set; }
+        public EstadosTarea? EstadosTarea { get; set; }
         public bool? EstaEliminado { get; set; }
-        public TipoTarea? TipoTarea {  get; set; }
+        public TiposTarea? TiposTarea {  get; set; }
+        public int IdUsuarioDeLaTarea { get; set; }
     }
 }

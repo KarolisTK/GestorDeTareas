@@ -22,21 +22,21 @@ namespace GestorDeTareas
         public void CrearUsuario(UsuarioDTO dto)
         {
             var usuario = MapearUsuario(dto);
-            repository.GuardarLista(usuario);
+            repository.GuardarTarea(usuario);
         }
         public void EditarUsuario(EditarUsuarioDTO dto)
         {
             var lista = repository.CargarListaDeUsuarios();
             var usuarioFiltrado = FiltrarUsuariosPorUsuario(lista, Sesion.IdUsuarioSesionActiva);
             var usuarioEditado = MapearEdiccionUsuario(usuarioFiltrado, dto);
-            repository.GuardarLista(usuarioEditado);
+            repository.GuardarTarea(usuarioEditado);
         }
         public void EliminarUsuario()
         {
             var lista = repository.CargarListaDeUsuarios();
             var usuarioFiltrado = FiltrarUsuariosPorUsuario(lista, Sesion.IdUsuarioSesionActiva);
             usuarioFiltrado.EstaEliminado = true;
-            repository.GuardarLista(usuarioFiltrado);
+            repository.GuardarTarea(usuarioFiltrado);
         }
 
         public void IniciarSesion(string CorreoUsuario, string ContrasenaUsuario)

@@ -8,17 +8,17 @@ namespace GestorDeTareas.Mapper
 {
     public static class TareaMapper
     {
-        public static Tarea CrearEntidad(CrearTareaDTO dto, int id)
+        public static Tarea CrearEntidad(CrearTareaDTO dto)
         {
             return new Tarea
             {
-                IdTarea = id,
                 NombreTarea = dto.NombreTarea,
                 DescripcionTarea = dto.DescripcionTarea,
                 FechaCreacionTarea = dto.FechaCreacionTarea,
-                EstadoTarea = dto.EstadoTarea,
+                EstadosTarea = dto.EstadosTarea,
                 EstaEliminado = dto.EstaEliminado,
-                TipoTarea = dto.TipoTarea,
+                TiposTarea = dto.TiposTarea,
+                IdUsuarioDeLaTarea = Sesion.IdUsuarioSesionActiva
 
             };
         }
@@ -30,11 +30,14 @@ namespace GestorDeTareas.Mapper
             if (dto.DescripcionTarea != null)
                 tarea.DescripcionTarea = dto.DescripcionTarea;
 
-            if (dto.EstadoTarea != null)
-                tarea.EstadoTarea = dto.EstadoTarea;
+            if (dto.EstadosTarea != null)
+                tarea.EstadosTarea = dto.EstadosTarea;
 
-            if (dto.TipoTarea != null)
-                tarea.TipoTarea = dto.TipoTarea;
+            if (dto.TiposTarea != null)
+                tarea.TiposTarea = dto.TiposTarea;
+
+            if (dto.EstaEliminado.HasValue)
+                tarea.EstaEliminado = dto.EstaEliminado.Value;
 
             if (dto.EstaEliminado.HasValue)
                 tarea.EstaEliminado = dto.EstaEliminado.Value;

@@ -7,18 +7,18 @@ var dto = new CrearTareaDTO
     NombreTarea = "tarea",
     DescripcionTarea = "descripcion de tarea Urgente",
     FechaCreacionTarea = System.DateTime.Now,
-    EstadoTarea = EstadoTarea.NoIniciada,
+    EstadosTarea = EstadosTarea.NoIniciada,
     EstaEliminado = false,
-    TipoTarea = TipoTarea.Urgente
+    TiposTarea = TiposTarea.Urgente
 };
 var tareas = new TareaService();
 var modificacionDeLDato = new EditarTareaDTO
 {
     NombreTarea = "tarea modificada",
     DescripcionTarea = "descripcion de tarea Urgente modificada",
-    EstadoTarea = EstadoTarea.NoIniciada,
+    EstadosTarea = EstadosTarea.NoIniciada,
     EstaEliminado = false,
-    TipoTarea = TipoTarea.Simple
+    TiposTarea = TiposTarea.Simple
 };
 
 var eliminarTarea = new EditarTareaDTO
@@ -28,11 +28,11 @@ var eliminarTarea = new EditarTareaDTO
 
 var modificarTarea = new EditarTareaDTO
 {
-    EstadoTarea = EstadoTarea.finalizada
+    EstadosTarea = EstadosTarea.finalizada
 };
 var modificarTarea2 = new EditarTareaDTO
 {
-    TipoTarea = TipoTarea.Urgente
+    TiposTarea = TiposTarea.Simple
 };
 var usuarios = new UsuarioService();
 var usuario = new UsuarioDTO
@@ -57,24 +57,23 @@ var eliminarUsuario = new EditarUsuarioDTO
 {
     EstaEliminado = true
 };
+usuarios.CrearUsuario(usuario);
 usuarios.IniciarSesion("test@test.com", "test");
 
-//tareas.CrearTarea(dto);
+tareas.CrearTarea(dto);
 //tareas.SacarTareasPorPantalla();
 //Console.WriteLine("-------------------------------------------------------");
-//tareas.EditarTarea(1779872948, modificacionDeLDato);
+tareas.EditarTarea(1, modificacionDeLDato);
 //tareas.MostrarTarea(1779872948);
 //Console.WriteLine("-------------------------------------------------------");
-//tareas.EliminarTarea(1779872948);
+tareas.EliminarTarea(1);
 //tareas.MostrarTarea(1779872948);
 //Console.WriteLine("-------------------------------------------------------");
-//tareas.EditarTarea(1779872948, modificarTarea);
+tareas.EditarTarea(1, modificarTarea);
 //tareas.MostrarTarea(1779872948);
 //Console.WriteLine("-------------------------------------------------------");
-//tareas.EditarTarea(1779872948, modificarTarea2);
+tareas.EditarTarea(1, modificarTarea2);
 //tareas.MostrarTarea(1779872948);
-
-//usuarios.CrearUsuario(usuario);
 //usuarios.SacarUsuariosPorPantalla();
 //usuarios.EditarUsuario(editarNombreUsuario);
 //usuarios.EliminarUsuario();

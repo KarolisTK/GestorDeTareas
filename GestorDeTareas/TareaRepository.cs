@@ -7,16 +7,11 @@ namespace GestorDeTareas
 {
     public class TareaRepository
     {
-        private readonly string _Ruta;
+        private readonly AppDbContext _context = new AppDbContext();
 
-        public TareaRepository(string ruta = "Tareas.json")
-        {
-            _Ruta = ruta;
-        }
         public List<Tarea> CargarListaDeUsuarios()
         {
-            if (!File.Exists(_Ruta)) return new List<Tarea>();
-            return JsonSerializer.Deserialize<List<Tarea>>(File.ReadAllText(_Ruta));
+            return _context.Tareas.ToList();
         }
 
         public Tarea CargarSoloUnaTareaPorID(int id)
@@ -26,9 +21,19 @@ namespace GestorDeTareas
             return TareaFiltrada;
         }
 
-        public void GuardarLista(List<Tarea> lista)
+        public void GuardarTarea(Tarea tarea)
         {
-            File.WriteAllText(_Ruta, JsonSerializer.Serialize(lista, new JsonSerializerOptions { WriteIndented = true }));
+            if(tarea.IdTarea != 0)
+            {
+                _context.Tareas.Update(tarea);
+                _context.SaveChanges();
+            }
+            else
+            {
+                _context.Tareas.Add(tarea);
+                _context.SaveChanges();
+            }
+            
         }
     }
 }

@@ -8,8 +8,8 @@ namespace GestorDeTareas
 {
     public class AppDbContext : DbContext
     {
-        public DbSet<Usuario> Usuario { get; set; }
-        //public DbSet<Tarea> Tareas { get; set; }
+        public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<Tarea> Tareas { get; set; }
         //public DbSet<TareasPorUsuario> TareasPorUsuario { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)

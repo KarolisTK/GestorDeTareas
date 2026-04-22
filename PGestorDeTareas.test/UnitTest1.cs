@@ -15,25 +15,24 @@ namespace PGestorDeTareas.test
         [SetUp]
         public void Setup()
         {
-            repository = new TareaRepository("ruta_test.json");
             _service = new TareaService();
             _tarea = new Tarea
             {
                 NombreTarea = "tarea",
                 DescripcionTarea = "descripcion de tarea Urgente",
                 FechaCreacionTarea = System.DateTime.Now,
-                EstadoTarea = EstadoTarea.NoIniciada,
+                EstadosTarea = EstadosTarea.NoIniciada,
                 EstaEliminado = false,
-                TipoTarea = TipoTarea.Urgente
+                TiposTarea = TiposTarea.Urgente
             };
             _tareaDTO = new CrearTareaDTO
             {
                 NombreTarea = "tarea",
                 DescripcionTarea = "descripcion de tarea Urgente",
                 FechaCreacionTarea = System.DateTime.Now,
-                EstadoTarea = EstadoTarea.NoIniciada,
+                EstadosTarea = EstadosTarea.NoIniciada,
                 EstaEliminado = false,
-                TipoTarea = TipoTarea.Urgente
+                TiposTarea = TiposTarea.Urgente
             };
         }
 
@@ -65,9 +64,9 @@ namespace PGestorDeTareas.test
             {
                 NombreTarea = "tarea Editada",
                 DescripcionTarea = "descripcion de tarea Urgente Editada",
-                EstadoTarea = EstadoTarea.NoIniciada,
+                EstadosTarea = EstadosTarea.NoIniciada,
                 EstaEliminado = false,
-                TipoTarea = TipoTarea.Urgente
+                TiposTarea = TiposTarea.Urgente
             };
             var resultado = _service.MapearEdiccionTarea(_tarea, tareaEditada);
             Assert.That(resultado.NombreTarea, Is.EqualTo("tarea Editada"));

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace GestorDeTareas
 {
-    public enum EstadoTarea
+    public enum EstadosTarea
     {
         NoIniciada,
         iniciada,
