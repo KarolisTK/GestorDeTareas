@@ -25,8 +25,17 @@ namespace GestorDeTareas
 
         public void GuardarLista(Usuario usuario)
         {
-            _context.Usuario.Add(usuario);
-            _context.SaveChanges();
+            if(usuario.IdUsuario != 0)
+            {
+                _context.Usuario.Update(usuario);
+                _context.SaveChanges();
+            }
+            else
+            {
+                _context.Usuario.Add(usuario);
+                _context.SaveChanges();
+            }
+            
         }
     }
 }

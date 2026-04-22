@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace GestorDeTareas.Models
@@ -15,6 +16,7 @@ namespace GestorDeTareas.Models
         private bool? _EstaEliminado;
 
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int IdUsuario { get { return _idUsuario; } set { _idUsuario = value; } }
         public string NombreUsuario { get { return _NombreUsuario; } set { _NombreUsuario = value; } }
         public string CorreoUsuario { get { return _CorreoUsuario; } set {_CorreoUsuario = value; } }

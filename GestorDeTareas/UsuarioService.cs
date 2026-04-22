@@ -28,8 +28,8 @@ namespace GestorDeTareas
         {
             var lista = repository.CargarListaDeUsuarios();
             var usuarioFiltrado = FiltrarUsuariosPorUsuario(lista, Sesion.IdUsuarioSesionActiva);
-            MapearEdiccionUsuario(usuarioFiltrado, dto);
-            repository.GuardarLista(usuarioFiltrado);
+            var usuarioEditado = MapearEdiccionUsuario(usuarioFiltrado, dto);
+            repository.GuardarLista(usuarioEditado);
         }
         public void EliminarUsuario()
         {

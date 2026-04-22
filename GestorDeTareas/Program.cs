@@ -74,12 +74,12 @@ usuarios.IniciarSesion("test@test.com", "test");
 //tareas.EditarTarea(1779872948, modificarTarea2);
 //tareas.MostrarTarea(1779872948);
 
-
-usuarios.SacarUsuariosPorPantalla();
-usuarios.EditarUsuario(editarNombreUsuario);
-usuarios.EliminarUsuario();
-usuarios.EditarUsuario(editaremaileUsuario);
-usuarios.EditarUsuario(editarContraseñaeUsuario);
+//usuarios.CrearUsuario(usuario);
+//usuarios.SacarUsuariosPorPantalla();
+//usuarios.EditarUsuario(editarNombreUsuario);
+//usuarios.EliminarUsuario();
+//usuarios.EditarUsuario(editaremaileUsuario);
+//usuarios.EditarUsuario(editarContraseñaeUsuario);
 
 
 

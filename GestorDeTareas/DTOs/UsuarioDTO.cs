@@ -8,7 +8,6 @@ namespace GestorDeTareas.DTOs
 {
     public class UsuarioDTO
     {
-        public string IdUsuario { get; set; }
         public string NombreUsuario { get; set; }
         public string CorreoUsuario { get; set; }
         public string ContrasenaUsuario { get; set; }
