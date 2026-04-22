@@ -16,15 +16,6 @@ namespace PGestorDeTareas.test
         public void Setup()
         {
             _service = new TareaService();
-            _tarea = new Tarea
-            {
-                NombreTarea = "tarea",
-                DescripcionTarea = "descripcion de tarea Urgente",
-                FechaCreacionTarea = System.DateTime.Now,
-                EstadosTarea = EstadosTarea.NoIniciada,
-                EstaEliminado = false,
-                TiposTarea = TiposTarea.Urgente
-            };
             _tareaDTO = new CrearTareaDTO
             {
                 NombreTarea = "tarea",

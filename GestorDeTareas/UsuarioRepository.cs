@@ -1,9 +1,4 @@
 ﻿using GestorDeTareas.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Text.Json;
-
 namespace GestorDeTareas
 {
     public class UsuarioRepository

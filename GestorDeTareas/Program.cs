@@ -36,9 +36,9 @@ var modificarTarea2 = new EditarTareaDTO
 var usuarios = new UsuarioService();
 var usuario = new UsuarioDTO
 {
-    NombreUsuario = "test",
-    CorreoUsuario = "test@test.com",
-    ContrasenaUsuario = "test",
+    NombreUsuario = "test231",
+    CorreoUsuario = "paco@test.com",
+    ContrasenaUsuario = "paco",
 };
 var editarNombreUsuario = new EditarUsuarioDTO
 {
@@ -56,33 +56,34 @@ var eliminarUsuario = new EditarUsuarioDTO
 {
     EstaEliminado = true
 };
-//usuarios.CrearUsuario(usuario);
-usuarios.IniciarSesion("test@test.com", "test");
+usuarios.CrearUsuario(usuario);
+usuarios.IniciarSesion("paco@test.com", "paco");
 
-tareas.CrearTarea(dto);
-//tareas.SacarTareasPorPantalla();
-//Console.WriteLine("-------------------------------------------------------");
-tareas.EditarTarea(3, modificacionDeLDato);
-//tareas.MostrarTarea(1779872948);
-//Console.WriteLine("-------------------------------------------------------");
-tareas.EliminarTarea(3);
-//tareas.MostrarTarea(1779872948);
-//Console.WriteLine("-------------------------------------------------------");
-tareas.EditarTarea(3, modificarTarea);
-//tareas.MostrarTarea(1779872948);
-//Console.WriteLine("-------------------------------------------------------");
-tareas.EditarTarea(3, modificarTarea2);
+//tareas.CrearTarea(dto);
+////tareas.SacarTareasPorPantalla();
+////Console.WriteLine("-------------------------------------------------------");
+//tareas.EditarTarea(3, modificacionDeLDato);
+////tareas.MostrarTarea(1779872948);
+////Console.WriteLine("-------------------------------------------------------");
+//tareas.EliminarTarea(3);
+////tareas.MostrarTarea(1779872948);
+////Console.WriteLine("-------------------------------------------------------");
+//tareas.EditarTarea(3, modificarTarea);
+////tareas.MostrarTarea(1779872948);
+////Console.WriteLine("-------------------------------------------------------");
+//tareas.EditarTarea(3, modificarTarea2);
 //tareas.MostrarTarea(1779872948);
 //usuarios.SacarUsuariosPorPantalla();
-//usuarios.EditarUsuario(editarNombreUsuario);
-//usuarios.EliminarUsuario();
-//usuarios.EditarUsuario(editaremaileUsuario);
-//usuarios.EditarUsuario(editarContraseñaeUsuario);
+
+usuarios.EditarUsuario(editarNombreUsuario);
+usuarios.EliminarUsuario();
+usuarios.EditarUsuario(editaremaileUsuario);
+usuarios.EditarUsuario(editarContraseñaeUsuario);
 
 
 
 
-//usuarios.CrearUsuario(usuario);
+
 
 //tareas.CrearTarea(dto);
 

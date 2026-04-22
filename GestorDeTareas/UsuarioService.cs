@@ -1,10 +1,6 @@
 ﻿using GestorDeTareas.DTOs;
 using GestorDeTareas.Mapper;
 using GestorDeTareas.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace GestorDeTareas
 {
     public class UsuarioService
@@ -26,16 +22,14 @@ namespace GestorDeTareas
         }
         public void EditarUsuario(EditarUsuarioDTO dto)
         {
-            var lista = repository.CargarListaDeUsuarios();
-            var usuarioFiltrado = FiltrarUsuariosPorUsuario(lista, Sesion.IdUsuarioSesionActiva);
+            var usuarioFiltrado = repository.CargarSoloUnUsuarioPorID(Sesion.IdUsuarioSesionActiva);
             var usuarioEditado = MapearEdiccionUsuario(usuarioFiltrado, dto);
             repository.GuardarTarea(usuarioEditado);
         }
         public void EliminarUsuario()
         {
-            var lista = repository.CargarListaDeUsuarios();
-            var usuarioFiltrado = FiltrarUsuariosPorUsuario(lista, Sesion.IdUsuarioSesionActiva);
-            usuarioFiltrado.EstaEliminado = true;
+            var usuarioFiltrado = repository.CargarSoloUnUsuarioPorID(Sesion.IdUsuarioSesionActiva);
+            usuarioFiltrado.MarcarUsuarioComoEliminado();
             repository.GuardarTarea(usuarioFiltrado);
         }
 
@@ -48,20 +42,6 @@ namespace GestorDeTareas
                 Sesion.IdUsuarioSesionActiva = usuarioFiltrado.IdUsuario;
             }
 
-        }
-
-        public void SacarUsuariosPorPantalla()
-        {
-            var listaDeUsuarios = repository.CargarListaDeUsuarios();
-            foreach (var usuario in listaDeUsuarios)
-            {
-                Console.WriteLine(usuario.NombreUsuario + " " + usuario.CorreoUsuario);
-            }
-        }
-
-        public Usuario FiltrarUsuariosPorUsuario(List<Usuario> usuario, int id)
-        {
-            return usuario.FirstOrDefault(t => t.IdUsuario == id);
         }
 
         public Usuario FiltrarUsuariosPorEmailYContrasena(List<Usuario> usuario, string CorreoUsuario, string contrasena)
