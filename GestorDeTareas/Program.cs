@@ -1,89 +1,52 @@
 ﻿using GestorDeTareas;
 using GestorDeTareas.DTOs;
+using GestorDeTareas.Models;
 
-var dto = new CrearTareaDTO
+var context = new AppDbContext();
+var usuarioService = new UsuarioService(new Repository<Usuario>(context));
+var tareaService = new TareaService(new Repository<Tarea>(context));
+
+ProbarTareas();
+void ProbarUsuarios()
 {
-    NombreTarea = "tarea",
-    DescripcionTarea = "descripcion de tarea Urgente",
-    FechaCreacionTarea = System.DateTime.Now,
-    EstadosTarea = EstadosTarea.NoIniciada,
-    EstaEliminado = false,
-    TiposTarea = TiposTarea.Urgente
-};
-var tareas = new TareaService();
-var modificacionDeLDato = new EditarTareaDTO
+    Console.WriteLine("== Usuarios ==");
+
+    usuarioService.CrearUsuario(new UsuarioDTO
+    {
+        NombreUsuario = "paco",
+        CorreoUsuario = "paco@test.com",
+        ContrasenaUsuario = "paco"
+    });
+
+    usuarioService.IniciarSesion("paco@test.com", "paco");
+    Console.WriteLine($"Sesión iniciada: id={Sesion.IdUsuarioSesionActiva}");
+
+    usuarioService.EditarUsuario(new EditarUsuarioDTO { NombreUsuario = "pacoEditado" });
+    Console.WriteLine("Nombre editado");
+
+    usuarioService.EliminarUsuario();
+    Console.WriteLine("Usuario eliminado");
+}
+
+void ProbarTareas()
 {
-    NombreTarea = "tarea modificada",
-    DescripcionTarea = "descripcion de tarea Urgente modificada",
-    EstadosTarea = EstadosTarea.NoIniciada,
-    EstaEliminado = false,
-    TiposTarea = TiposTarea.Simple
-};
+    Console.WriteLine("== Tareas ==");
 
-var eliminarTarea = new EditarTareaDTO
-{
-    EstaEliminado = true,
-};
+    usuarioService.IniciarSesion("paco@test.com", "paco");
 
-var modificarTarea = new EditarTareaDTO
-{
-    EstadosTarea = EstadosTarea.finalizada
-};
-var modificarTarea2 = new EditarTareaDTO
-{
-    TiposTarea = TiposTarea.Simple
-};
-var usuarios = new UsuarioService();
-var usuario = new UsuarioDTO
-{
-    NombreUsuario = "test231",
-    CorreoUsuario = "paco@test.com",
-    ContrasenaUsuario = "paco",
-};
-var editarNombreUsuario = new EditarUsuarioDTO
-{
-    NombreUsuario = "testEditado",
-};
-var editaremaileUsuario = new EditarUsuarioDTO
-{
-    CorreoUsuario = "testEditado",
-};
-var editarContraseñaeUsuario = new EditarUsuarioDTO
-{
-    ContrasenaUsuario = "testEditado",
-};
-var eliminarUsuario = new EditarUsuarioDTO
-{
-    EstaEliminado = true
-};
-//usuarios.CrearUsuario(usuario);
-usuarios.IniciarSesion("paco@test.com", "paco");
+    tareaService.CrearTarea(new CrearTareaDTO
+    {
+        NombreTarea = "tarea de prueba",
+        DescripcionTarea = "descripcion",
+        FechaCreacionTarea = DateTime.Now,
+        EstadosTarea = EstadosTarea.NoIniciada,
+        EstaEliminado = false,
+        TiposTarea = TiposTarea.Urgente
+    });
 
-//tareas.CrearTarea(dto);
-////tareas.SacarTareasPorPantalla();
-////Console.WriteLine("-------------------------------------------------------");
-//tareas.EditarTarea(7, modificacionDeLDato);
-////tareas.MostrarTarea(1779872948);
-////Console.WriteLine("-------------------------------------------------------");
-//tareas.EliminarTarea(7);
-////tareas.MostrarTarea(1779872948);
-////Console.WriteLine("-------------------------------------------------------");
-//tareas.EditarTarea(7, modificarTarea);
-////tareas.MostrarTarea(1779872948);
-////Console.WriteLine("-------------------------------------------------------");
-//tareas.EditarTarea(7, modificarTarea2);
-////tareas.MostrarTarea(1779872948);
-////usuarios.SacarUsuariosPorPantalla();
+    tareaService.EditarTarea(1, new EditarTareaDTO { NombreTarea = "tarea editada" });
+    Console.WriteLine("Tarea editada");
 
-usuarios.EditarUsuario(editarNombreUsuario);
-usuarios.EliminarUsuario();
-usuarios.EditarUsuario(editaremaileUsuario);
-usuarios.EditarUsuario(editarContraseñaeUsuario);
-
-
-
-
-
-
-//tareas.CrearTarea(dto);
-
+    tareaService.EliminarTarea(1);
+    Console.WriteLine("Tarea eliminada");
+}

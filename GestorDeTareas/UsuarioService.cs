@@ -1,11 +1,18 @@
 ﻿using GestorDeTareas.DTOs;
+using GestorDeTareas.Interfaces;
 using GestorDeTareas.Mapper;
 using GestorDeTareas.Models;
 namespace GestorDeTareas
 {
     public class UsuarioService
     {
-        UsuarioRepository repository = new UsuarioRepository();
+        private readonly IRepositorio<Usuario> _repository;
+
+        public UsuarioService(IRepositorio<Usuario> repository)
+        {
+            _repository = repository;
+        }
+
         public Usuario MapearUsuario(UsuarioDTO dto)
         {
             return UsuarioMapper.CrearUsuario(dto);
@@ -18,24 +25,24 @@ namespace GestorDeTareas
         public void CrearUsuario(UsuarioDTO dto)
         {
             var usuario = MapearUsuario(dto);
-            repository.GuardarTarea(usuario);
+            _repository.Guardar(usuario);
         }
         public void EditarUsuario(EditarUsuarioDTO dto)
         {
-            var usuarioFiltrado = repository.CargarSoloUnUsuarioPorID(Sesion.IdUsuarioSesionActiva);
+            var usuarioFiltrado = _repository.ObtenerPorId(Sesion.IdUsuarioSesionActiva);
             var usuarioEditado = MapearEdiccionUsuario(usuarioFiltrado, dto);
-            repository.GuardarTarea(usuarioEditado);
+            _repository.Guardar(usuarioEditado);
         }
         public void EliminarUsuario()
         {
-            var usuarioFiltrado = repository.CargarSoloUnUsuarioPorID(Sesion.IdUsuarioSesionActiva);
+            var usuarioFiltrado = _repository.ObtenerPorId(Sesion.IdUsuarioSesionActiva);
             usuarioFiltrado.EstaEliminado = true;
-            repository.GuardarTarea(usuarioFiltrado);
+            _repository.Guardar(usuarioFiltrado);
         }
 
         public void IniciarSesion(string CorreoUsuario, string ContrasenaUsuario)
         {
-            var lista = repository.CargarListaDeUsuarios();
+            var lista = _repository.ObtenerTodos();
             var usuarioFiltrado = FiltrarUsuariosPorEmailYContrasena(lista, CorreoUsuario, ContrasenaUsuario);
             if (usuarioFiltrado != null)
             {

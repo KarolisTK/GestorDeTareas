@@ -7,7 +7,6 @@ namespace PGestorDeTareas.test
     [TestFixture]
     public class GestorDeTareasCRUD
     {
-        private TareaRepository repository;
         private TareaService _service;
         private Tarea _tarea;
         private CrearTareaDTO _tareaDTO;
@@ -15,7 +14,6 @@ namespace PGestorDeTareas.test
         [SetUp]
         public void Setup()
         {
-            _service = new TareaService();
             _tareaDTO = new CrearTareaDTO
             {
                 NombreTarea = "tarea",

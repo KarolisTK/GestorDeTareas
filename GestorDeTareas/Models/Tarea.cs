@@ -1,13 +1,15 @@
 ﻿using GestorDeTareas;
 using GestorDeTareas.DTOs;
+using GestorDeTareas.Interfaces;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-public class Tarea
+public class Tarea : IEntidad
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int IdTarea { get; init; }
+    public int Id => IdTarea;
     public string NombreTarea { get; set; }
     public string DescripcionTarea { get; set; }
     public DateTime FechaCreacionTarea { get; init; }

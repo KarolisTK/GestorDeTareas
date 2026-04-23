@@ -4,9 +4,8 @@ using System.Text;
 
 namespace GestorDeTareas.Interfaces
 {
-    public interface ICompletable
+    public interface IEntidad
     {
-        bool EstaCompleta { get; }
-        void CompletarTarea(int idtarea);
+        int Id { get; }
     }
 }
