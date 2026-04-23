@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GestorDeTareas.DTOs;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,9 +7,8 @@ namespace GestorDeTareas.Interfaces
 {
     public interface IPriorizable
     {
-        bool tienePrioridad { get; }
-        void PriorizarTarea(int idTarea);
-
-        void quitarPrioridadTarea(int idTarea);
+        void PriorizarTarea(int id, CrearTareaUrgenteDTO dto);
+        void QuitarPrioridadTarea(int id);
+        void CrearTareaUrgente(CrearTareaUrgenteDTO dto);
     }
 }

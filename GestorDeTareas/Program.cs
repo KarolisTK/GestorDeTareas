@@ -4,9 +4,12 @@ using GestorDeTareas.Models;
 
 var context = new AppDbContext();
 var usuarioService = new UsuarioService(new Repository<Usuario>(context));
-var tareaService = new TareaService(new Repository<Tarea>(context));
+var tareaService = new TareaService<Tarea>(new Repository<Tarea>(context));
+var tareaUrgenteService = new TareaUrgenteService(new Repository<TareaUrgente>(context), new Repository<Tarea>(context));
+//ProbarTareas();
+PriorizarTarea();
+//CrearTareaUrgente();
 
-ProbarTareas();
 void ProbarUsuarios()
 {
     Console.WriteLine("== Usuarios ==");
@@ -44,9 +47,36 @@ void ProbarTareas()
         TiposTarea = TiposTarea.Urgente
     });
 
-    tareaService.EditarTarea(1, new EditarTareaDTO { NombreTarea = "tarea editada" });
+    tareaService.EditarTarea(4, new EditarTareaDTO { NombreTarea = "tarea editada" });
     Console.WriteLine("Tarea editada");
 
-    tareaService.EliminarTarea(1);
-    Console.WriteLine("Tarea eliminada");
+    //tareaService.EliminarTarea(1);
+    //Console.WriteLine("Tarea eliminada");
+}
+
+void PriorizarTarea()
+{
+    usuarioService.IniciarSesion("paco@test.com", "paco");
+    var tareaUrgente = new CrearTareaUrgenteDTO
+    {
+        FechaLimite = new DateTime(2026, 04, 23, 14, 30, 00),
+        TienePrioridad = true
+    };
+    tareaUrgenteService.PriorizarTarea(6, tareaUrgente);
+}
+
+void CrearTareaUrgente()
+{
+    usuarioService.IniciarSesion("paco@test.com", "paco");
+    tareaUrgenteService.CrearTareaUrgente(new CrearTareaUrgenteDTO
+    {
+        NombreTarea = "tarea de prueba Creada como tarea Urgente",
+        DescripcionTarea = "descripcion",
+        FechaCreacionTarea = DateTime.Now,
+        EstadosTarea = EstadosTarea.NoIniciada,
+        EstaEliminado = false,
+        TiposTarea = TiposTarea.Urgente,
+        FechaLimite = new DateTime(2026, 04, 23, 14, 30, 00),
+        TienePrioridad = true
+    });
 }

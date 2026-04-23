@@ -10,6 +10,7 @@ namespace GestorDeTareas
     {
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Tarea> Tareas { get; set; }
+        public DbSet<TareaUrgente> TareasUrgentes { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
             options.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=gestorDeTareas;Trusted_Connection=True;");
