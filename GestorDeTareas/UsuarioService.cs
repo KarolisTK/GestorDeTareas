@@ -29,7 +29,7 @@ namespace GestorDeTareas
         public void EliminarUsuario()
         {
             var usuarioFiltrado = repository.CargarSoloUnUsuarioPorID(Sesion.IdUsuarioSesionActiva);
-            usuarioFiltrado.MarcarUsuarioComoEliminado();
+            usuarioFiltrado.EstaEliminado = true;
             repository.GuardarTarea(usuarioFiltrado);
         }
 

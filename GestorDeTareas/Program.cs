@@ -56,24 +56,24 @@ var eliminarUsuario = new EditarUsuarioDTO
 {
     EstaEliminado = true
 };
-usuarios.CrearUsuario(usuario);
+//usuarios.CrearUsuario(usuario);
 usuarios.IniciarSesion("paco@test.com", "paco");
 
 //tareas.CrearTarea(dto);
 ////tareas.SacarTareasPorPantalla();
 ////Console.WriteLine("-------------------------------------------------------");
-//tareas.EditarTarea(3, modificacionDeLDato);
+//tareas.EditarTarea(7, modificacionDeLDato);
 ////tareas.MostrarTarea(1779872948);
 ////Console.WriteLine("-------------------------------------------------------");
-//tareas.EliminarTarea(3);
+//tareas.EliminarTarea(7);
 ////tareas.MostrarTarea(1779872948);
 ////Console.WriteLine("-------------------------------------------------------");
-//tareas.EditarTarea(3, modificarTarea);
+//tareas.EditarTarea(7, modificarTarea);
 ////tareas.MostrarTarea(1779872948);
 ////Console.WriteLine("-------------------------------------------------------");
-//tareas.EditarTarea(3, modificarTarea2);
-//tareas.MostrarTarea(1779872948);
-//usuarios.SacarUsuariosPorPantalla();
+//tareas.EditarTarea(7, modificarTarea2);
+////tareas.MostrarTarea(1779872948);
+////usuarios.SacarUsuariosPorPantalla();
 
 usuarios.EditarUsuario(editarNombreUsuario);
 usuarios.EliminarUsuario();
