@@ -1,4 +1,5 @@
 ﻿using GestorDeTareas.DTOs;
+using GestorDeTareas.Enums;
 using GestorDeTareas.Models;
 using System;
 using System.Collections.Generic;

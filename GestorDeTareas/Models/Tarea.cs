@@ -1,5 +1,5 @@
-﻿using GestorDeTareas;
-using GestorDeTareas.DTOs;
+﻿using GestorDeTareas.DTOs;
+using GestorDeTareas.Enums;
 using GestorDeTareas.Interfaces;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -18,5 +18,6 @@ public class Tarea : IEntidad
     public TiposTarea? TiposTarea { get; set; }
     public int IdUsuarioDeLaTarea { get; set; }
 }
+//TODO: Constructor
 
 

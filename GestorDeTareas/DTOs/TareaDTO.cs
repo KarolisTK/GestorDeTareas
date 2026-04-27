@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GestorDeTareas.Enums;
+using System;
 using System.Collections.Generic;
 using System.Text;
 

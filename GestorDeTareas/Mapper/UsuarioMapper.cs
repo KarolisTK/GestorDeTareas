@@ -18,17 +18,10 @@ namespace GestorDeTareas.Mapper
         }
         public static void ModificarUsuario(Usuario usuario, EditarUsuarioDTO dto)
         {
-            if (dto.NombreUsuario != null)
-                usuario.NombreUsuario = dto.NombreUsuario;
-
-            if (dto.CorreoUsuario != null)
-                usuario.CorreoUsuario = dto.CorreoUsuario;
-
-            if (dto.ContrasenaUsuario != null)
-                usuario.ContrasenaUsuario = dto.ContrasenaUsuario;
-
-            if (dto.EstaEliminado != null)
-                usuario.EstaEliminado = dto.EstaEliminado;
+            usuario.NombreUsuario = dto.NombreUsuario ?? usuario.NombreUsuario;
+            usuario.CorreoUsuario = dto.CorreoUsuario ?? usuario.CorreoUsuario;
+            usuario.ContrasenaUsuario = dto.ContrasenaUsuario ?? usuario.ContrasenaUsuario;
+            usuario.EstaEliminado = dto.EstaEliminado ?? usuario.EstaEliminado;
         }
     }
 }

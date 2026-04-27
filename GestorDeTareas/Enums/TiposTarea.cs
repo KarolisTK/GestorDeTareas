@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace GestorDeTareas
+namespace GestorDeTareas.Enums
 {
     public enum TiposTarea
     {

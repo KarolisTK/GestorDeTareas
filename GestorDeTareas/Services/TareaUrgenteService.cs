@@ -1,4 +1,5 @@
 ﻿using GestorDeTareas.DTOs;
+using GestorDeTareas.Enums;
 using GestorDeTareas.Interfaces;
 using GestorDeTareas.Mapper;
 using GestorDeTareas.Models;
@@ -6,17 +7,19 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace GestorDeTareas
+namespace GestorDeTareas.Services
 {
     public class TareaUrgenteService : TareaService<TareaUrgente>, IPriorizable
     {
         private readonly IRepositorio<Tarea> _repositoryBase;
+        private readonly IRepositorio<TareaUrgente> _repository;
         public TareaUrgenteService(
             IRepositorio<TareaUrgente> repository,
             IRepositorio<Tarea> repositorioBase)
             : base(repository)
         {
             _repositoryBase = repositorioBase;
+            _repository = repository;
         }
         public void PriorizarTarea(int id, CrearTareaUrgenteDTO dto)
         {
@@ -29,23 +32,15 @@ namespace GestorDeTareas
             _repository.Guardar(tareaUrgenteModificada);
         }
 
-        public void QuitarPrioridadTarea(int id)
+        public void QuitarPrioridadTarea(int id, CrearTareaDTO dto)
         {
             var tareaUrgente = _repository.ObtenerPorId(id);
             tareaUrgente.EstaEliminado = true;
             _repository.Guardar(tareaUrgente);
 
-            var tareaSimple = new Tarea
-            {
-                NombreTarea = tareaUrgente.NombreTarea,
-                DescripcionTarea = tareaUrgente.DescripcionTarea,
-                FechaCreacionTarea = tareaUrgente.FechaCreacionTarea,
-                EstadosTarea = tareaUrgente.EstadosTarea,
-                EstaEliminado = false,
-                TiposTarea = TiposTarea.Simple,
-                IdUsuarioDeLaTarea = tareaUrgente.IdUsuarioDeLaTarea
-            };
-            _repositoryBase.Guardar(tareaSimple);
+            var tareaSimple = new Tarea();
+            var tareaSimpleModificada = TareaMapper.ModificarEntidadDeTareaUrgente(tareaSimple, dto, tareaUrgente);
+            _repositoryBase.Guardar(tareaSimpleModificada);
         }
 
         public void CrearTareaUrgente(CrearTareaUrgenteDTO dto)

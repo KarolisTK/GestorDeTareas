@@ -1,14 +1,17 @@
 ﻿using GestorDeTareas;
 using GestorDeTareas.DTOs;
+using GestorDeTareas.Enums;
 using GestorDeTareas.Models;
+using GestorDeTareas.Services;
 
 var context = new AppDbContext();
 var usuarioService = new UsuarioService(new Repository<Usuario>(context));
 var tareaService = new TareaService<Tarea>(new Repository<Tarea>(context));
 var tareaUrgenteService = new TareaUrgenteService(new Repository<TareaUrgente>(context), new Repository<Tarea>(context));
-//ProbarTareas();
-PriorizarTarea();
+ProbarTareas();
+//PriorizarTarea();
 //CrearTareaUrgente();
+//QuitarPrioridad();
 
 void ProbarUsuarios()
 {
@@ -50,8 +53,8 @@ void ProbarTareas()
     tareaService.EditarTarea(4, new EditarTareaDTO { NombreTarea = "tarea editada" });
     Console.WriteLine("Tarea editada");
 
-    //tareaService.EliminarTarea(1);
-    //Console.WriteLine("Tarea eliminada");
+    tareaService.EliminarTarea(1);
+    Console.WriteLine("Tarea eliminada");
 }
 
 void PriorizarTarea()
@@ -63,6 +66,16 @@ void PriorizarTarea()
         TienePrioridad = true
     };
     tareaUrgenteService.PriorizarTarea(6, tareaUrgente);
+}
+
+void QuitarPrioridad()
+{
+    usuarioService.IniciarSesion("paco@test.com", "paco");
+    var tareaSimple = new CrearTareaDTO
+    {
+
+    };
+    tareaUrgenteService.QuitarPrioridadTarea(24, tareaSimple);
 }
 
 void CrearTareaUrgente()

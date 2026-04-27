@@ -2,7 +2,7 @@
 using GestorDeTareas.Interfaces;
 using GestorDeTareas.Mapper;
 using GestorDeTareas.Models;
-namespace GestorDeTareas
+namespace GestorDeTareas.Services
 {
     public class UsuarioService
     {
