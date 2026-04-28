@@ -6,7 +6,7 @@ using GestorDeTareas.Services;
 
 var context = new AppDbContext();
 var usuarioService = new UsuarioService(new Repository<Usuario>(context));
-var tareaService = new TareaService<Tarea>(new Repository<Tarea>(context));
+var tareaService = new TareaService(new Repository<Tarea>(context));
 var tareaUrgenteService = new TareaUrgenteService(new Repository<TareaUrgente>(context), new Repository<Tarea>(context));
 ProbarUsuarios();
 ProbarTareas();
@@ -20,15 +20,15 @@ void ProbarUsuarios()
 
     usuarioService.CrearUsuario(new UsuarioDTO
     {
-        NombreUsuario = "paco",
-        CorreoUsuario = "paco@test.com",
+        NombreUsuario = "jose",
+        CorreoUsuario = "jose@test.com",
         ContrasenaUsuario = "paco"
     });
 
-    usuarioService.IniciarSesion("paco@test.com", "paco");
+    usuarioService.IniciarSesion("jose@test.com", "paco");
     Console.WriteLine($"Sesión iniciada: id={Sesion.IdUsuarioSesionActiva}");
 
-    usuarioService.EditarUsuario(new EditarUsuarioDTO { NombreUsuario = "pacoEditado" });
+    usuarioService.EditarUsuario(new EditarUsuarioDTO { NombreUsuario = "JoseEditado" });
     Console.WriteLine("Nombre editado");
 
     usuarioService.EliminarUsuario();
@@ -51,10 +51,10 @@ void ProbarTareas()
         TiposTarea = TiposTarea.Urgente
     });
 
-    tareaService.EditarTarea(4, new EditarTareaDTO { NombreTarea = "tarea editada" });
+    tareaService.EditarTarea(32, new EditarTareaDTO { NombreTarea = "tarea editada" });
     Console.WriteLine("Tarea editada");
 
-    tareaService.EliminarTarea(1);
+    tareaService.EliminarTarea(32);
     Console.WriteLine("Tarea eliminada");
 }
 
@@ -66,7 +66,7 @@ void PriorizarTarea()
         FechaLimite = new DateTime(2026, 04, 23, 14, 30, 00),
         TienePrioridad = true
     };
-    tareaUrgenteService.PriorizarTarea(6, tareaUrgente);
+    tareaUrgenteService.PriorizarTarea(33, tareaUrgente);
 }
 
 void QuitarPrioridad()
@@ -76,7 +76,7 @@ void QuitarPrioridad()
     {
 
     };
-    tareaUrgenteService.QuitarPrioridadTarea(24, tareaSimple);
+    tareaUrgenteService.QuitarPrioridadTarea(34, tareaSimple);
 }
 
 void CrearTareaUrgente()

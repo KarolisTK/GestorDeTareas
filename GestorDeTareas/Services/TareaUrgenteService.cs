@@ -9,14 +9,14 @@ using System.Text;
 
 namespace GestorDeTareas.Services
 {
-    public class TareaUrgenteService : TareaService<TareaUrgente>, IPriorizable
+    public class TareaUrgenteService : TareaService, IPriorizable
     {
         private readonly IRepositorio<Tarea> _repositoryBase;
         private readonly IRepositorio<TareaUrgente> _repository;
         public TareaUrgenteService(
             IRepositorio<TareaUrgente> repository,
             IRepositorio<Tarea> repositorioBase)
-            : base(repository)
+            : base(repositorioBase)
         {
             _repositoryBase = repositorioBase;
             _repository = repository;

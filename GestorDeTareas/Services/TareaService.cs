@@ -1,14 +1,13 @@
 ﻿using GestorDeTareas.DTOs;
 using GestorDeTareas.Interfaces;
 using GestorDeTareas.Mapper;
-using GestorDeTareas.Models;
 namespace GestorDeTareas
 {
-    public class TareaService<T> where T : Tarea
+    public class TareaService
     {
-        public readonly IRepositorio<T> _repository;
+        public readonly IRepositorio<Tarea> _repository;
 
-        public TareaService(IRepositorio<T> repository)
+        public TareaService(IRepositorio<Tarea> repository)
         {
             _repository = repository;
         }
@@ -21,7 +20,7 @@ namespace GestorDeTareas
         {
             var idUsuarioSesion = Sesion.IdUsuarioSesionActiva;
             var tarea = TareaMapper.CrearEntidad(dto);
-            _repository.Guardar((T)tarea);
+            _repository.Guardar(tarea);
         }
         public void EditarTarea(int id, EditarTareaDTO dto)
         {
