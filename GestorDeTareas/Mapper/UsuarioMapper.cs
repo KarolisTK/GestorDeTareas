@@ -7,13 +7,12 @@ namespace GestorDeTareas.Mapper
         public static Usuario CrearUsuario( UsuarioDTO dto)
         {
             return new Usuario
-            {
-                NombreUsuario = dto.NombreUsuario,
-                CorreoUsuario = dto.CorreoUsuario,
-                ContrasenaUsuario = dto.ContrasenaUsuario,
-                EstaEliminado = false,
-
-            };
+            (
+                dto.NombreUsuario,
+                dto.CorreoUsuario,
+                dto.ContrasenaUsuario,
+                dto.EstaEliminado = false
+            );
 
         }
         public static void ModificarUsuario(Usuario usuario, EditarUsuarioDTO dto)

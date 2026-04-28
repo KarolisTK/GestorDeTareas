@@ -17,7 +17,19 @@ public class Tarea : IEntidad
     public bool? EstaEliminado { get; set; }
     public TiposTarea? TiposTarea { get; set; }
     public int IdUsuarioDeLaTarea { get; set; }
+
+    public Tarea() { }
+    public Tarea(string nombreTarea, string descripcionTarea, DateTime fechaCreacion,
+                 EstadosTarea? estadosTarea, bool? estaEliminado, TiposTarea? tiposTarea, int idUsuario)
+    {
+        NombreTarea = nombreTarea;
+        DescripcionTarea = descripcionTarea;
+        FechaCreacionTarea = fechaCreacion;
+        EstadosTarea = estadosTarea;
+        EstaEliminado = estaEliminado;
+        TiposTarea = tiposTarea;
+        IdUsuarioDeLaTarea = idUsuario;
+    }
 }
-//TODO: Constructor
 
 

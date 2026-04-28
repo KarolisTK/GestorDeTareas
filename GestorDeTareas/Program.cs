@@ -8,10 +8,11 @@ var context = new AppDbContext();
 var usuarioService = new UsuarioService(new Repository<Usuario>(context));
 var tareaService = new TareaService<Tarea>(new Repository<Tarea>(context));
 var tareaUrgenteService = new TareaUrgenteService(new Repository<TareaUrgente>(context), new Repository<Tarea>(context));
+ProbarUsuarios();
 ProbarTareas();
-//PriorizarTarea();
-//CrearTareaUrgente();
-//QuitarPrioridad();
+PriorizarTarea();
+CrearTareaUrgente();
+QuitarPrioridad();
 
 void ProbarUsuarios()
 {

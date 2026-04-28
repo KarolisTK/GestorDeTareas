@@ -17,6 +17,12 @@ namespace GestorDeTareas.Models
         public string ContrasenaUsuario { get; set; }
         public bool? EstaEliminado { get; set; }
 
-
+        public Usuario( string nombreUsuario, string correoUsuario, string contrasenaUsuario, bool? estaEliminado)
+        {
+            NombreUsuario = nombreUsuario;
+            CorreoUsuario = correoUsuario;
+            ContrasenaUsuario = contrasenaUsuario;
+            EstaEliminado = estaEliminado;
+        }
     }
 }

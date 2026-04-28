@@ -8,16 +8,16 @@ namespace GestorDeTareas.Mapper
         public static Tarea CrearEntidad(CrearTareaDTO dto)
         {
             return new Tarea
-            {
-                NombreTarea = dto.NombreTarea,
-                DescripcionTarea = dto.DescripcionTarea,
-                FechaCreacionTarea = dto.FechaCreacionTarea,
-                EstadosTarea = dto.EstadosTarea,
-                EstaEliminado = dto.EstaEliminado,
-                TiposTarea = dto.TiposTarea,
-                IdUsuarioDeLaTarea = Sesion.IdUsuarioSesionActiva
+            (
+                dto.NombreTarea,
+                dto.DescripcionTarea,
+                dto.FechaCreacionTarea,
+                dto.EstadosTarea,
+                dto.EstaEliminado,
+                dto.TiposTarea,
+                Sesion.IdUsuarioSesionActiva
 
-            };
+            );
 
         }
         public static void ModificarEntidad(Tarea tarea, EditarTareaDTO dto)

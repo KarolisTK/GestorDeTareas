@@ -12,17 +12,17 @@ namespace GestorDeTareas.Mapper
         public static TareaUrgente CrearEntidad(CrearTareaUrgenteDTO dto)
         {
             return new TareaUrgente
-            {
-                NombreTarea = dto.NombreTarea,
-                DescripcionTarea = dto.DescripcionTarea,
-                FechaCreacionTarea = DateTime.Now,
-                EstadosTarea = dto.EstadosTarea,
-                EstaEliminado = false,
-                TiposTarea = TiposTarea.Urgente,
-                IdUsuarioDeLaTarea = Sesion.IdUsuarioSesionActiva,
-                FechaLimite = dto.FechaLimite,
-                TienePrioridad = dto.TienePrioridad
-            };
+            (
+                dto.NombreTarea,
+                dto.DescripcionTarea,
+                DateTime.Now,
+                dto.EstadosTarea,
+                dto.EstaEliminado = false,
+                TiposTarea.Urgente,
+                Sesion.IdUsuarioSesionActiva,
+                dto.TienePrioridad,
+                dto.FechaLimite
+            );
         }
 
         public static TareaUrgente ModificarEntidad(TareaUrgente tareaUrgente, CrearTareaUrgenteDTO dto, Tarea tarea)
