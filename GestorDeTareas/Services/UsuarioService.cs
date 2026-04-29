@@ -50,7 +50,6 @@ namespace GestorDeTareas.Services
             }
 
         }
-
         public Usuario FiltrarUsuariosPorEmailYContrasena(List<Usuario> usuario, string CorreoUsuario, string contrasena)
         {
             if(CorreoUsuario != null && contrasena != null)
