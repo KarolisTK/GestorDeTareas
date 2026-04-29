@@ -1,19 +1,11 @@
 ﻿using GestorDeTareas.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace GestorDeTareas
+public class AppDbContext : DbContext
 {
-    public class AppDbContext : DbContext
-    {
-        public DbSet<Usuario> Usuarios { get; set; }
-        public DbSet<Tarea> Tareas { get; set; }
-        public DbSet<TareaUrgente> TareasUrgentes { get; set; }
-        protected override void OnConfiguring(DbContextOptionsBuilder options)
-        {
-            options.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=gestorDeTareas;Trusted_Connection=True;");
-        }
-    }
+    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
+
+    public DbSet<Usuario> Usuarios { get; set; }
+    public DbSet<Tarea> Tareas { get; set; }
+    public DbSet<TareaUrgente> TareasUrgentes { get; set; }
 }

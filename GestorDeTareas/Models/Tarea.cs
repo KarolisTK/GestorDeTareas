@@ -10,9 +10,9 @@ public class Tarea : IEntidad
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int IdTarea { get; init; }
     public int Id => IdTarea;
-    public string NombreTarea { get; set; }
-    public string DescripcionTarea { get; set; }
-    public DateTime FechaCreacionTarea { get; set; }
+    public string? NombreTarea { get; set; }
+    public string? DescripcionTarea { get; set; }
+    public DateTime? FechaCreacionTarea { get; set; }
     public EstadosTarea? EstadosTarea { get; set; }
     public bool? EstaEliminado { get; set; }
     public TiposTarea? TiposTarea { get; set; }

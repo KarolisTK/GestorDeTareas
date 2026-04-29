@@ -16,6 +16,17 @@ namespace GestorDeTareas
             TareaMapper.ModificarEntidad(tarea, dto);
             return tarea;
         }
+
+        public List<Tarea> ObtenerTodas()
+        {
+           return _repository.ObtenerTodos();
+
+        }
+
+        public Tarea ObtenerUnaTareaPorID(int idTarea)
+        {
+            return _repository.ObtenerPorId(idTarea);
+        }
         public void CrearTarea(CrearTareaDTO dto)
         {
             var idUsuarioSesion = Sesion.IdUsuarioSesionActiva;

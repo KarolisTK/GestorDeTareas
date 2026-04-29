@@ -18,7 +18,7 @@ namespace GestorDeTareas.Models
             FechaLimite = fechaLimite;
         }
 
-        public bool TienePrioridad { get; set; }
+        public bool? TienePrioridad { get; set; }
         public DateTime? FechaLimite { get; set; }
     }
 }
