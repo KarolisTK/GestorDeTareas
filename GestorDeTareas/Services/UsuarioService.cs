@@ -27,37 +27,17 @@ namespace GestorDeTareas.Services
             var usuario = MapearUsuario(dto);
             _repository.Guardar(usuario);
         }
-        public void EditarUsuario(EditarUsuarioDTO dto)
+        public void EditarUsuario(EditarUsuarioDTO dto, int IdUsuario)
         {
-            var usuarioFiltrado = _repository.ObtenerPorId(Sesion.IdUsuarioSesionActiva);
+            var usuarioFiltrado = _repository.ObtenerPorId(IdUsuario);
             var usuarioEditado = MapearEdiccionUsuario(usuarioFiltrado, dto);
             _repository.Guardar(usuarioEditado);
         }
-        public void EliminarUsuario()
+        public void EliminarUsuario(int idUsuario)
         {
-            var usuarioFiltrado = _repository.ObtenerPorId(Sesion.IdUsuarioSesionActiva);
+            var usuarioFiltrado = _repository.ObtenerPorId(idUsuario);
             usuarioFiltrado.EstaEliminado = true;
             _repository.Guardar(usuarioFiltrado);
-        }
-
-        public void IniciarSesion(string CorreoUsuario, string ContrasenaUsuario)
-        {
-            var lista = _repository.ObtenerTodos();
-            var usuarioFiltrado = FiltrarUsuariosPorEmailYContrasena(lista, CorreoUsuario, ContrasenaUsuario);
-            if (usuarioFiltrado != null)
-            {
-                Sesion.IdUsuarioSesionActiva = usuarioFiltrado.IdUsuario;
-            }
-
-        }
-        public Usuario FiltrarUsuariosPorEmailYContrasena(List<Usuario> usuario, string CorreoUsuario, string contrasena)
-        {
-            if(CorreoUsuario != null && contrasena != null)
-            {
-                return usuario.FirstOrDefault(t => t.CorreoUsuario == CorreoUsuario && t.ContrasenaUsuario == contrasena);
-            }
-            return null;
-           
         }
     }
 }

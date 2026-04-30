@@ -1,9 +1,12 @@
 ﻿using GestorDeTareas.DTOs;
 using GestorDeTareas.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace GestorDeTareas.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class UsuariosController : ControllerBase
@@ -25,22 +28,17 @@ namespace GestorDeTareas.Controllers
         [HttpPut]
         public IActionResult Editar([FromBody] EditarUsuarioDTO dto)
         {
-            _usuarioService.EditarUsuario(dto);
+            var idUsuario = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            _usuarioService.EditarUsuario(dto, idUsuario);
             return NoContent();
         }
 
         [HttpDelete]
         public IActionResult Eliminar()
         {
-            _usuarioService.EliminarUsuario();
+            var idUsuario = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            _usuarioService.EliminarUsuario(idUsuario);
             return NoContent();
-        }
-
-        [HttpPost("{correoUsuario}/{contrasenaUsuario}")]
-        public IActionResult Login(string correoUsuario, string contrasenaUsuario)
-        {
-            _usuarioService.IniciarSesion(correoUsuario,contrasenaUsuario);
-            return Ok();
         }
     }
 }

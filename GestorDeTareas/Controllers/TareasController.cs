@@ -1,14 +1,16 @@
 ﻿using GestorDeTareas.DTOs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace GestorDeTareas.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class TareasController : ControllerBase
     {
         private readonly TareaService _tareaService;
-
         public TareasController(TareaService tareaService)
         {
             _tareaService = tareaService;
@@ -31,7 +33,8 @@ namespace GestorDeTareas.Controllers
         [HttpPost]
         public IActionResult Crear([FromBody] CrearTareaDTO dto)
         {
-            _tareaService.CrearTarea(dto);
+            var idUsuario = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            _tareaService.CrearTarea(dto, idUsuario);
             return Ok();
         }
 

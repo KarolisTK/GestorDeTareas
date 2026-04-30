@@ -5,7 +5,7 @@ namespace GestorDeTareas.Mapper
 {
     public static class TareaMapper
     {
-        public static Tarea CrearEntidad(CrearTareaDTO dto)
+        public static Tarea CrearEntidad(CrearTareaDTO dto, int idusuario)
         {
             return new Tarea
             (
@@ -15,7 +15,7 @@ namespace GestorDeTareas.Mapper
                 dto.EstadosTarea,
                 dto.EstaEliminado,
                 dto.TiposTarea,
-                Sesion.IdUsuarioSesionActiva
+                idusuario
 
             );
 

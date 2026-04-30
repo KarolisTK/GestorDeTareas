@@ -43,10 +43,9 @@ namespace GestorDeTareas.Services
             _repositoryBase.Guardar(tareaSimpleModificada);
         }//Priorizar tarea y quitar prioridad se va a quedar como deuda técnica.
 
-        public void CrearTareaUrgente(CrearTareaUrgenteDTO dto)
+        public void CrearTareaUrgente(CrearTareaUrgenteDTO dto, int idUsuario)
         {
-            var idUsuarioSesion = Sesion.IdUsuarioSesionActiva;
-            var tareaUrgente = TareaUrgenteMapper.CrearEntidad(dto);
+            var tareaUrgente = TareaUrgenteMapper.CrearEntidad(dto, idUsuario);
             _repository.Guardar(tareaUrgente);
         }
     }

@@ -1,9 +1,12 @@
 ﻿using GestorDeTareas.DTOs;
 using GestorDeTareas.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace GestorDeTareas.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class TareasUrgentesController : Controller
@@ -17,7 +20,8 @@ namespace GestorDeTareas.Controllers
         [HttpPost]
         public IActionResult CrearTareaUrgente([FromBody] CrearTareaUrgenteDTO dto)
         {
-            _tareaUrgenteService.CrearTareaUrgente(dto);
+            var idUsuario = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            _tareaUrgenteService.CrearTareaUrgente(dto, idUsuario);
             return Ok();
         }
 

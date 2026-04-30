@@ -9,7 +9,7 @@ namespace GestorDeTareas.Mapper
 {
     public static class TareaUrgenteMapper
     {
-        public static TareaUrgente CrearEntidad(CrearTareaUrgenteDTO dto)
+        public static TareaUrgente CrearEntidad(CrearTareaUrgenteDTO dto, int idUsuario)
         {
             return new TareaUrgente
             (
@@ -19,7 +19,7 @@ namespace GestorDeTareas.Mapper
                 dto.EstadosTarea,
                 dto.EstaEliminado = false,
                 TiposTarea.Urgente,
-                Sesion.IdUsuarioSesionActiva,
+                idUsuario,
                 dto.TienePrioridad,
                 dto.FechaLimite
             );

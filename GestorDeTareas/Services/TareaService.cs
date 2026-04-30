@@ -27,10 +27,9 @@ namespace GestorDeTareas
         {
             return _repository.ObtenerPorId(idTarea);
         }
-        public void CrearTarea(CrearTareaDTO dto)
+        public void CrearTarea(CrearTareaDTO dto, int idUsuario)
         {
-            var idUsuarioSesion = Sesion.IdUsuarioSesionActiva;
-            var tarea = TareaMapper.CrearEntidad(dto);
+            var tarea = TareaMapper.CrearEntidad(dto, idUsuario);
             _repository.Guardar(tarea);
         }
         public void EditarTarea(int id, EditarTareaDTO dto)

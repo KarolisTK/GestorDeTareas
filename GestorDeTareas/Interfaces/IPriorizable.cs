@@ -9,6 +9,6 @@ namespace GestorDeTareas.Interfaces
     {
         void PriorizarTarea(int id, CrearTareaUrgenteDTO dto);
         void QuitarPrioridadTarea(int id, CrearTareaDTO dto);
-        void CrearTareaUrgente(CrearTareaUrgenteDTO dto);
+        void CrearTareaUrgente(CrearTareaUrgenteDTO dto, int idUsuario);
     }
 }
