@@ -9,12 +9,12 @@
 //    {
 //        private TareaService _service;
 //        private Tarea _tarea;
-//        private CrearTareaDTO _tareaDTO;
+//        private TareaDTO _tareaDTO;
 
 //        [SetUp]
 //        public void Setup()
 //        {
-//            _tareaDTO = new CrearTareaDTO
+//            _tareaDTO = new TareaDTO
 //            {
 //                NombreTarea = "tarea",
 //                DescripcionTarea = "descripcion de tarea Urgente",

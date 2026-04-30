@@ -6,8 +6,8 @@ namespace GestorDeTareas.Interfaces
 {
     public interface IRepositorio<T>
     {
-        List<T> ObtenerTodos();
-        T ObtenerPorId(int id);
-        void Guardar(T entidad);
+        Task<List<T>> ObtenerTodos();
+        Task<T> ObtenerPorId(int id);
+        Task Guardar(T entidad);
     }
 }

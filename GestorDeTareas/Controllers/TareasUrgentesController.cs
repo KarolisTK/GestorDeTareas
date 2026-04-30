@@ -18,24 +18,24 @@ namespace GestorDeTareas.Controllers
         }
 
         [HttpPost]
-        public IActionResult CrearTareaUrgente([FromBody] CrearTareaUrgenteDTO dto)
+        public async Task<IActionResult> CrearTareaUrgente([FromBody] CrearTareaUrgenteDTO dto)
         {
             var idUsuario = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            _tareaUrgenteService.CrearTareaUrgente(dto, idUsuario);
+            await _tareaUrgenteService.CrearTareaUrgente(dto, idUsuario);
             return Ok();
         }
 
         [HttpPut("{id}/priorizar")]
-        public IActionResult PriorizarTarea(int id, [FromBody] CrearTareaUrgenteDTO dto)
+        public async Task<IActionResult> PriorizarTarea(int id, [FromBody] CrearTareaUrgenteDTO dto)
         {
-            _tareaUrgenteService.PriorizarTarea(id, dto);
+            await _tareaUrgenteService.PriorizarTarea(id, dto);
             return Ok();
         }
 
         [HttpPut("{id}/quitarPrioridad")]
-        public IActionResult QuitarPrioridadTarea(int id, [FromBody] CrearTareaDTO dto)
+        public async Task<IActionResult> QuitarPrioridadTarea(int id, [FromBody] TareaDTO dto)
         {
-            _tareaUrgenteService.QuitarPrioridadTarea(id, dto);
+            await _tareaUrgenteService.QuitarPrioridadTarea(id, dto);
             return Ok();
         }
     }

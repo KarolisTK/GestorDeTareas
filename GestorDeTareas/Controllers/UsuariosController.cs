@@ -19,25 +19,25 @@ namespace GestorDeTareas.Controllers
         }
 
         [HttpPost]
-        public IActionResult Crear([FromBody] UsuarioDTO dto)
+        public async Task<IActionResult> Crear([FromBody] UsuarioDTO dto)
         {
-            _usuarioService.CrearUsuario(dto);
+            await _usuarioService.CrearUsuario(dto);
             return Ok();
         }
 
         [HttpPut]
-        public IActionResult Editar([FromBody] EditarUsuarioDTO dto)
+        public async Task<IActionResult> Editar([FromBody] EditarUsuarioDTO dto)
         {
             var idUsuario = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            _usuarioService.EditarUsuario(dto, idUsuario);
+            await _usuarioService.EditarUsuario(dto, idUsuario);
             return NoContent();
         }
 
         [HttpDelete]
-        public IActionResult Eliminar()
+        public async Task<IActionResult> Eliminar()
         {
             var idUsuario = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            _usuarioService.EliminarUsuario(idUsuario);
+            await _usuarioService.EliminarUsuario(idUsuario);
             return NoContent();
         }
     }

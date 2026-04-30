@@ -12,32 +12,30 @@ namespace GestorDeTareas.Services
         {
             _repository = repository;
         }
-
-        public Usuario MapearUsuario(UsuarioDTO dto)
+        public async Task CrearUsuario(UsuarioDTO dto)
         {
-            return UsuarioMapper.CrearUsuario(dto);
+            var usuario = UsuarioMapper.CrearUsuario(dto);
+            await _repository.Guardar(usuario);
         }
-        public Usuario MapearEdiccionUsuario(Usuario usuario, EditarUsuarioDTO dto)
+        public async Task EditarUsuario(EditarUsuarioDTO dto, int IdUsuario)
         {
-            UsuarioMapper.ModificarUsuario(usuario, dto);
-            return usuario;
+            var usuarioFiltrado = await _repository.ObtenerPorId(IdUsuario);
+            if (usuarioFiltrado == null) 
+            {
+                throw new Exception("El usuario filtrado para editar usuario no existe");
+            }
+            UsuarioMapper.ModificarUsuario(usuarioFiltrado, dto);
+            await _repository.Guardar(usuarioFiltrado);
         }
-        public void CrearUsuario(UsuarioDTO dto)
+        public async Task EliminarUsuario(int idUsuario)
         {
-            var usuario = MapearUsuario(dto);
-            _repository.Guardar(usuario);
-        }
-        public void EditarUsuario(EditarUsuarioDTO dto, int IdUsuario)
-        {
-            var usuarioFiltrado = _repository.ObtenerPorId(IdUsuario);
-            var usuarioEditado = MapearEdiccionUsuario(usuarioFiltrado, dto);
-            _repository.Guardar(usuarioEditado);
-        }
-        public void EliminarUsuario(int idUsuario)
-        {
-            var usuarioFiltrado = _repository.ObtenerPorId(idUsuario);
+            var usuarioFiltrado = await _repository.ObtenerPorId(idUsuario);
+            if (usuarioFiltrado == null)
+            {
+                throw new Exception("El usuario filtrado para eliminar usuario no existe");
+            }
             usuarioFiltrado.EstaEliminado = true;
-            _repository.Guardar(usuarioFiltrado);
+            await _repository.Guardar(usuarioFiltrado);
         }
     }
 }

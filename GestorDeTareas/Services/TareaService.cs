@@ -11,38 +11,52 @@ namespace GestorDeTareas
         {
             _repository = repository;
         }
-        public Tarea MapearEdiccionTarea(Tarea tarea, EditarTareaDTO dto)
-        {
-            TareaMapper.ModificarEntidad(tarea, dto);
-            return tarea;
-        }
 
-        public List<Tarea> ObtenerTodas()
+        public async Task< List<Tarea>> ObtenerTodas()
         {
-           return _repository.ObtenerTodos();
-
+           return await _repository.ObtenerTodos();
         }
-
-        public Tarea ObtenerUnaTareaPorID(int idTarea)
+        public async Task< Tarea> ObtenerUnaTareaPorID(int idTarea)
         {
-            return _repository.ObtenerPorId(idTarea);
+            var tareaFiltrada = await _repository.ObtenerPorId(idTarea);
+            if(tareaFiltrada == null)
+            {
+                throw new Exception("La tarea filtrada no existe");
+            }
+            return tareaFiltrada;
         }
-        public void CrearTarea(CrearTareaDTO dto, int idUsuario)
+        public async Task CrearTarea(TareaDTO dto, int idUsuario)
         {
+            var tareas = await _repository.ObtenerTodos();
+            var tareaExistente = tareas.Any(t => t.NombreTarea == dto.NombreTarea && t.IdUsuarioDeLaTarea == idUsuario);
+            if (tareaExistente)
+                throw new Exception("Ya tienes una tarea con ese nombre");
+
             var tarea = TareaMapper.CrearEntidad(dto, idUsuario);
-            _repository.Guardar(tarea);
+            await _repository.Guardar(tarea);
         }
-        public void EditarTarea(int id, EditarTareaDTO dto)
+        public async Task EditarTarea(int id, EditarTareaDTO dto)
         {
-            var tareaFiltrada = _repository.ObtenerPorId(id);
-            MapearEdiccionTarea(tareaFiltrada, dto);
-            _repository.Guardar(tareaFiltrada);
+            var tareaFiltrada = await _repository.ObtenerPorId(id);
+            if(tareaFiltrada == null)
+            {
+                throw new Exception("La tarea filtrada no existe");
+            }
+            TareaMapper.ModificarEntidad(tareaFiltrada, dto);
+            await _repository.Guardar(tareaFiltrada);
         }
-        public void EliminarTarea(int id)
+        public async Task EliminarTarea(int id)
         {
-            var tareaFiltrada = _repository.ObtenerPorId(id);
+            var tareaFiltrada = await _repository.ObtenerPorId(id);
+            if (tareaFiltrada == null)
+            {
+                throw new Exception("La tarea filtrada no existe");
+            }
+            if(tareaFiltrada.EstaEliminado == true){
+                throw new Exception("La tarea filtrada ya está eliminada");
+            }
             TareaMapper.EliminarEntidad(tareaFiltrada);
-            _repository.Guardar(tareaFiltrada);
+            await _repository.Guardar(tareaFiltrada);
         }
     }
 }

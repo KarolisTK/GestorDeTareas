@@ -5,7 +5,7 @@ namespace GestorDeTareas.Mapper
 {
     public static class TareaMapper
     {
-        public static Tarea CrearEntidad(CrearTareaDTO dto, int idusuario)
+        public static Tarea CrearEntidad(TareaDTO dto, int idusuario)
         {
             return new Tarea
             (
@@ -29,7 +29,7 @@ namespace GestorDeTareas.Mapper
             tarea.TiposTarea = dto.TiposTarea ?? tarea.TiposTarea;
         }
 
-        public static Tarea ModificarEntidadDeTareaUrgente(Tarea tarea, CrearTareaDTO dto, TareaUrgente tareaUrgente)
+        public static Tarea ModificarEntidadDeTareaUrgente(Tarea tarea, TareaDTO dto, TareaUrgente tareaUrgente)
         {
             tarea.NombreTarea = dto.NombreTarea ?? tareaUrgente.NombreTarea;
             tarea.DescripcionTarea = dto.DescripcionTarea ?? tareaUrgente.DescripcionTarea;

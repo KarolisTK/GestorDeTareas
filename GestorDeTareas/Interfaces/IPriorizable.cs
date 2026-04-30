@@ -7,8 +7,8 @@ namespace GestorDeTareas.Interfaces
 {
     public interface IPriorizable
     {
-        void PriorizarTarea(int id, CrearTareaUrgenteDTO dto);
-        void QuitarPrioridadTarea(int id, CrearTareaDTO dto);
-        void CrearTareaUrgente(CrearTareaUrgenteDTO dto, int idUsuario);
+        Task PriorizarTarea(int id, CrearTareaUrgenteDTO dto);
+        Task QuitarPrioridadTarea(int id, TareaDTO dto);
+        Task CrearTareaUrgente(CrearTareaUrgenteDTO dto, int idUsuario);
     }
 }

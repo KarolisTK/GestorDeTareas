@@ -23,11 +23,10 @@ namespace GestorDeTareas.Controllers
         }
 
         [HttpPost("login")]
-        public IActionResult Login([FromBody] LoginDTO dto)
+        public async Task<IActionResult> Login([FromBody] LoginDTO dto)
         {
-            var usuario = _usuarioRepository.ObtenerTodos()
-                .FirstOrDefault(u => u.CorreoUsuario == dto.Correo && u.ContrasenaUsuario == dto.Contrasena);
-
+            var usuarios = await _usuarioRepository.ObtenerTodos();
+            var usuario = usuarios.FirstOrDefault(u => u.CorreoUsuario == dto.Correo && u.ContrasenaUsuario == dto.Contrasena);
             if (usuario == null)
                 return Unauthorized("Credenciales incorrectas");
 

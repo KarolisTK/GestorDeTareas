@@ -17,38 +17,38 @@ namespace GestorDeTareas.Controllers
         }
 
         [HttpGet]
-        public IActionResult ObtenerTodas()
+        public async Task<IActionResult> ObtenerTodas()
         {
-            var tareas = _tareaService.ObtenerTodas();
+            var tareas = await _tareaService.ObtenerTodas();
             return Ok(tareas);
         }
 
         [HttpGet("{id}")]
-        public IActionResult ObtenerSoloUnaPorId(int id)
+        public async Task<IActionResult> ObtenerSoloUnaPorId(int id)
         {
-            var tarea = _tareaService.ObtenerUnaTareaPorID(id);
+            var tarea = await _tareaService.ObtenerUnaTareaPorID(id);
             return Ok(tarea);
         }
 
         [HttpPost]
-        public IActionResult Crear([FromBody] CrearTareaDTO dto)
+        public async Task<IActionResult> Crear([FromBody] TareaDTO dto)
         {
             var idUsuario = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            _tareaService.CrearTarea(dto, idUsuario);
+            await _tareaService.CrearTarea(dto, idUsuario);
             return Ok();
         }
 
         [HttpPut("{id}")]
-        public IActionResult Editar(int id, [FromBody] EditarTareaDTO dto)
+        public async Task<IActionResult> Editar(int id, [FromBody] EditarTareaDTO dto)
         {
-            _tareaService.EditarTarea(id, dto);
+            await _tareaService.EditarTarea(id, dto);
             return NoContent();
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Eliminar(int id)
+        public async Task<IActionResult> Eliminar(int id)
         {
-            _tareaService.EliminarTarea(id);
+            await _tareaService.EliminarTarea(id);
             return NoContent();
         }
     }

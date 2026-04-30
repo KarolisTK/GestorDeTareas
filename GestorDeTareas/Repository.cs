@@ -1,5 +1,6 @@
 ﻿using GestorDeTareas.Interfaces;
 using GestorDeTareas.Models;
+using Microsoft.EntityFrameworkCore;
 namespace GestorDeTareas
 {
     public class Repository<T> : IRepositorio<T> where T : class, IEntidad
@@ -10,24 +11,24 @@ namespace GestorDeTareas
         {
             _context = context;
         }
-        public List<T> ObtenerTodos()
+        public async Task< List<T>> ObtenerTodos()
         {
-            return _context.Set<T>().ToList();
+            return await _context.Set<T>().ToListAsync();
         }
 
-        public T ObtenerPorId(int id)
+        public async Task<T> ObtenerPorId(int id)
         {
-            return _context.Set<T>().Find(id);
+            return await _context.Set<T>().FindAsync(id);
         }
 
-        public void Guardar(T entidad)
+        public async Task Guardar(T entidad)
         {
             if (entidad.Id != 0)
                 _context.Set<T>().Update(entidad);
             else
                 _context.Set<T>().Add(entidad);
 
-            _context.SaveChanges();
+           await _context.SaveChangesAsync();
 
         }
     }

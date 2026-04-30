@@ -13,11 +13,11 @@ namespace GestorDeTareas.Services
             _mapper = mapper;
         }
 
-        public virtual void Crear(TDto dto)
+        public virtual async Task Crear(TDto dto)
         {
             var idUsuarioSesion = Sesion.IdUsuarioSesionActiva;
             var entidad = _mapper.ToEntity(dto);
-            _repository.Guardar(entidad);
+            await _repository.Guardar(entidad);
         }
 
 
