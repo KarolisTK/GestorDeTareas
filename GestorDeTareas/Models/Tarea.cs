@@ -19,7 +19,7 @@ public class Tarea : IEntidad
     public int IdUsuarioDeLaTarea { get; set; }
 
     public Tarea() { }
-    public Tarea(string nombreTarea, string descripcionTarea, DateTime fechaCreacion,
+    public Tarea(string? nombreTarea, string? descripcionTarea, DateTime fechaCreacion,
                  EstadosTarea? estadosTarea, bool? estaEliminado, TiposTarea? tiposTarea, int idUsuario)
     {
         NombreTarea = nombreTarea;

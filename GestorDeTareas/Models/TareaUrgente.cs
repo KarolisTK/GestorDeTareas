@@ -14,7 +14,7 @@ namespace GestorDeTareas.Models
         public TareaUrgente() { }
         public TareaUrgente(string nombreTarea, string descripcionTarea, DateTime fechaCreacion, EstadosTarea? estadosTarea, bool? estaEliminado, TiposTarea? tiposTarea, int idUsuario, bool tienePrioridad, DateTime fechaLimite) : base(nombreTarea, descripcionTarea, fechaCreacion, estadosTarea, estaEliminado, tiposTarea, idUsuario)
         {
-            TiposTarea = tiposTarea;
+            TienePrioridad = tienePrioridad;
             FechaLimite = fechaLimite;
         }
 

@@ -41,7 +41,7 @@ namespace GestorDeTareas.Services
             var tareaSimple = new Tarea();
             var tareaSimpleModificada = TareaMapper.ModificarEntidadDeTareaUrgente(tareaSimple, dto, tareaUrgente);
             _repositoryBase.Guardar(tareaSimpleModificada);
-        }
+        }//Priorizar tarea y quitar prioridad se va a quedar como deuda técnica.
 
         public void CrearTareaUrgente(CrearTareaUrgenteDTO dto)
         {

@@ -6,7 +6,6 @@ namespace GestorDeTareas.Enums
 {
     public enum TiposTarea
     {
-        Base,
         Simple,
         Urgente,
     }
