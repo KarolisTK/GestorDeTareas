@@ -12,7 +12,7 @@ namespace GestorDeTareas.Models
     public class TareaUrgente : Tarea
     {
         public TareaUrgente() { }
-        public TareaUrgente(string nombreTarea, string descripcionTarea, DateTime fechaCreacion, EstadosTarea? estadosTarea, bool? estaEliminado, TiposTarea? tiposTarea, int idUsuario, bool tienePrioridad, DateTime fechaLimite) : base(nombreTarea, descripcionTarea, fechaCreacion, estadosTarea, estaEliminado, tiposTarea, idUsuario)
+        public TareaUrgente(string nombreTarea, string descripcionTarea, DateTime fechaCreacion, EstadosTarea? estadosTarea, bool? estaEliminado, TiposTarea? tiposTarea, int idUsuario, bool? tienePrioridad, DateTime fechaLimite) : base(nombreTarea, descripcionTarea, fechaCreacion, estadosTarea, estaEliminado, tiposTarea, idUsuario)
         {
             TienePrioridad = tienePrioridad;
             FechaLimite = fechaLimite;

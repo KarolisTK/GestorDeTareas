@@ -24,6 +24,10 @@ namespace GestorDeTareas.Services
         }
         public async Task PriorizarTarea(int id, CrearTareaUrgenteDTO dto)
         {
+            if (dto == null)
+            {
+                throw new Exception("Los datos para priorizar la tarea han llegado nulos");
+            }
             var tareaOriginal = await _repositoryBase.ObtenerPorId(id);
             if (tareaOriginal == null)
             {
@@ -39,6 +43,10 @@ namespace GestorDeTareas.Services
 
         public async Task QuitarPrioridadTarea(int id, TareaDTO dto)
         {
+            if (dto == null)
+            {
+                throw new Exception("Los datos para quitar la prioridad han llegado nulos");
+            }
             var tareaUrgente = await _repository.ObtenerPorId(id);
             if(tareaUrgente == null)
             {
@@ -54,7 +62,17 @@ namespace GestorDeTareas.Services
 
         public async Task CrearTareaUrgente(CrearTareaUrgenteDTO dto, int idUsuario)
         {
+            var tareas = await _repository.ObtenerTodos();
+            if (dto == null)
+            {
+                throw new Exception("Los datos para Crear la tarea urgente han llegado nulos");
+            }
             var tareaUrgente = TareaUrgenteMapper.CrearEntidad(dto, idUsuario);
+            var tareaExistente = tareas.Any(t => t.NombreTarea == dto.NombreTarea && t.IdUsuarioDeLaTarea == idUsuario);
+            if (tareaExistente)
+            {
+                throw new Exception("Esa tarea ya existe");
+            }
             await _repository.Guardar(tareaUrgente);
         }
     }

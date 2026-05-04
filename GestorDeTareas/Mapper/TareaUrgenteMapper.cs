@@ -27,15 +27,15 @@ namespace GestorDeTareas.Mapper
 
         public static TareaUrgente ModificarEntidad(TareaUrgente tareaUrgente, CrearTareaUrgenteDTO dto, Tarea tarea)
         {
-            tareaUrgente.NombreTarea = dto.NombreTarea ?? tarea.NombreTarea;
-            tareaUrgente.DescripcionTarea = dto.DescripcionTarea ?? tarea.DescripcionTarea;
+            tareaUrgente.NombreTarea = tarea.NombreTarea;
+            tareaUrgente.DescripcionTarea = tarea.DescripcionTarea;
             tareaUrgente.FechaCreacionTarea = tarea.FechaCreacionTarea;
-            tareaUrgente.EstadosTarea = dto.EstadosTarea ?? tarea.EstadosTarea;
+            tareaUrgente.EstadosTarea = tarea.EstadosTarea;
             tareaUrgente.EstaEliminado = false;
             tareaUrgente.TiposTarea = TiposTarea.Urgente;
             tareaUrgente.IdUsuarioDeLaTarea = tarea.IdUsuarioDeLaTarea;
             tareaUrgente.FechaLimite = dto.FechaLimite;
-            tareaUrgente.TienePrioridad = dto.TienePrioridad;
+            tareaUrgente.TienePrioridad = true;
             return tareaUrgente;
         }
     }

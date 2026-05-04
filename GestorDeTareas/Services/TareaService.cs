@@ -30,13 +30,18 @@ namespace GestorDeTareas
             var tareas = await _repository.ObtenerTodos();
             var tareaExistente = tareas.Any(t => t.NombreTarea == dto.NombreTarea && t.IdUsuarioDeLaTarea == idUsuario);
             if (tareaExistente)
-                throw new Exception("Ya tienes una tarea con ese nombre");
-
+            {
+                throw new Exception("Esa tarea ya existe");
+            }
             var tarea = TareaMapper.CrearEntidad(dto, idUsuario);
             await _repository.Guardar(tarea);
         }
         public async Task EditarTarea(int id, EditarTareaDTO dto)
         {
+            if(dto == null)
+            {
+                throw new Exception("El dto ha llegado nulo, no hay nada que editar.");
+            }
             var tareaFiltrada = await _repository.ObtenerPorId(id);
             if(tareaFiltrada == null)
             {

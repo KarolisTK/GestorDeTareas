@@ -7,6 +7,6 @@ namespace GestorDeTareas.DTOs
     public class CrearTareaUrgenteDTO : TareaDTO
     {
         public DateTime FechaLimite { get; set; }
-        public bool TienePrioridad { get; set; }
+        public bool? TienePrioridad { get; set; }
     }
 }
