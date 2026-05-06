@@ -1,1 +1,1 @@
-https://gestordetareas-7zep.onrender.com/swagger/index.html
+https://gestordetareasapi.dekarolis.com/swagger/index.html
