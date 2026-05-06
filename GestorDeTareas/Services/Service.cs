@@ -13,9 +13,9 @@ namespace GestorDeTareas.Services
             _mapper = mapper;
         }
 
-        public virtual async Task Crear(TDto dto)
+        public virtual async Task Crear(TDto dto, int IdUsuario)
         {
-            var idUsuarioSesion = Sesion.IdUsuarioSesionActiva;
+            var idUsuarioSesion = IdUsuario ;
             var entidad = _mapper.ToEntity(dto);
             await _repository.Guardar(entidad);
         }

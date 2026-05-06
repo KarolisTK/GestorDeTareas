@@ -26,8 +26,8 @@ namespace GestorDeTareas.Controllers
         public async Task<IActionResult> Login([FromBody] LoginDTO dto)
         {
             var usuarios = await _usuarioRepository.ObtenerTodos();
-            var usuario = usuarios.FirstOrDefault(u => u.CorreoUsuario == dto.Correo && u.ContrasenaUsuario == dto.Contrasena);
-            if (usuario == null)
+            var usuario = usuarios.FirstOrDefault(u => u.CorreoUsuario == dto.Correo);
+            if (usuario == null || !BCrypt.Net.BCrypt.Verify(dto.Contrasena, usuario.ContrasenaUsuario))
                 return Unauthorized("Credenciales incorrectas");
 
             var token = GenerarToken(usuario);

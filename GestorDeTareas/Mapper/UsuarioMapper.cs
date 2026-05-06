@@ -10,7 +10,7 @@ namespace GestorDeTareas.Mapper
             (
                 dto.NombreUsuario,
                 dto.CorreoUsuario,
-                dto.ContrasenaUsuario,
+                BCrypt.Net.BCrypt.HashPassword(dto.ContrasenaUsuario),
                 dto.EstaEliminado = false
             );
 

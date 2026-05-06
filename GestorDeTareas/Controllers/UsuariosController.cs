@@ -6,7 +6,6 @@ using System.Security.Claims;
 
 namespace GestorDeTareas.Controllers
 {
-    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class UsuariosController : ControllerBase
@@ -19,12 +18,14 @@ namespace GestorDeTareas.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Crear([FromBody] UsuarioDTO dto)
         {
             await _usuarioService.CrearUsuario(dto);
             return Ok();
         }
 
+        [Authorize]
         [HttpPut]
         public async Task<IActionResult> Editar([FromBody] EditarUsuarioDTO dto)
         {
@@ -33,6 +34,7 @@ namespace GestorDeTareas.Controllers
             return NoContent();
         }
 
+        [Authorize]
         [HttpDelete]
         public async Task<IActionResult> Eliminar()
         {
