@@ -27,7 +27,10 @@ namespace GestorDeTareas.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> ObtenerSoloUnaPorId(int id)
         {
+            var idUsuario = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             var tarea = await _tareaService.ObtenerUnaTareaPorID(id);
+            if (tarea.IdUsuarioDeLaTarea != idUsuario)
+                return Forbid();
             return Ok(tarea);
         }
 
@@ -42,7 +45,8 @@ namespace GestorDeTareas.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Editar(int id, [FromBody] EditarTareaDTO dto)
         {
-            await _tareaService.EditarTarea(id, dto);
+            var idUsuario = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            await _tareaService.EditarTarea(id, dto, idUsuario);
             return NoContent();
         }
 

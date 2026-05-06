@@ -85,7 +85,7 @@ public class TareaServiceTests
             .ReturnsAsync(new Tarea
             { IdTarea = 1, NombreTarea = "Tarea encontrada", IdUsuarioDeLaTarea = 1 });
         Assert.ThrowsAsync<Exception>(async () =>
-            await _service.EditarTarea(1, null));
+            await _service.EditarTarea(1, null, 1));
     }
 
     [Test]
@@ -103,7 +103,7 @@ public class TareaServiceTests
             TiposTarea = 0,
         };
         Assert.ThrowsAsync<Exception>(async () =>
-            await _service.EditarTarea(2, dto));
+            await _service.EditarTarea(2, dto, 1));
     }
 
     [Test]
@@ -120,7 +120,7 @@ public class TareaServiceTests
             EstaEliminado = false,
             TiposTarea = 0,
         };
-        await _service.EditarTarea(1, dto);
+        await _service.EditarTarea(1, dto, 1);
         var tareaEditara = await _service.ObtenerUnaTareaPorID(1);
         Assert.That(tareaEditara.NombreTarea, Is.EqualTo(dto.NombreTarea));
     }

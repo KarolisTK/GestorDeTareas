@@ -19,7 +19,9 @@ namespace GestorDeTareas.Mapper
         {
             usuario.NombreUsuario = dto.NombreUsuario ?? usuario.NombreUsuario;
             usuario.CorreoUsuario = dto.CorreoUsuario ?? usuario.CorreoUsuario;
-            usuario.ContrasenaUsuario = dto.ContrasenaUsuario ?? usuario.ContrasenaUsuario;
+            usuario.ContrasenaUsuario = dto.ContrasenaUsuario != null
+                ? BCrypt.Net.BCrypt.HashPassword(dto.ContrasenaUsuario)
+                : usuario.ContrasenaUsuario;
             usuario.EstaEliminado = dto.EstaEliminado ?? usuario.EstaEliminado;
         }
     }
