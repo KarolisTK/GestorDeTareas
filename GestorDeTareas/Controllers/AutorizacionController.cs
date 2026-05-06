@@ -48,7 +48,7 @@ namespace GestorDeTareas.Controllers
             var token = new JwtSecurityToken(
                 issuer: _config["Jwt:Issuer"],
                 claims: claims,
-                expires: DateTime.Now.AddHours(8),
+                expires: DateTime.UtcNow.AddHours(8),
                 signingCredentials: creds);
 
             return new JwtSecurityTokenHandler().WriteToken(token);

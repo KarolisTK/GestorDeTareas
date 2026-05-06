@@ -68,7 +68,7 @@ public class TareaServiceTests
             DescripcionTarea = "descripcion",
             EstadosTarea = 0,
             EstaEliminado = false,
-            FechaCreacionTarea = DateTime.Now,
+            FechaCreacionTarea = DateTime.UtcNow,
             TiposTarea = 0,
             IdUsuarioDeLaTarea = 1
         };
