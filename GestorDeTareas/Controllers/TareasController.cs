@@ -19,7 +19,8 @@ namespace GestorDeTareas.Controllers
         [HttpGet]
         public async Task<IActionResult> ObtenerTodas()
         {
-            var tareas = await _tareaService.ObtenerTodas();
+            var idUsuario = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            var tareas = await _tareaService.ObtenerTodas(idUsuario);
             return Ok(tareas);
         }
 

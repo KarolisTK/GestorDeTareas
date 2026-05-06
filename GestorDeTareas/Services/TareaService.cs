@@ -1,6 +1,7 @@
 ﻿using GestorDeTareas.DTOs;
 using GestorDeTareas.Interfaces;
 using GestorDeTareas.Mapper;
+using GestorDeTareas.Models;
 namespace GestorDeTareas
 {
     public class TareaService
@@ -12,9 +13,10 @@ namespace GestorDeTareas
             _repository = repository;
         }
 
-        public async Task< List<Tarea>> ObtenerTodas()
+        public async Task< List<Tarea>> ObtenerTodas(int idUsuario)
         {
-           return await _repository.ObtenerTodos();
+           var tareas = await _repository.ObtenerTodos();
+           return tareas.Where(t => t.IdUsuarioDeLaTarea == idUsuario).ToList();
         }
         public async Task< Tarea> ObtenerUnaTareaPorID(int idTarea)
         {
