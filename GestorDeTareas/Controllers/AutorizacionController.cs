@@ -22,7 +22,7 @@ namespace GestorDeTareas.Controllers
             _config = config;
         }
 
-        [HttpPost("login")]
+        [HttpPost("IniciarSesion")]
         public async Task<IActionResult> Login([FromBody] LoginDTO dto)
         {
             var usuarios = await _usuarioRepository.ObtenerTodos();

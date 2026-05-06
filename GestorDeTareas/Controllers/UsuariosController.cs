@@ -17,7 +17,7 @@ namespace GestorDeTareas.Controllers
             _usuarioService = usuarioService;
         }
 
-        [HttpPost]
+        [HttpPost("CrearUsuario")]
         [AllowAnonymous]
         public async Task<IActionResult> Crear([FromBody] UsuarioDTO dto)
         {
@@ -26,7 +26,7 @@ namespace GestorDeTareas.Controllers
         }
 
         [Authorize]
-        [HttpPut]
+        [HttpPut("EditarUsuario")]
         public async Task<IActionResult> Editar([FromBody] EditarUsuarioDTO dto)
         {
             var idUsuario = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
@@ -35,7 +35,7 @@ namespace GestorDeTareas.Controllers
         }
 
         [Authorize]
-        [HttpDelete]
+        [HttpDelete("EliminarUsuario")]
         public async Task<IActionResult> Eliminar()
         {
             var idUsuario = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
