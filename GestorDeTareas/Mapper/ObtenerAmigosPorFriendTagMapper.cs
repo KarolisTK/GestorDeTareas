@@ -9,6 +9,7 @@ namespace GestorDeTareas.Mapper
         {
             dto.NombreUsuario = usuario.NombreUsuario;
             dto.FriendTag = usuario.FriendTag;
+            dto.IdUsuario = usuario.IdUsuario;
         }
     }
 }
