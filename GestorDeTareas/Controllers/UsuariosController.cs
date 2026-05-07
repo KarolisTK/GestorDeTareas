@@ -6,7 +6,6 @@ using System.Security.Claims;
 
 namespace GestorDeTareas.Controllers
 {
-    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class UsuariosController : ControllerBase
@@ -18,14 +17,16 @@ namespace GestorDeTareas.Controllers
             _usuarioService = usuarioService;
         }
 
-        [HttpPost]
+        [HttpPost("CrearUsuario")]
+        [AllowAnonymous]
         public async Task<IActionResult> Crear([FromBody] UsuarioDTO dto)
         {
             await _usuarioService.CrearUsuario(dto);
             return Ok();
         }
 
-        [HttpPut]
+        [Authorize]
+        [HttpPut("EditarUsuario")]
         public async Task<IActionResult> Editar([FromBody] EditarUsuarioDTO dto)
         {
             var idUsuario = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
@@ -33,7 +34,8 @@ namespace GestorDeTareas.Controllers
             return NoContent();
         }
 
-        [HttpDelete]
+        [Authorize]
+        [HttpDelete("EliminarUsuario")]
         public async Task<IActionResult> Eliminar()
         {
             var idUsuario = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));

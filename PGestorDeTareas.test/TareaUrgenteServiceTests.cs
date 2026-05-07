@@ -69,7 +69,7 @@ public void SetUp()
         _repositorioMock.Setup(r => r.Guardar(It.IsAny<TareaUrgente>()))
             .Returns(Task.CompletedTask);
 
-        var dto = new CrearTareaUrgenteDTO { FechaLimite = DateTime.Now };
+        var dto = new CrearTareaUrgenteDTO { FechaLimite = DateTime.UtcNow };
         await _service.PriorizarTarea(1, dto);
 
         _repositorioBaseMock.Verify(r => r.Guardar(It.IsAny<Tarea>()), Times.Once);
@@ -116,7 +116,7 @@ public void SetUp()
                 NombreTarea = "Tarea",
                 DescripcionTarea = "descripcion",
                 TiposTarea = TiposTarea.Urgente,
-                FechaLimite = System.DateTime.Now,
+                FechaLimite = System.DateTime.UtcNow,
                 EstaEliminado = false
             });
 
@@ -163,8 +163,8 @@ public void SetUp()
             DescripcionTarea = "descripcion",
             EstadosTarea = 0,
             EstaEliminado = false,
-            FechaCreacionTarea = DateTime.Now,
-            FechaLimite = DateTime.Now,
+            FechaCreacionTarea = DateTime.UtcNow,
+            FechaLimite = DateTime.UtcNow,
             TiposTarea = 0,
             TienePrioridad = true,
             IdUsuarioDeLaTarea = 1

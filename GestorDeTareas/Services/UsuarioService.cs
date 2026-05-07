@@ -19,11 +19,11 @@ namespace GestorDeTareas.Services
         public async Task CrearUsuario(UsuarioDTO dto)
         {
             var usuarios = await _repository.ObtenerTodos();
-            var usuario = UsuarioMapper.CrearUsuario(dto);
-            if( usuarios.Any(u => u.CorreoUsuario == usuario.CorreoUsuario))
+            if (usuarios.Any(u => u.CorreoUsuario == dto.CorreoUsuario))
             {
                 throw new Exception("El correo ya está en uso");
             }
+            var usuario = UsuarioMapper.CrearUsuario(dto);
             await _repository.Guardar(usuario);
         }
         public async Task EditarUsuario(EditarUsuarioDTO dto, int IdUsuario)

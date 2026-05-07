@@ -2,16 +2,16 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
 namespace GestorDeTareas.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260430080503_MigracionInicial")]
+    [Migration("20260506105455_MigracionInicial")]
     partial class MigracionInicial
     {
         /// <inheritdoc />
@@ -20,32 +20,32 @@ namespace GestorDeTareas.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "10.0.7")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+                .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.Entity("GestorDeTareas.Models.Usuario", b =>
                 {
                     b.Property<int>("IdUsuario")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdUsuario"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("IdUsuario"));
 
                     b.Property<string>("ContrasenaUsuario")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("CorreoUsuario")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<bool?>("EstaEliminado")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<string>("NombreUsuario")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("IdUsuario");
 
@@ -56,36 +56,36 @@ namespace GestorDeTareas.Migrations
                 {
                     b.Property<int>("IdTarea")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdTarea"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("IdTarea"));
 
                     b.Property<string>("DescripcionTarea")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<bool?>("EstaEliminado")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<int?>("EstadosTarea")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<DateTime?>("FechaCreacionTarea")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("IdUsuarioDeLaTarea")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("NombreTarea")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<int>("TiposTarea")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.HasKey("IdTarea");
 
                     b.ToTable("Tareas");
 
-                    b.HasDiscriminator<int>("TiposTarea").HasValue(1);
+                    b.HasDiscriminator<int>("TiposTarea").HasValue(0);
 
                     b.UseTphMappingStrategy();
                 });
@@ -95,12 +95,12 @@ namespace GestorDeTareas.Migrations
                     b.HasBaseType("Tarea");
 
                     b.Property<DateTime?>("FechaLimite")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<bool?>("TienePrioridad")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
-                    b.HasDiscriminator().HasValue(2);
+                    b.HasDiscriminator().HasValue(1);
                 });
 #pragma warning restore 612, 618
         }

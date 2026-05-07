@@ -1,6 +1,8 @@
 ﻿using GestorDeTareas.DTOs;
 using GestorDeTareas.Interfaces;
 using GestorDeTareas.Mapper;
+using GestorDeTareas.Models;
+using System.Security.Claims;
 namespace GestorDeTareas
 {
     public class TareaService
@@ -12,9 +14,10 @@ namespace GestorDeTareas
             _repository = repository;
         }
 
-        public async Task< List<Tarea>> ObtenerTodas()
+        public async Task< List<Tarea>> ObtenerTodas(int idUsuario)
         {
-           return await _repository.ObtenerTodos();
+           var tareas = await _repository.ObtenerTodos();
+           return tareas.Where(t => t.IdUsuarioDeLaTarea == idUsuario).ToList();
         }
         public async Task< Tarea> ObtenerUnaTareaPorID(int idTarea)
         {
@@ -36,16 +39,22 @@ namespace GestorDeTareas
             var tarea = TareaMapper.CrearEntidad(dto, idUsuario);
             await _repository.Guardar(tarea);
         }
-        public async Task EditarTarea(int id, EditarTareaDTO dto)
+        public async Task EditarTarea(int id, EditarTareaDTO dto, int idUsuario)
         {
-            if(dto == null)
+            
+            if (dto == null)
             {
                 throw new Exception("El dto ha llegado nulo, no hay nada que editar.");
             }
+
             var tareaFiltrada = await _repository.ObtenerPorId(id);
             if(tareaFiltrada == null)
             {
                 throw new Exception("La tarea filtrada no existe");
+            }
+            if (tareaFiltrada.IdUsuarioDeLaTarea != idUsuario)
+            {
+                throw new Exception("La tarea que se está intentado editar no pertenece al usuario Logueado");
             }
             TareaMapper.ModificarEntidad(tareaFiltrada, dto);
             await _repository.Guardar(tareaFiltrada);

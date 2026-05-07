@@ -22,12 +22,12 @@ namespace GestorDeTareas.Controllers
             _config = config;
         }
 
-        [HttpPost("login")]
+        [HttpPost("IniciarSesion")]
         public async Task<IActionResult> Login([FromBody] LoginDTO dto)
         {
             var usuarios = await _usuarioRepository.ObtenerTodos();
-            var usuario = usuarios.FirstOrDefault(u => u.CorreoUsuario == dto.Correo && u.ContrasenaUsuario == dto.Contrasena);
-            if (usuario == null)
+            var usuario = usuarios.FirstOrDefault(u => u.CorreoUsuario == dto.Correo);
+            if (usuario == null || !BCrypt.Net.BCrypt.Verify(dto.Contrasena, usuario.ContrasenaUsuario))
                 return Unauthorized("Credenciales incorrectas");
 
             var token = GenerarToken(usuario);
@@ -48,7 +48,7 @@ namespace GestorDeTareas.Controllers
             var token = new JwtSecurityToken(
                 issuer: _config["Jwt:Issuer"],
                 claims: claims,
-                expires: DateTime.Now.AddHours(8),
+                expires: DateTime.UtcNow.AddHours(8),
                 signingCredentials: creds);
 
             return new JwtSecurityTokenHandler().WriteToken(token);

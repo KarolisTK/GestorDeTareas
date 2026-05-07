@@ -15,7 +15,7 @@ namespace GestorDeTareas.Mapper
             (
                 dto.NombreTarea,
                 dto.DescripcionTarea,
-                DateTime.Now,
+                DateTime.UtcNow,
                 dto.EstadosTarea,
                 dto.EstaEliminado = false,
                 TiposTarea.Urgente,
