@@ -21,5 +21,6 @@ namespace GestorDeTareas.DTOs
         [StringLength(100, MinimumLength = 15)]
         public string ContrasenaUsuario { get; set; }
         public bool? EstaEliminado {  get; set; }
+        public string? FriendTag { get; set; }
     }
 }

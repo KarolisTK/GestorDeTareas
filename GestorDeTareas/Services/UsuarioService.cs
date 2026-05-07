@@ -23,7 +23,12 @@ namespace GestorDeTareas.Services
             {
                 throw new Exception("El correo ya está en uso");
             }
-            var usuario = UsuarioMapper.CrearUsuario(dto);
+            var friendTag = dto.NombreUsuario[..3] + Random.Shared.Next(10000, 99999);
+            if(usuarios.Any(u => u.FriendTag == friendTag))
+            {
+                friendTag = friendTag + Random.Shared.Next(10000, 99999);
+            }
+            var usuario = UsuarioMapper.CrearUsuario(dto,friendTag);
             await _repository.Guardar(usuario);
         }
         public async Task EditarUsuario(EditarUsuarioDTO dto, int IdUsuario)

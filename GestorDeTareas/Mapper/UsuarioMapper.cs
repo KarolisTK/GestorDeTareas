@@ -4,14 +4,15 @@ namespace GestorDeTareas.Mapper
 {
     public class UsuarioMapper
     {
-        public static Usuario CrearUsuario( UsuarioDTO dto)
+        public static Usuario CrearUsuario( UsuarioDTO dto, string friendTag)
         {
             return new Usuario
             (
                 dto.NombreUsuario,
                 dto.CorreoUsuario,
                 BCrypt.Net.BCrypt.HashPassword(dto.ContrasenaUsuario),
-                dto.EstaEliminado = false
+                dto.EstaEliminado == false,
+                dto.FriendTag = friendTag
             );
 
         }
