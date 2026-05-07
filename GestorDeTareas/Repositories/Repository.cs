@@ -1,11 +1,11 @@
 ﻿using GestorDeTareas.Interfaces;
 using GestorDeTareas.Models;
 using Microsoft.EntityFrameworkCore;
-namespace GestorDeTareas
+namespace GestorDeTareas.Repositories
 {
     public class Repository<T> : IRepositorio<T> where T : class, IEntidad
     {
-        private readonly AppDbContext _context;
+        protected readonly AppDbContext _context;
 
         public Repository(AppDbContext context)
         {

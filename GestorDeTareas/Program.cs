@@ -1,6 +1,7 @@
 ﻿using GestorDeTareas;
 using GestorDeTareas.Interfaces;
 using GestorDeTareas.Models;
+using GestorDeTareas.Repositories;
 using GestorDeTareas.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -20,10 +21,12 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddScoped<IRepositorio<Tarea>, Repository<Tarea>>();
 builder.Services.AddScoped<IRepositorio<TareaUrgente>, Repository<TareaUrgente>>();
 builder.Services.AddScoped<IRepositorio<Usuario>, Repository<Usuario>>();
+builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 
 builder.Services.AddScoped<TareaService>();
 builder.Services.AddScoped<TareaUrgenteService>();
 builder.Services.AddScoped<UsuarioService>();
+builder.Services.AddScoped<AmigosService>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>

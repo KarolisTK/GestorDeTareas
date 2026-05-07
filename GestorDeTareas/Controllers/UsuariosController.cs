@@ -1,4 +1,6 @@
-﻿using GestorDeTareas.DTOs;
+﻿using Azure.Messaging;
+using GestorDeTareas.DTOs;
+using GestorDeTareas.Models;
 using GestorDeTareas.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -11,10 +13,12 @@ namespace GestorDeTareas.Controllers
     public class UsuariosController : ControllerBase
     {
         private readonly UsuarioService _usuarioService;
+        private readonly AmigosService _amigosService;
 
-        public UsuariosController(UsuarioService usuarioService)
+        public UsuariosController(UsuarioService usuarioService, AmigosService amigosService)
         {
             _usuarioService = usuarioService;
+            _amigosService = amigosService;
         }
 
         [HttpPost("CrearUsuario")]
@@ -41,6 +45,24 @@ namespace GestorDeTareas.Controllers
             var idUsuario = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             await _usuarioService.EliminarUsuario(idUsuario);
             return NoContent();
+        }
+
+        [Authorize]
+        [HttpGet("EncontrarAmigoPorFriendTag/{friendTag}")]
+        public async Task<ActionResult<Usuario>> EncontrarAmigoPorFriendTag(string friendTag)
+        {
+            var idUsuario = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            var usuario = await _usuarioService.ObtenerUnUsuarioPorID(idUsuario);
+            var amigoEncontrado = await _amigosService.BuscarAmigosPorFriendTag(friendTag);
+            if(amigoEncontrado == null)
+            {
+                return NotFound("No se encontró ningún usuario con ese FriendTag.");
+            }
+            if(amigoEncontrado.FriendTag == usuario.FriendTag)
+            {
+                return BadRequest("No puedes añadirte a ti mismo como amigo.");
+            }
+            return Ok(amigoEncontrado);
         }
     }
 }
