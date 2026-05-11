@@ -15,11 +15,13 @@ namespace GestorDeTareas.Controllers
     {
         private readonly UsuarioService _usuarioService;
         private readonly AmigosService _amigosService;
+        private readonly NotificacionesService _notificacionesService;
 
-        public UsuariosController(UsuarioService usuarioService, AmigosService amigosService)
+        public UsuariosController(UsuarioService usuarioService, AmigosService amigosService, NotificacionesService notificacionesService)
         {
             _usuarioService = usuarioService;
             _amigosService = amigosService;
+            _notificacionesService = notificacionesService;
         }
 
         [HttpPost("CrearUsuario")]
@@ -72,6 +74,7 @@ namespace GestorDeTareas.Controllers
         {
             var idUsuario = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             await _amigosService.EnviarSolicitudAmistad(idUsuario, idUsuarioReceptor);
+            await _notificacionesService.CrearNotificacion(TiposNotificaciones.Solicitud, idUsuario, idUsuarioReceptor);
             return Ok();
         }
 
