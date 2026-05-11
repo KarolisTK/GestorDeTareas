@@ -19,15 +19,15 @@ public class AppDbContext : DbContext
             .HasValue<TareaUrgente>(TiposTarea.Urgente);
 
         modelBuilder.Entity<Amigos>()
-            .HasOne(a => a.Usuario)
+            .HasOne(a => a.Emisor)
             .WithMany()
-            .HasForeignKey(a => a.IdUsuario)
+            .HasForeignKey(a => a.IdEmisor)
             .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<Amigos>()
-            .HasOne(a => a.Usuario2)
+            .HasOne(a => a.Receptor)
             .WithMany()
-            .HasForeignKey(a => a.IdUsuario2)
+            .HasForeignKey(a => a.IdReceptor)
             .OnDelete(DeleteBehavior.Restrict);
     }
 }

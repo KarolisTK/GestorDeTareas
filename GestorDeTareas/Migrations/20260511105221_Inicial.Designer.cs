@@ -11,8 +11,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace GestorDeTareas.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260507083505_NuevoCampoEnUsuarios")]
-    partial class NuevoCampoEnUsuarios
+    [Migration("20260511105221_Inicial")]
+    partial class Inicial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,6 +23,35 @@ namespace GestorDeTareas.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity("GestorDeTareas.Models.Amigos", b =>
+                {
+                    b.Property<int>("IdAmigos")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("IdAmigos"));
+
+                    b.Property<DateTime>("FechaInicioAmistad")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("IdEmisor")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("IdReceptor")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("TiposEstado")
+                        .HasColumnType("integer");
+
+                    b.HasKey("IdAmigos");
+
+                    b.HasIndex("IdEmisor");
+
+                    b.HasIndex("IdReceptor");
+
+                    b.ToTable("Amigos");
+                });
 
             modelBuilder.Entity("GestorDeTareas.Models.Usuario", b =>
                 {
@@ -104,6 +133,25 @@ namespace GestorDeTareas.Migrations
                         .HasColumnType("boolean");
 
                     b.HasDiscriminator().HasValue(1);
+                });
+
+            modelBuilder.Entity("GestorDeTareas.Models.Amigos", b =>
+                {
+                    b.HasOne("GestorDeTareas.Models.Usuario", "Emisor")
+                        .WithMany()
+                        .HasForeignKey("IdEmisor")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("GestorDeTareas.Models.Usuario", "Receptor")
+                        .WithMany()
+                        .HasForeignKey("IdReceptor")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Emisor");
+
+                    b.Navigation("Receptor");
                 });
 #pragma warning restore 612, 618
         }

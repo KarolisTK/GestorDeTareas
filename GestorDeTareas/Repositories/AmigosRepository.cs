@@ -14,14 +14,14 @@ namespace GestorDeTareas.Repositories
         public async Task<List<SolicitudAmistadDto>> ObtenerSolicitudesPendientes(int id)
         {
             return await _context.Amigos
-                .Include(a => a.Usuario) 
-                .Where(a => a.TiposEstado == TiposEstadoAmistad.Pendiente && a.IdUsuario2 == id)
+                .Include(a => a.IdEmisor) 
+                .Where(a => a.TiposEstado == TiposEstadoAmistad.Pendiente && a.IdReceptor == id)
                 .Select(a => new SolicitudAmistadDto
                 {
                     IdSolicitud = a.IdAmigos,
-                    IdSolicitante = a.IdUsuario,
-                    IdSolicitado = a.IdUsuario2,
-                    NombreSolicitante = a.Usuario.NombreUsuario,
+                    IdSolicitante = a.IdEmisor,
+                    IdSolicitado = a.IdReceptor,
+                    NombreSolicitante = a.Emisor.NombreUsuario,
                     FechaSolicitud = a.FechaInicioAmistad,
                     Estado = a.TiposEstado
                 })
@@ -31,9 +31,9 @@ namespace GestorDeTareas.Repositories
         public async Task<List<Amigos>> ObtenerAmigosDeUsuario(int idUsuario)
         {
             return await _context.Amigos
-                .Include(a => a.Usuario)
-                .Include(a => a.Usuario2)
-                .Where(a => (a.IdUsuario == idUsuario || a.IdUsuario2 == idUsuario)
+                .Include(a => a.Emisor)
+                .Include(a => a.Receptor)
+                .Where(a => (a.IdEmisor == idUsuario || a.IdReceptor == idUsuario)
                          && a.TiposEstado == TiposEstadoAmistad.Amigos)
                 .ToListAsync();
         }

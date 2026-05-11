@@ -11,10 +11,10 @@ namespace GestorDeTareas.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int IdAmigos { get; set; }
         public int Id => IdAmigos;
-        public int IdUsuario { get; set; }
-        public Usuario Usuario { get; set; }
-        public int IdUsuario2 { get; set; }
-        public Usuario Usuario2 { get; set; }
+        public int IdEmisor { get; set; }
+        public Usuario Emisor { get; set; }
+        public int IdReceptor { get; set; }
+        public Usuario Receptor { get; set; }
         public DateTime FechaInicioAmistad {  get; set; }
         public TiposEstadoAmistad TiposEstado  { get; set;}
 
@@ -22,10 +22,10 @@ namespace GestorDeTareas.Models
 
         public Amigos() { }
 
-        public Amigos(int idUsuario, int idUsuario2)
+        public Amigos(int idEmisor, int idReceptor)
         {
-            IdUsuario = idUsuario;
-            IdUsuario2 = idUsuario2;
+            IdEmisor = idEmisor;
+            IdReceptor = idReceptor;
             FechaInicioAmistad = DateTime.UtcNow;
             TiposEstado = TiposEstadoAmistad.Pendiente;
         }

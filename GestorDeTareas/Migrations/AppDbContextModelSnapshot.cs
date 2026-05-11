@@ -32,10 +32,10 @@ namespace GestorDeTareas.Migrations
                     b.Property<DateTime>("FechaInicioAmistad")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("IdUsuario")
+                    b.Property<int>("IdEmisor")
                         .HasColumnType("integer");
 
-                    b.Property<int>("IdUsuario2")
+                    b.Property<int>("IdReceptor")
                         .HasColumnType("integer");
 
                     b.Property<int>("TiposEstado")
@@ -43,9 +43,9 @@ namespace GestorDeTareas.Migrations
 
                     b.HasKey("IdAmigos");
 
-                    b.HasIndex("IdUsuario");
+                    b.HasIndex("IdEmisor");
 
-                    b.HasIndex("IdUsuario2");
+                    b.HasIndex("IdReceptor");
 
                     b.ToTable("Amigos");
                 });
@@ -134,21 +134,21 @@ namespace GestorDeTareas.Migrations
 
             modelBuilder.Entity("GestorDeTareas.Models.Amigos", b =>
                 {
-                    b.HasOne("GestorDeTareas.Models.Usuario", "Usuario")
+                    b.HasOne("GestorDeTareas.Models.Usuario", "Emisor")
                         .WithMany()
-                        .HasForeignKey("IdUsuario")
+                        .HasForeignKey("IdEmisor")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("GestorDeTareas.Models.Usuario", "Usuario2")
+                    b.HasOne("GestorDeTareas.Models.Usuario", "Receptor")
                         .WithMany()
-                        .HasForeignKey("IdUsuario2")
+                        .HasForeignKey("IdReceptor")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("Usuario");
+                    b.Navigation("Emisor");
 
-                    b.Navigation("Usuario2");
+                    b.Navigation("Receptor");
                 });
 #pragma warning restore 612, 618
         }

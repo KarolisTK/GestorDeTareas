@@ -36,7 +36,7 @@ namespace GestorDeTareas.Services
             var solicitud = await _amigosRepository.ObtenerPorId(idSolicitud);
             if (solicitud is null)
                 throw new KeyNotFoundException($"No existe una solicitud con id {idSolicitud}");
-            if (solicitud.IdUsuario2 != idUsuario)
+            if (solicitud.IdReceptor != idUsuario)
                 throw new UnauthorizedAccessException("No tienes permiso para tramitar esta solicitud.");
             if (solicitud.TiposEstado != TiposEstadoAmistad.Pendiente)
                 throw new InvalidOperationException("Esta solicitud ya fue tramitada.");
@@ -45,16 +45,16 @@ namespace GestorDeTareas.Services
             await _amigosRepository.Guardar(solicitud);
         }
 
-        public async Task<List<ListarAmigosDTO>> ListarTodosLosAmigos(int idUsuario)
+        public async Task<List<ListarAmigosDTO>> ListarTodosLosAmigos(int idEmisor)
         {
-            var amigos = await _amigosRepository.ObtenerAmigosDeUsuario(idUsuario);
+            var amigos = await _amigosRepository.ObtenerAmigosDeUsuario(idEmisor);
             return amigos.Select(a => new ListarAmigosDTO
             {
-                IdAmigo = a.IdUsuario == idUsuario ? a.IdUsuario2 : a.IdUsuario,
-                NombreAmigo = a.IdUsuario == idUsuario
-                    ? a.Usuario2.NombreUsuario
-                    : a.Usuario.NombreUsuario,
-                IdAmigoLogueado = idUsuario
+                IdAmigo = a.IdEmisor == idEmisor ? a.IdReceptor : a.IdEmisor,
+                NombreAmigo = a.IdEmisor == idEmisor
+                    ? a.Receptor.NombreUsuario
+                    : a.Emisor.NombreUsuario,
+                IdAmigoLogueado = idEmisor
             }).ToList();
         }
 
