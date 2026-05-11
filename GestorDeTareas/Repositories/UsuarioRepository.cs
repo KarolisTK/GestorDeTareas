@@ -1,5 +1,4 @@
 ﻿using GestorDeTareas.Interfaces;
-using GestorDeTareas.Mapper;
 using GestorDeTareas.Models;
 using Microsoft.EntityFrameworkCore;
 

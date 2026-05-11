@@ -1,5 +1,4 @@
 ﻿using GestorDeTareas.Models;
-using GestorDeTareas.Repositories;
 
 namespace GestorDeTareas.Interfaces
 {

@@ -19,9 +19,6 @@ public class AppDbContext : DbContext
             .HasValue<TareaUrgente>(TiposTarea.Urgente);
 
         modelBuilder.Entity<Amigos>()
-            .HasKey(a => new { a.IdUsuario, a.IdUsuario2 });
-
-        modelBuilder.Entity<Amigos>()
             .HasOne(a => a.Usuario)
             .WithMany()
             .HasForeignKey(a => a.IdUsuario)

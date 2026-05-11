@@ -1,15 +1,16 @@
 ﻿using GestorDeTareas.Enums;
+using GestorDeTareas.Interfaces;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GestorDeTareas.Models
 {
-    public class Amigos
+    public class Amigos : IEntidad
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-
         public int IdAmigos { get; set; }
+        public int Id => IdAmigos;
         public int IdUsuario { get; set; }
         public Usuario Usuario { get; set; }
         public int IdUsuario2 { get; set; }

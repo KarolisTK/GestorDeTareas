@@ -21,6 +21,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddScoped<IRepositorio<Tarea>, Repository<Tarea>>();
 builder.Services.AddScoped<IRepositorio<TareaUrgente>, Repository<TareaUrgente>>();
 builder.Services.AddScoped<IRepositorio<Usuario>, Repository<Usuario>>();
+builder.Services.AddScoped<IAmigosRepository, AmigosRepository>();
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 
 builder.Services.AddScoped<TareaService>();

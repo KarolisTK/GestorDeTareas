@@ -1,5 +1,6 @@
 ﻿using Azure.Messaging;
 using GestorDeTareas.DTOs;
+using GestorDeTareas.Enums;
 using GestorDeTareas.Models;
 using GestorDeTareas.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -63,6 +64,41 @@ namespace GestorDeTareas.Controllers
                 return BadRequest("No puedes añadirte a ti mismo como amigo.");
             }
             return Ok(amigoEncontrado);
+        }
+
+        [Authorize]
+        [HttpPost("EnviarSolicitudAmistad/{idUsuarioReceptor}")]
+        public async Task<IActionResult> EnviarSolicitudAmistad(int idUsuarioReceptor)
+        {
+            var idUsuario = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            await _amigosService.EnviarSolicitudAmistad(idUsuario, idUsuarioReceptor);
+            return Ok();
+        }
+
+        [Authorize]
+        [HttpPost("TramitarSolicitudAmistad/{idPeticionAmistad}/{ResolucionSolicitudAmistad}")]
+        public async Task<IActionResult> TramitarSolicitudAmistad(int idPeticionAmistad, TiposEstadoAmistad ResolucionSolicitudAmistad)
+        {
+			var idUsuario = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+			await _amigosService.TramitarSolicitudAmistad(idPeticionAmistad, ResolucionSolicitudAmistad, idUsuario);
+            return Ok();
+        }
+
+		[Authorize]
+		[HttpGet("ListarTodosLosAmigos")]
+		public async Task<ActionResult<List<ListarAmigosDTO>>> ListarTodosLosAmigos()
+		{
+			var idUsuario = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            return await _amigosService.ListarTodosLosAmigos(idUsuario);
+		}
+
+        [Authorize]
+        [HttpGet("ListarSolicitudesDeAmistad")]
+        public async Task<ActionResult<List<SolicitudAmistadDto>>> ListarSolicitudesDeAmistad()
+        {
+            var idUsuario = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            var Solicitudes = await  _amigosService.ListarSolicitudesDeAmistad(idUsuario);
+            return Solicitudes;
         }
     }
 }
