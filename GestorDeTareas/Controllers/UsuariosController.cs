@@ -83,7 +83,8 @@ namespace GestorDeTareas.Controllers
         public async Task<IActionResult> TramitarSolicitudAmistad(int idPeticionAmistad, TiposEstadoAmistad ResolucionSolicitudAmistad)
         {
 			var idUsuario = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-			await _amigosService.TramitarSolicitudAmistad(idPeticionAmistad, ResolucionSolicitudAmistad, idUsuario);
+			var tramite = await _amigosService.TramitarSolicitudAmistad(idPeticionAmistad, ResolucionSolicitudAmistad, idUsuario);
+            await _notificacionesService.CrearNotificacion(TiposNotificaciones.Solicitud, idUsuario, tramite.IdReceptor);
             return Ok();
         }
 

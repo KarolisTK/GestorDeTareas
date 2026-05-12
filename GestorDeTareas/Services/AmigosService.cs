@@ -31,7 +31,7 @@ namespace GestorDeTareas.Services
             await _amigosRepository.Guardar(envioCreado);
         }
 
-        public async Task TramitarSolicitudAmistad(int idSolicitud, TiposEstadoAmistad resolucionSolicitudAmistad, int idUsuario)
+        public async Task<Amigos> TramitarSolicitudAmistad(int idSolicitud, TiposEstadoAmistad resolucionSolicitudAmistad, int idUsuario)
         {
             var solicitud = await _amigosRepository.ObtenerPorId(idSolicitud);
             if (solicitud is null)
@@ -43,6 +43,7 @@ namespace GestorDeTareas.Services
 
             solicitud.TiposEstado = resolucionSolicitudAmistad;
             await _amigosRepository.Guardar(solicitud);
+            return solicitud;
         }
 
         public async Task<List<ListarAmigosDTO>> ListarTodosLosAmigos(int idEmisor)
