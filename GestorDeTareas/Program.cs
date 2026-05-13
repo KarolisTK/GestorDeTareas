@@ -24,6 +24,7 @@ builder.Services.AddScoped<IRepositorio<Usuario>, Repository<Usuario>>();
 builder.Services.AddScoped<IAmigosRepository, AmigosRepository>();
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 builder.Services.AddScoped<INotificacionesRepository, NotificacionesRepository>();
+builder.Services.AddScoped<IEspaciosDeTrabajoRepository, EspaciosDeTrabajoRepository>();
 
 
 builder.Services.AddScoped<TareaService>();
@@ -31,6 +32,7 @@ builder.Services.AddScoped<TareaUrgenteService>();
 builder.Services.AddScoped<UsuarioService>();
 builder.Services.AddScoped<AmigosService>();
 builder.Services.AddScoped<NotificacionesService>();
+builder.Services.AddScoped<EspaciosDeTrabajoService>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>

@@ -15,7 +15,8 @@ namespace GestorDeTareas.Mapper
                 dto.EstadosTarea,
                 dto.EstaEliminado,
                 dto.TiposTarea,
-                idusuario
+                idusuario,
+                dto.IdEspacioDeTrabajo
 
             );
 

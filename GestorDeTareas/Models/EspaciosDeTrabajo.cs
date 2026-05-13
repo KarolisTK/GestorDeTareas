@@ -1,6 +1,8 @@
-﻿namespace GestorDeTareas.Models
+﻿using GestorDeTareas.Interfaces;
+
+namespace GestorDeTareas.Models
 {
-    public class EspaciosDeTrabajo
+    public class EspaciosDeTrabajo : IEntidad
     {
         public int Id { get; set; }
         public string Nombre { get; set; }

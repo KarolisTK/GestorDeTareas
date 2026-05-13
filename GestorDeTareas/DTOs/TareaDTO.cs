@@ -20,5 +20,6 @@ namespace GestorDeTareas.DTOs
         public TiposTarea? TiposTarea {  get; set; }
         [Range(0, double.MaxValue)]
         public int IdUsuarioDeLaTarea { get; set; }
+        public int IdEspacioDeTrabajo { get; set; }
     }
 }

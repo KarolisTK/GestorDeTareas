@@ -23,7 +23,7 @@ public class Tarea : IEntidad
 
     public Tarea() { }
     public Tarea(string? nombreTarea, string? descripcionTarea, DateTime fechaCreacion,
-                 EstadosTarea? estadosTarea, bool? estaEliminado, TiposTarea? tiposTarea, int idUsuario)
+                 EstadosTarea? estadosTarea, bool? estaEliminado, TiposTarea? tiposTarea, int idUsuario, int idEspacioDeTrabajo)
     {
         NombreTarea = nombreTarea;
         DescripcionTarea = descripcionTarea;
@@ -32,6 +32,7 @@ public class Tarea : IEntidad
         EstaEliminado = estaEliminado;
         TiposTarea = tiposTarea;
         IdUsuarioDeLaTarea = idUsuario;
+        EspacioDeTrabajoId = idEspacioDeTrabajo;
     }
 }
 
