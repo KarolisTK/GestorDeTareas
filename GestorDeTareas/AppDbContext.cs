@@ -11,6 +11,7 @@ public class AppDbContext : DbContext
     public DbSet<TareaUrgente> TareasUrgentes { get; set; }
     public DbSet<Amigos> Amigos { get; set; }
     public DbSet<Notificaciones> Notificaciones { get; set; }
+    public DbSet<EspaciosDeTrabajo> EspaciosDeTrabajo { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

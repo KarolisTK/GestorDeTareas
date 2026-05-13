@@ -37,5 +37,10 @@ namespace GestorDeTareas.Services
             await _espaciosDeTrabajorepository.Guardar(espacioDeTrabajo);
 
         }
+
+        public async Task<List<MostrarEspaciosDeTrabajoDTO>> MostrarEspaciosDeTrabajoPorUsuario( int idUsuario)
+        {
+            return await _espaciosDeTrabajorepository.MostrarEspaciosDeTrabajo(idUsuario);
+        }
     }
 }

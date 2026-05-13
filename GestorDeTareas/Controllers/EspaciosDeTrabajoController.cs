@@ -42,5 +42,13 @@ namespace GestorDeTareas.Controllers
             await _espaciosDeTrabajoService.AniadirNuevoUsuarioAlEspacioDeTrabajo(dto);
             return Ok();
         }
+
+        [Authorize]
+        [HttpGet("MostrarEspaciosDeTrabajoPorUsuario")]
+        public async Task <ActionResult<List<MostrarEspaciosDeTrabajoDTO>>> MostrarEspaciosDeTrabajoPorUsuario()
+        {
+            var idUsuario = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            return await _espaciosDeTrabajoService.MostrarEspaciosDeTrabajoPorUsuario(idUsuario);
+        }
     }
 }
