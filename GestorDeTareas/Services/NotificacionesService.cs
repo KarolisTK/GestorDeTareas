@@ -47,7 +47,7 @@ namespace GestorDeTareas.Services
                 ContenidoNotificacion = contenidoNotificacion[tipoDeNotificacion],
                 MarcadoComoLeido = false
             };
-            _NotificacionesRepository.Guardar(notificacion);
+            await _NotificacionesRepository.Guardar(notificacion);
 
         }
 
@@ -55,7 +55,7 @@ namespace GestorDeTareas.Services
         {
            var notificacionAMarcar = await _NotificacionesRepository.ObtenerPorId(idNotificacion);
            notificacionAMarcar.MarcadoComoLeido = true;
-           _NotificacionesRepository.Guardar(notificacionAMarcar);
+           await _NotificacionesRepository.Guardar(notificacionAMarcar);
         }
 
         public async Task<List<ListarNotificacionesDTO>> ObtenerNotificacionesPorUsuario(int idUsuario)
