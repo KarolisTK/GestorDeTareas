@@ -21,7 +21,8 @@ namespace GestorDeTareas.Mapper
                 TiposTarea.Urgente,
                 idUsuario,
                 dto.TienePrioridad,
-                dto.FechaLimite
+                dto.FechaLimite,
+                dto.IdEspacioDeTrabajo
             );
         }
 
