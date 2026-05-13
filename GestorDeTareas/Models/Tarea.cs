@@ -1,6 +1,7 @@
 ﻿using GestorDeTareas.DTOs;
 using GestorDeTareas.Enums;
 using GestorDeTareas.Interfaces;
+using GestorDeTareas.Models;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -17,6 +18,8 @@ public class Tarea : IEntidad
     public bool? EstaEliminado { get; set; }
     public TiposTarea? TiposTarea { get; set; }
     public int IdUsuarioDeLaTarea { get; set; }
+    public int EspacioDeTrabajoId { get; set; }
+    public EspaciosDeTrabajo EspacioDeTrabajo { get; set; }
 
     public Tarea() { }
     public Tarea(string? nombreTarea, string? descripcionTarea, DateTime fechaCreacion,

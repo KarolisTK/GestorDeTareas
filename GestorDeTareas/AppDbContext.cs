@@ -42,5 +42,9 @@ public class AppDbContext : DbContext
             .WithMany()
             .HasForeignKey(a => a.IdReceptor)
             .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<EspaciosDeTrabajo>()
+            .HasMany(e => e.Usuarios)
+            .WithMany(u => u.EspaciosDeTrabajo);
     }
 }

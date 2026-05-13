@@ -17,6 +17,7 @@ namespace GestorDeTareas.Models
         public string ContrasenaUsuario { get; set; }
         public bool? EstaEliminado { get; set; }
         public string? FriendTag { get; set; }
+        public ICollection<EspaciosDeTrabajo> EspaciosDeTrabajo { get; set; } = new List<EspaciosDeTrabajo>();
         public Usuario() { }
         public Usuario( string nombreUsuario, string correoUsuario, string contrasenaUsuario, bool? estaEliminado, string? friendTag)
         {
