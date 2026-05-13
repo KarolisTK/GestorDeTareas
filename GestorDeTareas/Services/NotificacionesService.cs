@@ -1,4 +1,5 @@
-﻿using GestorDeTareas.Enums;
+﻿using GestorDeTareas.DTOs;
+using GestorDeTareas.Enums;
 using GestorDeTareas.Interfaces;
 using GestorDeTareas.Models;
 
@@ -48,6 +49,18 @@ namespace GestorDeTareas.Services
             };
             _NotificacionesRepository.Guardar(notificacion);
 
+        }
+
+        public async Task MarcarNotificacionesComoLeidas( int idNotificacion)
+        {
+           var notificacionAMarcar = await _NotificacionesRepository.ObtenerPorId(idNotificacion);
+           notificacionAMarcar.MarcadoComoLeido = true;
+           _NotificacionesRepository.Guardar(notificacionAMarcar);
+        }
+
+        public async Task<List<ListarNotificacionesDTO>> ObtenerNotificacionesPorUsuario(int idUsuario)
+        {
+            return await _NotificacionesRepository.ObtenerNotificacionesPorIdUsuario(idUsuario);
         }
     }
 }

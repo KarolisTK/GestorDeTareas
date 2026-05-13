@@ -104,5 +104,21 @@ namespace GestorDeTareas.Controllers
             var Solicitudes = await  _amigosService.ListarSolicitudesDeAmistad(idUsuario);
             return Solicitudes;
         }
+
+        [Authorize]
+        [HttpPost("MarcarNotificacionComoLeida")]
+        public async Task<IActionResult> MarcarNotificacionComoLeida([FromBody] int idNotificacion)
+        {
+            await _notificacionesService.MarcarNotificacionesComoLeidas(idNotificacion);
+            return Ok();
+        }
+
+        [Authorize]
+        [HttpGet("ListarNotificacionesPorUsuario")]
+        public async Task<ActionResult<List<ListarNotificacionesDTO>>> ListarNotificacionesPorUsuario()
+        {
+            var idUsuario = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            return await _notificacionesService.ObtenerNotificacionesPorUsuario(idUsuario);
+        }
     }
 }
