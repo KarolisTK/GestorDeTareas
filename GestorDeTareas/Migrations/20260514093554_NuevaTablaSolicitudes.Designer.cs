@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -10,9 +11,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace GestorDeTareas.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260514093554_NuevaTablaSolicitudes")]
+    partial class NuevaTablaSolicitudes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -130,6 +133,9 @@ namespace GestorDeTareas.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("IdSolicitud"));
 
+                    b.Property<int>("EmisorIdUsuario")
+                        .HasColumnType("integer");
+
                     b.Property<DateTime>("FechaSolicitud")
                         .HasColumnType("timestamp with time zone");
 
@@ -139,17 +145,17 @@ namespace GestorDeTareas.Migrations
                     b.Property<int>("IdReceptor")
                         .HasColumnType("integer");
 
-                    b.Property<int>("TiposEstado")
+                    b.Property<int>("ReceptorIdUsuario")
                         .HasColumnType("integer");
 
-                    b.Property<int>("TiposSolicitudes")
+                    b.Property<int>("TiposEstado")
                         .HasColumnType("integer");
 
                     b.HasKey("IdSolicitud");
 
-                    b.HasIndex("IdEmisor");
+                    b.HasIndex("EmisorIdUsuario");
 
-                    b.HasIndex("IdReceptor");
+                    b.HasIndex("ReceptorIdUsuario");
 
                     b.ToTable("Solicitudes");
                 });
@@ -298,14 +304,14 @@ namespace GestorDeTareas.Migrations
                 {
                     b.HasOne("GestorDeTareas.Models.Usuario", "Emisor")
                         .WithMany()
-                        .HasForeignKey("IdEmisor")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .HasForeignKey("EmisorIdUsuario")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("GestorDeTareas.Models.Usuario", "Receptor")
                         .WithMany()
-                        .HasForeignKey("IdReceptor")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .HasForeignKey("ReceptorIdUsuario")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Emisor");

@@ -16,12 +16,14 @@ namespace GestorDeTareas.Controllers
         private readonly UsuarioService _usuarioService;
         private readonly AmigosService _amigosService;
         private readonly NotificacionesService _notificacionesService;
+        private readonly SolicitudesService _solicitudesService;
 
-        public UsuariosController(UsuarioService usuarioService, AmigosService amigosService, NotificacionesService notificacionesService)
+        public UsuariosController(UsuarioService usuarioService, AmigosService amigosService, NotificacionesService notificacionesService, SolicitudesService solicitudesService)
         {
             _usuarioService = usuarioService;
             _amigosService = amigosService;
             _notificacionesService = notificacionesService;
+            _solicitudesService = solicitudesService;
         }
 
         [HttpPost("CrearUsuario")]
@@ -73,18 +75,23 @@ namespace GestorDeTareas.Controllers
         public async Task<IActionResult> EnviarSolicitudAmistad(int idUsuarioReceptor)
         {
             var idUsuario = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            await _amigosService.EnviarSolicitudAmistad(idUsuario, idUsuarioReceptor);
+            await _solicitudesService.EnviarSolicitudAmistad(idUsuario, idUsuarioReceptor);
             await _notificacionesService.CrearNotificacion(TiposNotificaciones.Solicitud, idUsuario, idUsuarioReceptor);
             return Ok();
         }
 
         [Authorize]
-        [HttpPost("TramitarSolicitudAmistad/{idPeticionAmistad}/{ResolucionSolicitudAmistad}")]
-        public async Task<IActionResult> TramitarSolicitudAmistad(int idPeticionAmistad, TiposEstadoAmistad ResolucionSolicitudAmistad)
+        [HttpPost("TramitarSolicitudAmistad/{idPeticionAmistad}/{resolucionSolicitud}")]
+        public async Task<IActionResult> TramitarSolicitudAmistad(int idPeticionAmistad, TipoEstadoSolicitud resolucionSolicitud)
         {
 			var idUsuario = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-			var tramite = await _amigosService.TramitarSolicitudAmistad(idPeticionAmistad, ResolucionSolicitudAmistad, idUsuario);
-            await _notificacionesService.CrearNotificacion(TiposNotificaciones.Solicitud, idUsuario, tramite.IdReceptor);
+			var tramite = await _solicitudesService.TramitarSolicitudAmistad(idPeticionAmistad, resolucionSolicitud, idUsuario);
+            if (resolucionSolicitud == TipoEstadoSolicitud.Aceptado)
+            {
+                await _amigosService.AceptarSolicitudAmistad(tramite.IdEmisor, idUsuario);
+                await _notificacionesService.CrearNotificacion(TiposNotificaciones.Solicitud, idUsuario, tramite.IdReceptor);
+            }
+                await _notificacionesService.CrearNotificacion(TiposNotificaciones.Rechazada, idUsuario, tramite.IdReceptor);
             return Ok();
         }
 
@@ -98,10 +105,10 @@ namespace GestorDeTareas.Controllers
 
         [Authorize]
         [HttpGet("ListarSolicitudesDeAmistad")]
-        public async Task<ActionResult<List<SolicitudAmistadDto>>> ListarSolicitudesDeAmistad()
+        public async Task<ActionResult<List<SolicitudesDTO>>> ListarSolicitudesDeAmistad()
         {
             var idUsuario = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            var Solicitudes = await  _amigosService.ListarSolicitudesDeAmistad(idUsuario);
+            var Solicitudes = await  _solicitudesService.ListarSolicitudes(idUsuario , TiposSolicitudes.Amistad);
             return Solicitudes;
         }
 

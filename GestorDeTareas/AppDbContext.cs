@@ -12,6 +12,7 @@ public class AppDbContext : DbContext
     public DbSet<Amigos> Amigos { get; set; }
     public DbSet<Notificaciones> Notificaciones { get; set; }
     public DbSet<EspaciosDeTrabajo> EspaciosDeTrabajo { get; set; }
+    public DbSet<Solicitudes> Solicitudes { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -27,6 +28,18 @@ public class AppDbContext : DbContext
             .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<Amigos>()
+            .HasOne(a => a.Receptor)
+            .WithMany()
+            .HasForeignKey(a => a.IdReceptor)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<Solicitudes>()
+            .HasOne(a => a.Emisor)
+            .WithMany()
+            .HasForeignKey(a => a.IdEmisor)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<Solicitudes>()
             .HasOne(a => a.Receptor)
             .WithMany()
             .HasForeignKey(a => a.IdReceptor)

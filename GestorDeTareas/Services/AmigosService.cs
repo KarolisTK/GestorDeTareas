@@ -25,25 +25,10 @@ namespace GestorDeTareas.Services
             return dto;
         }
 
-        public async Task EnviarSolicitudAmistad(int idUsuarioEmisor, int idUsuarioReceptor)
+        public async Task AceptarSolicitudAmistad(int idUsuarioEmisor, int idUsuarioReceptor)
         {
             var envioCreado = new Amigos(idUsuarioEmisor, idUsuarioReceptor);
             await _amigosRepository.Guardar(envioCreado);
-        }
-
-        public async Task<Amigos> TramitarSolicitudAmistad(int idSolicitud, TiposEstadoAmistad resolucionSolicitudAmistad, int idUsuario)
-        {
-            var solicitud = await _amigosRepository.ObtenerPorId(idSolicitud);
-            if (solicitud is null)
-                throw new KeyNotFoundException($"No existe una solicitud con id {idSolicitud}");
-            if (solicitud.IdReceptor != idUsuario)
-                throw new UnauthorizedAccessException("No tienes permiso para tramitar esta solicitud.");
-            if (solicitud.TiposEstado != TiposEstadoAmistad.Pendiente)
-                throw new InvalidOperationException("Esta solicitud ya fue tramitada.");
-
-            solicitud.TiposEstado = resolucionSolicitudAmistad;
-            await _amigosRepository.Guardar(solicitud);
-            return solicitud;
         }
 
         public async Task<List<ListarAmigosDTO>> ListarTodosLosAmigos(int idEmisor)
