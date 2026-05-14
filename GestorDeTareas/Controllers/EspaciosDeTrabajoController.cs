@@ -35,13 +35,13 @@ namespace GestorDeTareas.Controllers
             return Ok();
         }
 
-        [Authorize]
-        [HttpPost("AniadirNuevoUsuarioAlEspacioDeTrabajo")]
-        public async Task <IActionResult> AniadirNuevoUsuarioAlEspacioDeTrabajo([FromBody] AniadirNuevoUsuarioAlEspacioDeTrabajoDTO dto)
-        {
-            await _espaciosDeTrabajoService.AniadirNuevoUsuarioAlEspacioDeTrabajo(dto);
-            return Ok();
-        }
+        //[Authorize]
+        //[HttpPost("AniadirNuevoUsuarioAlEspacioDeTrabajo")]
+        //public async Task <IActionResult> AniadirNuevoUsuarioAlEspacioDeTrabajo([FromBody] AniadirNuevoUsuarioAlEspacioDeTrabajoDTO dto)
+        //{
+        //    await _espaciosDeTrabajoService.AniadirNuevoUsuarioAlEspacioDeTrabajo(dto);
+        //    return Ok();
+        //}
 
         [Authorize]
         [HttpGet("MostrarEspaciosDeTrabajoPorUsuario")]

@@ -18,16 +18,18 @@ namespace GestorDeTareas.Models
         public DateTime FechaSolicitud { get; set; }
         public TipoEstadoSolicitud TiposEstado { get; set; }
         public TiposSolicitudes TiposSolicitudes { get; set; }
+        public int? IdEspacioDeTrabajoACompartir { get; set; }
 
         public Solicitudes() { }
 
-        public Solicitudes(int idEmisor, int idReceptor, TiposSolicitudes tiposSolicitudes)
+        public Solicitudes(int idEmisor, int idReceptor, TiposSolicitudes tiposSolicitudes, int? idEspacioDeTrabajoACompartir)
         {
             IdEmisor = idEmisor;
             IdReceptor = idReceptor;
             FechaSolicitud = DateTime.UtcNow;
             TiposEstado = TipoEstadoSolicitud.Pendiente;
             TiposSolicitudes = tiposSolicitudes;
+            IdEspacioDeTrabajoACompartir = idEspacioDeTrabajoACompartir;
         }
     }
 }

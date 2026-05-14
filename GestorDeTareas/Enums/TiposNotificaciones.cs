@@ -7,7 +7,8 @@
         Rechazada,
         mensaje,
         invitacion,
-        aviso
+        aviso,
+        EntradaAEspacioDeTrabajo
 
     }
 }

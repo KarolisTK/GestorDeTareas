@@ -17,13 +17,15 @@ namespace GestorDeTareas.Controllers
         private readonly AmigosService _amigosService;
         private readonly NotificacionesService _notificacionesService;
         private readonly SolicitudesService _solicitudesService;
+        private readonly EspaciosDeTrabajoService _espaciosDeTrabajoService;
 
-        public UsuariosController(UsuarioService usuarioService, AmigosService amigosService, NotificacionesService notificacionesService, SolicitudesService solicitudesService)
+        public UsuariosController(UsuarioService usuarioService, AmigosService amigosService, NotificacionesService notificacionesService, SolicitudesService solicitudesService, EspaciosDeTrabajoService espaciosDeTrabajoService)
         {
             _usuarioService = usuarioService;
             _amigosService = amigosService;
             _notificacionesService = notificacionesService;
             _solicitudesService = solicitudesService;
+            _espaciosDeTrabajoService = espaciosDeTrabajoService;
         }
 
         [HttpPost("CrearUsuario")]
@@ -71,27 +73,41 @@ namespace GestorDeTareas.Controllers
         }
 
         [Authorize]
-        [HttpPost("EnviarSolicitudAmistad/{idUsuarioReceptor}")]
-        public async Task<IActionResult> EnviarSolicitudAmistad(int idUsuarioReceptor)
+        [HttpPost("EnviarSolicitud/{idUsuarioReceptor}/{tipoSolicitud}/{idespacioDeTrabajoACompartir?}")]
+        public async Task<IActionResult> EnviarSolicitud(int idUsuarioReceptor, TiposSolicitudes tipoSolicitud, int? idEspacioDeTrabajoACompartir)
         {
             var idUsuario = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            await _solicitudesService.EnviarSolicitudAmistad(idUsuario, idUsuarioReceptor);
+            await _solicitudesService.EnviarSolicitud(idUsuario, idUsuarioReceptor, tipoSolicitud, idEspacioDeTrabajoACompartir);
             await _notificacionesService.CrearNotificacion(TiposNotificaciones.Solicitud, idUsuario, idUsuarioReceptor);
             return Ok();
         }
 
         [Authorize]
-        [HttpPost("TramitarSolicitudAmistad/{idPeticionAmistad}/{resolucionSolicitud}")]
-        public async Task<IActionResult> TramitarSolicitudAmistad(int idPeticionAmistad, TipoEstadoSolicitud resolucionSolicitud)
+        [HttpPost("TramitarSolicitud/{idSolicitud}/{resolucionSolicitud}")]
+        public async Task<IActionResult> TramitarSolicitud(int idSolicitud, TipoEstadoSolicitud resolucionSolicitud)
         {
 			var idUsuario = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-			var tramite = await _solicitudesService.TramitarSolicitudAmistad(idPeticionAmistad, resolucionSolicitud, idUsuario);
-            if (resolucionSolicitud == TipoEstadoSolicitud.Aceptado)
+			var tramite = await _solicitudesService.TramitarSolicitud(idSolicitud, resolucionSolicitud, idUsuario);
+            if (resolucionSolicitud == TipoEstadoSolicitud.Aceptado && tramite.TiposSolicitudes == TiposSolicitudes.Amistad )
             {
                 await _amigosService.AceptarSolicitudAmistad(tramite.IdEmisor, idUsuario);
                 await _notificacionesService.CrearNotificacion(TiposNotificaciones.Solicitud, idUsuario, tramite.IdReceptor);
             }
+            if (resolucionSolicitud == TipoEstadoSolicitud.Aceptado && tramite.TiposSolicitudes == TiposSolicitudes.EspacioDeTrabajo)
+            {
+                var dto = new AniadirNuevoUsuarioAlEspacioDeTrabajoDTO
+                {
+                    idEspacioDeTrabajo = tramite.IdEspacioDeTrabajoACompartir.Value,
+                    idUsuario = idUsuario
+                };
+                await _espaciosDeTrabajoService.AniadirNuevoUsuarioAlEspacioDeTrabajo(dto);
+                await _notificacionesService.CrearNotificacion(TiposNotificaciones.EntradaAEspacioDeTrabajo, idUsuario, tramite.IdReceptor);
+            }
+            else
+            {
                 await _notificacionesService.CrearNotificacion(TiposNotificaciones.Rechazada, idUsuario, tramite.IdReceptor);
+            }
+                
             return Ok();
         }
 

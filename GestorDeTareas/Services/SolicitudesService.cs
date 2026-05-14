@@ -17,13 +17,13 @@ namespace GestorDeTareas.Services
             _usuarioRepository = usuarioRepository;
         }
 
-        public async Task EnviarSolicitudAmistad(int idUsuarioEmisor, int idUsuarioReceptor)
+        public async Task EnviarSolicitud(int idUsuarioEmisor, int idUsuarioReceptor, TiposSolicitudes tipoSolicitud, int? idEspacioDeTrabajoACompartir)
         {
-            var envioCreado = new Solicitudes(idUsuarioEmisor, idUsuarioReceptor, 0);
+            var envioCreado = new Solicitudes(idUsuarioEmisor, idUsuarioReceptor, tipoSolicitud, idEspacioDeTrabajoACompartir);
             await _solicitudesRepository.Guardar(envioCreado);
         }
 
-        public async Task<Solicitudes> TramitarSolicitudAmistad(int idSolicitud, TipoEstadoSolicitud resolucionSolicitudoSolicitud, int idUsuario)
+        public async Task<Solicitudes> TramitarSolicitud(int idSolicitud, TipoEstadoSolicitud resolucionSolicitudoSolicitud, int idUsuario)
         {
             var solicitud = await _solicitudesRepository.ObtenerPorId(idSolicitud);
             if (solicitud is null)

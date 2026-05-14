@@ -26,6 +26,7 @@ namespace GestorDeTareas.Services
                 { TiposNotificaciones.Solicitud, "solicitud de amistad " + usuarioEmisor.NombreUsuario },
                 { TiposNotificaciones.Aceptada, usuarioReceptor.NombreUsuario + " aceptada" },
                 { TiposNotificaciones.Rechazada, usuarioReceptor.NombreUsuario +  " rechazada" },
+                {TiposNotificaciones.EntradaAEspacioDeTrabajo, usuarioReceptor.NombreUsuario + "Ha entrado en tu espacio de trabajo" }
             };
             var contenidoNotificacion = new Dictionary<TiposNotificaciones, string>
             {
