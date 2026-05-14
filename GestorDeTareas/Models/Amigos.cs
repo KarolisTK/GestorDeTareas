@@ -27,7 +27,7 @@ namespace GestorDeTareas.Models
             IdEmisor = idEmisor;
             IdReceptor = idReceptor;
             FechaInicioAmistad = DateTime.UtcNow;
-            TiposEstado = TiposEstadoAmistad.Pendiente;
+            TiposEstado = TiposEstadoAmistad.Amigos;
         }
 
     }
