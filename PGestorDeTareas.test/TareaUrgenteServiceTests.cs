@@ -10,14 +10,15 @@ public class TareaUrgenteServiceTests
 {
 private Mock<IRepositorio<Tarea>> _repositorioBaseMock;
 private Mock<IRepositorio<TareaUrgente>> _repositorioMock;
-private TareaUrgenteService _service;
+private Mock<ITareasRepository> _tareasRepositoryMock;
+    private TareaUrgenteService _service;
 
 [SetUp]
 public void SetUp()
 {
     _repositorioBaseMock = new Mock<IRepositorio<Tarea>>();
     _repositorioMock = new Mock<IRepositorio<TareaUrgente>>();
-    _service = new TareaUrgenteService(_repositorioMock.Object, _repositorioBaseMock.Object);
+    _service = new TareaUrgenteService(_repositorioMock.Object, _repositorioBaseMock.Object, _tareasRepositoryMock.Object);
 }
 
     [Test]

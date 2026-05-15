@@ -8,12 +8,12 @@ public class TareaServiceTests
 {
     private Mock<IRepositorio<Tarea>> _repositorioMock;
     private TareaService _service;
-
+    private Mock<ITareasRepository> _tareasRepositoryMock;
     [SetUp]
     public void SetUp()
     {
         _repositorioMock = new Mock<IRepositorio<Tarea>>();
-        _service = new TareaService(_repositorioMock.Object);
+        _service = new TareaService(_repositorioMock.Object, _tareasRepositoryMock.Object);
     }
 
     [Test]

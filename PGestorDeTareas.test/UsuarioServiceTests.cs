@@ -9,13 +9,14 @@ using Moq;
 public class UsuarioServiceTests
 {
     private Mock<IRepositorio<Usuario>> _repositorioMock;
+    private Mock<IUsuarioRepository> _usuarioRepositoryMock;
     private UsuarioService _service;
 
     [SetUp]
     public void SetUp()
     {
         _repositorioMock = new Mock<IRepositorio<Usuario>>();
-        _service = new UsuarioService(_repositorioMock.Object);
+        _service = new UsuarioService(_repositorioMock.Object, _usuarioRepositoryMock.Object);
     }
 
     [Test]
