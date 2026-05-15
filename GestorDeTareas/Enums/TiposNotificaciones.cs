@@ -5,9 +5,9 @@
         Solicitud,
         Aceptada,
         Rechazada,
-        mensaje,
-        invitacion,
-        aviso,
+        Mensaje,
+        Invitacion,
+        Aviso,
         EntradaAEspacioDeTrabajo
 
     }

@@ -57,8 +57,8 @@ namespace GestorDeTareas.Services
             {
                 var dto = new AniadirNuevoUsuarioAlEspacioDeTrabajoDTO
                 {
-                    idEspacioDeTrabajo = solicitud.IdEspacioDeTrabajoACompartir.Value,
-                    idUsuario = idUsuario
+                    IdEspacioDeTrabajo = solicitud.IdEspacioDeTrabajoACompartir.Value,
+                    IdUsuario = idUsuario
                 };
                 await _espaciosDeTrabajoService.AniadirNuevoUsuarioAlEspacioDeTrabajo(dto);
                 await _notificacionesService.CrearNotificacion(TiposNotificaciones.EntradaAEspacioDeTrabajo, idUsuario, solicitud.IdEmisor);

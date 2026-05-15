@@ -30,8 +30,8 @@ namespace GestorDeTareas.Services
 
         public async Task AniadirNuevoUsuarioAlEspacioDeTrabajo(AniadirNuevoUsuarioAlEspacioDeTrabajoDTO dto)
         {
-            var espacioDeTrabajo = await _espaciosDeTrabajorepository.ObtenerPorId(dto.idEspacioDeTrabajo);
-            var usuarioAAñadir = await _usuarioRepository.ObtenerPorId(dto.idUsuario);
+            var espacioDeTrabajo = await _espaciosDeTrabajorepository.ObtenerPorId(dto.IdEspacioDeTrabajo);
+            var usuarioAAñadir = await _usuarioRepository.ObtenerPorId(dto.IdUsuario);
             espacioDeTrabajo.Usuarios.Add(usuarioAAñadir);
 
             await _espaciosDeTrabajorepository.Guardar(espacioDeTrabajo);

@@ -2,7 +2,7 @@
 {
     public class AniadirNuevoUsuarioAlEspacioDeTrabajoDTO
     {
-        public int idUsuario { get; set; }
-        public int idEspacioDeTrabajo { get; set; }
+        public int IdUsuario { get; set; }
+        public int IdEspacioDeTrabajo { get; set; }
     }
 }
