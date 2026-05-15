@@ -86,32 +86,12 @@ namespace GestorDeTareas.Controllers
         [HttpPost("TramitarSolicitud/{idSolicitud}/{resolucionSolicitud}")]
         public async Task<IActionResult> TramitarSolicitud(int idSolicitud, TipoEstadoSolicitud resolucionSolicitud)
         {
-			var idUsuario = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-			var tramite = await _solicitudesService.TramitarSolicitud(idSolicitud, resolucionSolicitud, idUsuario);
-            if (resolucionSolicitud == TipoEstadoSolicitud.Aceptado && tramite.TiposSolicitudes == TiposSolicitudes.Amistad )
-            {
-                await _amigosService.AceptarSolicitudAmistad(tramite.IdEmisor, idUsuario);
-                await _notificacionesService.CrearNotificacion(TiposNotificaciones.Solicitud, idUsuario, tramite.IdReceptor);
-            }
-            if (resolucionSolicitud == TipoEstadoSolicitud.Aceptado && tramite.TiposSolicitudes == TiposSolicitudes.EspacioDeTrabajo)
-            {
-                var dto = new AniadirNuevoUsuarioAlEspacioDeTrabajoDTO
-                {
-                    idEspacioDeTrabajo = tramite.IdEspacioDeTrabajoACompartir.Value,
-                    idUsuario = idUsuario
-                };
-                await _espaciosDeTrabajoService.AniadirNuevoUsuarioAlEspacioDeTrabajo(dto);
-                await _notificacionesService.CrearNotificacion(TiposNotificaciones.EntradaAEspacioDeTrabajo, idUsuario, tramite.IdReceptor);
-            }
-            else
-            {
-                await _notificacionesService.CrearNotificacion(TiposNotificaciones.Rechazada, idUsuario, tramite.IdReceptor);
-            }
-                
+            var idUsuario = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            await _solicitudesService.TramitarSolicitud(idSolicitud, resolucionSolicitud, idUsuario);
             return Ok();
         }
 
-		[Authorize]
+        [Authorize]
 		[HttpGet("ListarTodosLosAmigos")]
 		public async Task<ActionResult<List<ListarAmigosDTO>>> ListarTodosLosAmigos()
 		{
