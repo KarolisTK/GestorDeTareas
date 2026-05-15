@@ -1,4 +1,5 @@
 ﻿using GestorDeTareas.DTOs;
+using GestorDeTareas.Exceptions;
 using GestorDeTareas.Interfaces;
 using GestorDeTareas.Mapper;
 using GestorDeTareas.Models;
@@ -26,7 +27,7 @@ namespace GestorDeTareas
             var tareaFiltrada = await _repository.ObtenerPorId(idTarea);
             if(tareaFiltrada == null)
             {
-                throw new Exception("La tarea filtrada no existe");
+                throw new ConflictException("La tarea filtrada no existe");
             }
             return tareaFiltrada;
         }
@@ -36,7 +37,7 @@ namespace GestorDeTareas
             var tareaExistente = tareas.Any(t => t.NombreTarea == dto.NombreTarea && t.IdUsuarioDeLaTarea == idUsuario);
             if (tareaExistente)
             {
-                throw new Exception("Esa tarea ya existe");
+                throw new ConflictException("Esa tarea ya existe");
             }
             var tarea = TareaMapper.CrearEntidad(dto, idUsuario);
             await _repository.Guardar(tarea);
@@ -46,17 +47,17 @@ namespace GestorDeTareas
             
             if (dto == null)
             {
-                throw new Exception("El dto ha llegado nulo, no hay nada que editar.");
+                throw new ConflictException("El dto ha llegado nulo, no hay nada que editar.");
             }
 
             var tareaFiltrada = await _repository.ObtenerPorId(id);
             if(tareaFiltrada == null)
             {
-                throw new Exception("La tarea filtrada no existe");
+                throw new NotFoundException("La tarea filtrada no existe");
             }
             if (tareaFiltrada.IdUsuarioDeLaTarea != idUsuario)
             {
-                throw new Exception("La tarea que se está intentado editar no pertenece al usuario Logueado");
+                throw new ForbiddenException("La tarea que se está intentado editar no pertenece al usuario Logueado");
             }
             TareaMapper.ModificarEntidad(tareaFiltrada, dto);
             await _repository.Guardar(tareaFiltrada);
@@ -66,10 +67,10 @@ namespace GestorDeTareas
             var tareaFiltrada = await _repository.ObtenerPorId(id);
             if (tareaFiltrada == null)
             {
-                throw new Exception("La tarea filtrada no existe");
+                throw new NotFoundException("La tarea filtrada no existe");
             }
             if(tareaFiltrada.EstaEliminado == true){
-                throw new Exception("La tarea filtrada ya está eliminada");
+                throw new ConflictException("La tarea filtrada ya está eliminada");
             }
             TareaMapper.EliminarEntidad(tareaFiltrada);
             await _repository.Guardar(tareaFiltrada);

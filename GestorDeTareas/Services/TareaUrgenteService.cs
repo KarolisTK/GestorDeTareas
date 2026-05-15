@@ -1,5 +1,6 @@
 ﻿using GestorDeTareas.DTOs;
 using GestorDeTareas.Enums;
+using GestorDeTareas.Exceptions;
 using GestorDeTareas.Interfaces;
 using GestorDeTareas.Mapper;
 using GestorDeTareas.Models;
@@ -26,12 +27,12 @@ namespace GestorDeTareas.Services
         {
             if (dto == null)
             {
-                throw new Exception("Los datos para priorizar la tarea han llegado nulos");
+                throw new ForbiddenException("Los datos para priorizar la tarea han llegado nulos");
             }
             var tareaOriginal = await _repositoryBase.ObtenerPorId(id);
             if (tareaOriginal == null)
             {
-                throw new Exception("La tarea que se está intentando priorizar no existe");
+                throw new ForbiddenException("La tarea que se está intentando priorizar no existe");
             }
             tareaOriginal.EstaEliminado = true;
             await _repositoryBase.Guardar(tareaOriginal);
@@ -45,12 +46,12 @@ namespace GestorDeTareas.Services
         {
             if (dto == null)
             {
-                throw new Exception("Los datos para quitar la prioridad han llegado nulos");
+                throw new ForbiddenException("Los datos para quitar la prioridad han llegado nulos");
             }
             var tareaUrgente = await _repository.ObtenerPorId(id);
             if(tareaUrgente == null)
             {
-                throw new Exception("La tarea a la que se está intentando quitar prioridad no existe");
+                throw new ForbiddenException("La tarea a la que se está intentando quitar prioridad no existe");
             }
             tareaUrgente.EstaEliminado = true;
             await _repository.Guardar(tareaUrgente);
@@ -65,13 +66,13 @@ namespace GestorDeTareas.Services
             var tareas = await _repository.ObtenerTodos();
             if (dto == null)
             {
-                throw new Exception("Los datos para Crear la tarea urgente han llegado nulos");
+                throw new ForbiddenException("Los datos para Crear la tarea urgente han llegado nulos");
             }
             var tareaUrgente = TareaUrgenteMapper.CrearEntidad(dto, idUsuario);
             var tareaExistente = tareas.Any(t => t.NombreTarea == dto.NombreTarea && t.IdUsuarioDeLaTarea == idUsuario);
             if (tareaExistente)
             {
-                throw new Exception("Esa tarea ya existe");
+                throw new ConflictException("Esa tarea ya existe");
             }
             await _repository.Guardar(tareaUrgente);
         }

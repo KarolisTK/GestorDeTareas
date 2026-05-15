@@ -1,5 +1,6 @@
 ﻿using GestorDeTareas;
 using GestorDeTareas.Interfaces;
+using GestorDeTareas.Middleware;
 using GestorDeTareas.Models;
 using GestorDeTareas.Repositories;
 using GestorDeTareas.Services;
@@ -53,8 +54,12 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     });
 builder.Services.AddAuthorization();
 builder.WebHost.UseUrls("http://0.0.0.0:8080");
+
+
 var app = builder.Build();
 
+
+app.UseMiddleware<ErrorHandlingMiddleware>();
 app.UseSwagger();
 app.UseSwaggerUI();
 
