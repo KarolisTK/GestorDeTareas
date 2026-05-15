@@ -5,5 +5,6 @@ namespace GestorDeTareas.Interfaces
     public interface IUsuarioRepository : IRepositorio<Usuario>
     {
         Task<Usuario> ObtenerPorFriendTag(string friendTag);
+        Task<Usuario> ObtenerPorCorreo(string correoUsuario);
     }
 }

@@ -2,19 +2,27 @@
 using GestorDeTareas.Interfaces;
 using GestorDeTareas.Mapper;
 using GestorDeTareas.Models;
+using GestorDeTareas.Repositories;
 namespace GestorDeTareas.Services
 {
     public class UsuarioService
     {
         private readonly IRepositorio<Usuario> _repository;
+        private readonly IUsuarioRepository _usuarioRepository;
 
-        public UsuarioService(IRepositorio<Usuario> repository)
+        public UsuarioService(IRepositorio<Usuario> repository, IUsuarioRepository usuarioRepository)
         {
             _repository = repository;
+            _usuarioRepository = usuarioRepository;
         }
         public async Task<Usuario> ObtenerUnUsuarioPorID(int IdUsuario)
         {
             return await _repository.ObtenerPorId(IdUsuario);
+        }
+
+        public async Task<Usuario> ObtenerUsuarioPorCorreo(string correo)
+        {
+            return await _usuarioRepository.ObtenerPorCorreo(correo);
         }
         public async Task CrearUsuario(UsuarioDTO dto)
         {
