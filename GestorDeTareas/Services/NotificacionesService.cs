@@ -1,5 +1,6 @@
 ﻿using GestorDeTareas.DTOs;
 using GestorDeTareas.Enums;
+using GestorDeTareas.Exceptions;
 using GestorDeTareas.Interfaces;
 using GestorDeTareas.Models;
 
@@ -52,11 +53,16 @@ namespace GestorDeTareas.Services
 
         }
 
-        public async Task MarcarNotificacionesComoLeidas( int idNotificacion)
+        public async Task MarcarNotificacionesComoLeidas( int idNotificacion, int idUsuario)
         {
-           var notificacionAMarcar = await _NotificacionesRepository.ObtenerPorId(idNotificacion);
-           notificacionAMarcar.MarcadoComoLeido = true;
-           await _NotificacionesRepository.Guardar(notificacionAMarcar);
+            var notificacion = await _NotificacionesRepository.ObtenerPorId(idNotificacion);
+            if (notificacion is null)
+                throw new NotFoundException("La notificación no existe");
+            if (notificacion.IdReceptor != idUsuario)
+                throw new ForbiddenException("No tienes permiso para marcar esta notificación");
+
+            notificacion.MarcadoComoLeido = true;
+            await _NotificacionesRepository.Guardar(notificacion);
         }
 
         public async Task<List<ListarNotificacionesDTO>> ObtenerNotificacionesPorUsuario(int idUsuario)

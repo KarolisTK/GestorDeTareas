@@ -112,7 +112,8 @@ namespace GestorDeTareas.Controllers
         [HttpPost("MarcarNotificacionComoLeida")]
         public async Task<IActionResult> MarcarNotificacionComoLeida([FromBody] int idNotificacion)
         {
-            await _notificacionesService.MarcarNotificacionesComoLeidas(idNotificacion);
+            var idUsuario = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            await _notificacionesService.MarcarNotificacionesComoLeidas(idNotificacion, idUsuario);
             return Ok();
         }
 
