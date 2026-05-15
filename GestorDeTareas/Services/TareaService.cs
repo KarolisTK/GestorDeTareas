@@ -7,17 +7,19 @@ namespace GestorDeTareas
 {
     public class TareaService
     {
-        public readonly IRepositorio<Tarea> _repository;
+        private readonly IRepositorio<Tarea> _repository;
+        private readonly ITareasRepository _tareasRepository;
 
-        public TareaService(IRepositorio<Tarea> repository)
+        public TareaService(IRepositorio<Tarea> repository, ITareasRepository tareasRepository)
         {
             _repository = repository;
+            _tareasRepository = tareasRepository;
         }
 
-        public async Task< List<Tarea>> ObtenerTodas(int idUsuario)
+        public async Task< List<Tarea>> ObtenerTodas(int idEspacioDeTrabajo, int idUsuario)
         {
-           var tareas = await _repository.ObtenerTodos();
-           return tareas.Where(t => t.IdUsuarioDeLaTarea == idUsuario).ToList();
+           var tareas = await _tareasRepository.ObtenerPorEspacioYUsuario(idEspacioDeTrabajo,idUsuario);
+            return tareas;
         }
         public async Task< Tarea> ObtenerUnaTareaPorID(int idTarea)
         {

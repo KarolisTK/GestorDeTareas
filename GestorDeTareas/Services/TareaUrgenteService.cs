@@ -16,8 +16,8 @@ namespace GestorDeTareas.Services
         private readonly IRepositorio<TareaUrgente> _repository;
         public TareaUrgenteService(
             IRepositorio<TareaUrgente> repository,
-            IRepositorio<Tarea> repositorioBase)
-            : base(repositorioBase)
+            IRepositorio<Tarea> repositorioBase, ITareasRepository tareasRepository)
+            : base(repositorioBase, tareasRepository)
         {
             _repositoryBase = repositorioBase;
             _repository = repository;

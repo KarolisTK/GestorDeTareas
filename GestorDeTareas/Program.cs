@@ -26,6 +26,7 @@ builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 builder.Services.AddScoped<INotificacionesRepository, NotificacionesRepository>();
 builder.Services.AddScoped<IEspaciosDeTrabajoRepository, EspaciosDeTrabajoRepository>();
 builder.Services.AddScoped<ISolicitudesRepository, SolicitudesRepository>();
+builder.Services.AddScoped<ITareasRepository, TareasRepository>();
 
 
 builder.Services.AddScoped<TareaService>();

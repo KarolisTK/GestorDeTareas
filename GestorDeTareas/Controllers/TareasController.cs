@@ -16,11 +16,11 @@ namespace GestorDeTareas.Controllers
             _tareaService = tareaService;
         }
 
-        [HttpGet("ObtenerTodasLasTareas")]
-        public async Task<IActionResult> ObtenerTodas()
+        [HttpGet("ObtenerTodasLasTareas/{idEspacioDeTrabajo}")]
+        public async Task<IActionResult> ObtenerTodas(int idEspacioDeTrabajo)
         {
             var idUsuario = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            var tareas = await _tareaService.ObtenerTodas(idUsuario);
+            var tareas = await _tareaService.ObtenerTodas(idEspacioDeTrabajo, idUsuario);
             return Ok(tareas);
         }
 
