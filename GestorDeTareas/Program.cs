@@ -1,6 +1,8 @@
 ﻿using GestorDeTareas;
 using GestorDeTareas.Interfaces;
+using GestorDeTareas.Middleware;
 using GestorDeTareas.Models;
+using GestorDeTareas.Repositories;
 using GestorDeTareas.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -20,10 +22,20 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddScoped<IRepositorio<Tarea>, Repository<Tarea>>();
 builder.Services.AddScoped<IRepositorio<TareaUrgente>, Repository<TareaUrgente>>();
 builder.Services.AddScoped<IRepositorio<Usuario>, Repository<Usuario>>();
+builder.Services.AddScoped<IAmigosRepository, AmigosRepository>();
+builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+builder.Services.AddScoped<INotificacionesRepository, NotificacionesRepository>();
+builder.Services.AddScoped<IEspaciosDeTrabajoRepository, EspaciosDeTrabajoRepository>();
+builder.Services.AddScoped<ISolicitudesRepository, SolicitudesRepository>();
+builder.Services.AddScoped<ITareasRepository, TareasRepository>();
 
-builder.Services.AddScoped<TareaService>();
-builder.Services.AddScoped<TareaUrgenteService>();
-builder.Services.AddScoped<UsuarioService>();
+builder.Services.AddScoped<IUsuarioService, UsuarioService>();
+builder.Services.AddScoped<ITareaService, TareaService>();
+builder.Services.AddScoped<ITareaUrgenteService, TareaUrgenteService>();
+builder.Services.AddScoped<IAmigosService, AmigosService>();
+builder.Services.AddScoped<INotificacionesService, NotificacionesService>();
+builder.Services.AddScoped<IEspaciosDeTrabajoService, EspaciosDeTrabajoService>();
+builder.Services.AddScoped<ISolicitudesService, SolicitudesService>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -55,6 +67,8 @@ builder.Services.AddCors(options =>
 var app = builder.Build();
 
 app.UseCors("PermitirTodo");
+
+app.UseMiddleware<ErrorHandlingMiddleware>();
 app.UseSwagger();
 app.UseSwaggerUI();
 

@@ -1,6 +1,7 @@
 ﻿using GestorDeTareas.DTOs;
 using GestorDeTareas.Enums;
 using GestorDeTareas.Interfaces;
+using GestorDeTareas.Models;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -17,10 +18,12 @@ public class Tarea : IEntidad
     public bool? EstaEliminado { get; set; }
     public TiposTarea? TiposTarea { get; set; }
     public int IdUsuarioDeLaTarea { get; set; }
+    public int EspacioDeTrabajoId { get; set; }
+    public EspaciosDeTrabajo EspacioDeTrabajo { get; set; }
 
     public Tarea() { }
     public Tarea(string? nombreTarea, string? descripcionTarea, DateTime fechaCreacion,
-                 EstadosTarea? estadosTarea, bool? estaEliminado, TiposTarea? tiposTarea, int idUsuario)
+                 EstadosTarea? estadosTarea, bool? estaEliminado, TiposTarea? tiposTarea, int idUsuario, int idEspacioDeTrabajo)
     {
         NombreTarea = nombreTarea;
         DescripcionTarea = descripcionTarea;
@@ -29,6 +32,7 @@ public class Tarea : IEntidad
         EstaEliminado = estaEliminado;
         TiposTarea = tiposTarea;
         IdUsuarioDeLaTarea = idUsuario;
+        EspacioDeTrabajoId = idEspacioDeTrabajo;
     }
 }
 

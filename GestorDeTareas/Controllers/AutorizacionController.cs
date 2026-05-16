@@ -1,6 +1,7 @@
 ﻿using GestorDeTareas.DTOs;
 using GestorDeTareas.Interfaces;
 using GestorDeTareas.Models;
+using GestorDeTareas.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -13,20 +14,19 @@ namespace GestorDeTareas.Controllers
     [Route("api/[controller]")]
     public class AutorizacionController : Controller
     {
-        private readonly IRepositorio<Usuario> _usuarioRepository;
+        private readonly IUsuarioService _usuarioservice;
         private readonly IConfiguration _config;
 
-        public AutorizacionController(IRepositorio<Usuario> usuarioRepository, IConfiguration config)
+        public AutorizacionController(IUsuarioService usuarioService, IConfiguration config)
         {
-            _usuarioRepository = usuarioRepository;
+            _usuarioservice = usuarioService;
             _config = config;
         }
 
         [HttpPost("IniciarSesion")]
         public async Task<IActionResult> Login([FromBody] LoginDTO dto)
         {
-            var usuarios = await _usuarioRepository.ObtenerTodos();
-            var usuario = usuarios.FirstOrDefault(u => u.CorreoUsuario == dto.Correo);
+            var usuario = await _usuarioservice.ObtenerUsuarioPorCorreo(dto.Correo);
             if (usuario == null || !BCrypt.Net.BCrypt.Verify(dto.Contrasena, usuario.ContrasenaUsuario))
                 return Unauthorized("Credenciales incorrectas");
 

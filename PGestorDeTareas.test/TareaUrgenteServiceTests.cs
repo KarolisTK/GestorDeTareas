@@ -8,88 +8,34 @@ using Moq;
 [TestFixture]
 public class TareaUrgenteServiceTests
 {
-private Mock<IRepositorio<Tarea>> _repositorioBaseMock;
-private Mock<IRepositorio<TareaUrgente>> _repositorioMock;
-private TareaUrgenteService _service;
+    private Mock<ITareasRepository> _tareasRepositoryMock;
+    private Mock<IRepositorio<TareaUrgente>> _repositorioMock;
+    private TareaUrgenteService _service;
 
-[SetUp]
-public void SetUp()
-{
-    _repositorioBaseMock = new Mock<IRepositorio<Tarea>>();
-    _repositorioMock = new Mock<IRepositorio<TareaUrgente>>();
-    _service = new TareaUrgenteService(_repositorioMock.Object, _repositorioBaseMock.Object);
-}
+    [SetUp]
+    public void SetUp()
+    {
+        _tareasRepositoryMock = new Mock<ITareasRepository>();
+        _repositorioMock = new Mock<IRepositorio<TareaUrgente>>();
+        _service = new TareaUrgenteService(_repositorioMock.Object, _tareasRepositoryMock.Object);
+    }
 
     [Test]
     public async Task PriorizarTarea_CuandoElDTOLlegaNulo_LanzaExcepcion()
     {
-    _repositorioMock.Setup(r => r.ObtenerPorId(1))
-        .ReturnsAsync(new TareaUrgente
-        { IdTarea = 1, NombreTarea = "Tarea urgente", IdUsuarioDeLaTarea = 1 });
-    Assert.ThrowsAsync<Exception>(async () =>
-        await _service.PriorizarTarea(1, null));
-    }
-    [Test]
-
-    public async Task PriorizarTarea_CuandoNoEncuentraLaTarea_LanzaExcepcion()
-    {
-    _repositorioMock.Setup(r => r.ObtenerPorId(1))
-        .ReturnsAsync(new TareaUrgente
-        { IdTarea = 1, NombreTarea = "Tarea urgente", IdUsuarioDeLaTarea = 1 });
-
-    var dto = new CrearTareaUrgenteDTO
-    {
-        NombreTarea = "Tarea nueva",
-        DescripcionTarea = "descripcion",
-        EstadosTarea = 0,
-        EstaEliminado = false,
-        TiposTarea = 0,
-    };
-
-    Assert.ThrowsAsync<Exception>(async () =>
-        await _service.PriorizarTarea(2, dto));
-    }
-
-    [Test]
-    public async Task PriorizarTarea_EncuentraLaTareaYElDtoLlegaBien_PriorizaTarea()
-    {
-        _repositorioBaseMock.Setup(r => r.ObtenerPorId(1))
-            .ReturnsAsync(new Tarea
-            {
-                IdTarea = 1,
-                NombreTarea = "Tarea",
-                DescripcionTarea = "descripcion",
-                TiposTarea = TiposTarea.Simple,
-                EstaEliminado = false
-            });
-
-        _repositorioBaseMock.Setup(r => r.Guardar(It.IsAny<Tarea>()))
-            .Returns(Task.CompletedTask);
-
-        _repositorioMock.Setup(r => r.Guardar(It.IsAny<TareaUrgente>()))
-            .Returns(Task.CompletedTask);
-
-        var dto = new CrearTareaUrgenteDTO { FechaLimite = DateTime.UtcNow };
-        await _service.PriorizarTarea(1, dto);
-
-        _repositorioBaseMock.Verify(r => r.Guardar(It.IsAny<Tarea>()), Times.Once);
-        _repositorioMock.Verify(r => r.Guardar(It.IsAny<TareaUrgente>()), Times.Once);
-    }
-
-    [Test]
-    public async Task QuitarPrioridadTarea_CuandoElDTOLlegaNulo_LanzaExcepcion()
-    {
-        _repositorioMock.Setup(r => r.ObtenerPorId(1))
+        _tareasRepositoryMock.Setup(r => r.ObtenerPorId(1))
             .ReturnsAsync(new TareaUrgente
             { IdTarea = 1, NombreTarea = "Tarea urgente", IdUsuarioDeLaTarea = 1 });
-        Assert.ThrowsAsync<Exception>(async () =>
-            await _service.QuitarPrioridadTarea(1, null));
-    }
-    [Test]
 
-    public async Task QuitarPrioridadTarea_CuandoNoEncuentraLaTarea_LanzaExcepcion()
+        Assert.That(
+            async () => await _service.PriorizarTarea(1, null),
+            Throws.InstanceOf<Exception>());
+    }
+
+    [Test]
+    public async Task PriorizarTarea_CuandoNoEncuentraLaTarea_LanzaExcepcion()
     {
-        _repositorioMock.Setup(r => r.ObtenerPorId(1))
+        _tareasRepositoryMock.Setup(r => r.ObtenerPorId(1))
             .ReturnsAsync(new TareaUrgente
             { IdTarea = 1, NombreTarea = "Tarea urgente", IdUsuarioDeLaTarea = 1 });
 
@@ -102,12 +48,72 @@ public void SetUp()
             TiposTarea = 0,
         };
 
-        Assert.ThrowsAsync<Exception>(async () =>
-            await _service.QuitarPrioridadTarea(2, dto));
+        Assert.That(
+            async () => await _service.PriorizarTarea(2, dto),
+            Throws.InstanceOf<Exception>());
     }
 
     [Test]
-    public async Task QuitarPrioridadTarea_EncuentraLaTareaYElDtoLlegaBien_PriorizaTarea()
+    public async Task PriorizarTarea_EncuentraLaTareaYElDtoLlegaBien_PriorizaTarea()
+    {
+        _tareasRepositoryMock.Setup(r => r.ObtenerPorId(1))
+            .ReturnsAsync(new Tarea
+            {
+                IdTarea = 1,
+                NombreTarea = "Tarea",
+                DescripcionTarea = "descripcion",
+                TiposTarea = TiposTarea.Simple,
+                EstaEliminado = false
+            });
+
+        _tareasRepositoryMock.Setup(r => r.Guardar(It.IsAny<Tarea>()))
+            .Returns(Task.CompletedTask);
+
+        _repositorioMock.Setup(r => r.Guardar(It.IsAny<TareaUrgente>()))
+            .Returns(Task.CompletedTask);
+
+        var dto = new CrearTareaUrgenteDTO { FechaLimite = DateTime.UtcNow };
+        await _service.PriorizarTarea(1, dto);
+
+        _tareasRepositoryMock.Verify(r => r.Guardar(It.IsAny<Tarea>()), Times.Once);
+        _repositorioMock.Verify(r => r.Guardar(It.IsAny<TareaUrgente>()), Times.Once);
+    }
+
+    [Test]
+    public async Task QuitarPrioridadTarea_CuandoElDTOLlegaNulo_LanzaExcepcion()
+    {
+        _repositorioMock.Setup(r => r.ObtenerPorId(1))
+            .ReturnsAsync(new TareaUrgente
+            { IdTarea = 1, NombreTarea = "Tarea urgente", IdUsuarioDeLaTarea = 1 });
+
+        Assert.That(
+            async () => await _service.QuitarPrioridadTarea(1, null),
+            Throws.InstanceOf<Exception>());
+    }
+
+    [Test]
+    public async Task QuitarPrioridadTarea_CuandoNoEncuentraLaTarea_LanzaExcepcion()
+    {
+        _repositorioMock.Setup(r => r.ObtenerPorId(1))
+            .ReturnsAsync(new TareaUrgente
+            { IdTarea = 1, NombreTarea = "Tarea urgente", IdUsuarioDeLaTarea = 1 });
+
+        var dto = new TareaDTO
+        {
+            NombreTarea = "Tarea nueva",
+            DescripcionTarea = "descripcion",
+            EstadosTarea = 0,
+            EstaEliminado = false,
+            TiposTarea = 0,
+        };
+
+        Assert.That(
+            async () => await _service.QuitarPrioridadTarea(2, dto),
+            Throws.InstanceOf<Exception>());
+    }
+
+    [Test]
+    public async Task QuitarPrioridadTarea_EncuentraLaTareaYElDtoLlegaBien_QuitaPrioridad()
     {
         _repositorioMock.Setup(r => r.ObtenerPorId(1))
             .ReturnsAsync(new TareaUrgente
@@ -116,11 +122,11 @@ public void SetUp()
                 NombreTarea = "Tarea",
                 DescripcionTarea = "descripcion",
                 TiposTarea = TiposTarea.Urgente,
-                FechaLimite = System.DateTime.UtcNow,
+                FechaLimite = DateTime.UtcNow,
                 EstaEliminado = false
             });
 
-        _repositorioBaseMock.Setup(r => r.Guardar(It.IsAny<Tarea>()))
+        _tareasRepositoryMock.Setup(r => r.Guardar(It.IsAny<Tarea>()))
             .Returns(Task.CompletedTask);
 
         _repositorioMock.Setup(r => r.Guardar(It.IsAny<TareaUrgente>()))
@@ -129,7 +135,7 @@ public void SetUp()
         var dto = new TareaDTO { };
         await _service.QuitarPrioridadTarea(1, dto);
 
-        _repositorioBaseMock.Verify(r => r.Guardar(It.IsAny<Tarea>()), Times.Once);
+        _tareasRepositoryMock.Verify(r => r.Guardar(It.IsAny<Tarea>()), Times.Once);
         _repositorioMock.Verify(r => r.Guardar(It.IsAny<TareaUrgente>()), Times.Once);
     }
 
@@ -144,12 +150,13 @@ public void SetUp()
 
         var dto = new CrearTareaUrgenteDTO { NombreTarea = "Tarea urgente" };
 
-        Assert.ThrowsAsync<Exception>(async () =>
-            await _service.CrearTareaUrgente(dto, 1));
+        Assert.That(
+            async () => await _service.CrearTareaUrgente(dto, 1),
+            Throws.InstanceOf<Exception>());
     }
 
     [Test]
-    public async Task CrearTarea_CuandoNoExiste_GuardaCorrectamente()
+    public async Task CrearTareaUrgente_CuandoNoExiste_GuardaCorrectamente()
     {
         _repositorioMock.Setup(r => r.ObtenerTodos())
             .ReturnsAsync(new List<TareaUrgente>());

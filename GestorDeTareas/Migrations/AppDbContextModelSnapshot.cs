@@ -21,6 +21,142 @@ namespace GestorDeTareas.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("EspaciosDeTrabajoUsuario", b =>
+                {
+                    b.Property<int>("EspaciosDeTrabajoId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("UsuariosIdUsuario")
+                        .HasColumnType("integer");
+
+                    b.HasKey("EspaciosDeTrabajoId", "UsuariosIdUsuario");
+
+                    b.HasIndex("UsuariosIdUsuario");
+
+                    b.ToTable("EspaciosDeTrabajoUsuario");
+                });
+
+            modelBuilder.Entity("GestorDeTareas.Models.Amigos", b =>
+                {
+                    b.Property<int>("IdAmigos")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("IdAmigos"));
+
+                    b.Property<DateTime>("FechaInicioAmistad")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("IdEmisor")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("IdReceptor")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("TiposEstado")
+                        .HasColumnType("integer");
+
+                    b.HasKey("IdAmigos");
+
+                    b.HasIndex("IdEmisor");
+
+                    b.HasIndex("IdReceptor");
+
+                    b.ToTable("Amigos");
+                });
+
+            modelBuilder.Entity("GestorDeTareas.Models.EspaciosDeTrabajo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("EspaciosDeTrabajo");
+                });
+
+            modelBuilder.Entity("GestorDeTareas.Models.Notificaciones", b =>
+                {
+                    b.Property<int>("IdNotificacion")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("IdNotificacion"));
+
+                    b.Property<string>("ContenidoNotificacion")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("FechaCreacionNotificacion")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("IdEmisor")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("IdReceptor")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("MarcadoComoLeido")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("TipoNotificacion")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("TituloNotificacion")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("IdNotificacion");
+
+                    b.HasIndex("IdEmisor");
+
+                    b.HasIndex("IdReceptor");
+
+                    b.ToTable("Notificaciones");
+                });
+
+            modelBuilder.Entity("GestorDeTareas.Models.Solicitudes", b =>
+                {
+                    b.Property<int>("IdSolicitud")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("IdSolicitud"));
+
+                    b.Property<DateTime>("FechaSolicitud")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("IdEmisor")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("IdEspacioDeTrabajoACompartir")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("IdReceptor")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("TiposEstado")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("TiposSolicitudes")
+                        .HasColumnType("integer");
+
+                    b.HasKey("IdSolicitud");
+
+                    b.HasIndex("IdEmisor");
+
+                    b.HasIndex("IdReceptor");
+
+                    b.ToTable("Solicitudes");
+                });
+
             modelBuilder.Entity("GestorDeTareas.Models.Usuario", b =>
                 {
                     b.Property<int>("IdUsuario")
@@ -39,6 +175,9 @@ namespace GestorDeTareas.Migrations
 
                     b.Property<bool?>("EstaEliminado")
                         .HasColumnType("boolean");
+
+                    b.Property<string>("FriendTag")
+                        .HasColumnType("text");
 
                     b.Property<string>("NombreUsuario")
                         .IsRequired()
@@ -60,6 +199,9 @@ namespace GestorDeTareas.Migrations
                     b.Property<string>("DescripcionTarea")
                         .HasColumnType("text");
 
+                    b.Property<int>("EspacioDeTrabajoId")
+                        .HasColumnType("integer");
+
                     b.Property<bool?>("EstaEliminado")
                         .HasColumnType("boolean");
 
@@ -80,6 +222,8 @@ namespace GestorDeTareas.Migrations
 
                     b.HasKey("IdTarea");
 
+                    b.HasIndex("EspacioDeTrabajoId");
+
                     b.ToTable("Tareas");
 
                     b.HasDiscriminator<int>("TiposTarea").HasValue(0);
@@ -98,6 +242,94 @@ namespace GestorDeTareas.Migrations
                         .HasColumnType("boolean");
 
                     b.HasDiscriminator().HasValue(1);
+                });
+
+            modelBuilder.Entity("EspaciosDeTrabajoUsuario", b =>
+                {
+                    b.HasOne("GestorDeTareas.Models.EspaciosDeTrabajo", null)
+                        .WithMany()
+                        .HasForeignKey("EspaciosDeTrabajoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GestorDeTareas.Models.Usuario", null)
+                        .WithMany()
+                        .HasForeignKey("UsuariosIdUsuario")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("GestorDeTareas.Models.Amigos", b =>
+                {
+                    b.HasOne("GestorDeTareas.Models.Usuario", "Emisor")
+                        .WithMany()
+                        .HasForeignKey("IdEmisor")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("GestorDeTareas.Models.Usuario", "Receptor")
+                        .WithMany()
+                        .HasForeignKey("IdReceptor")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Emisor");
+
+                    b.Navigation("Receptor");
+                });
+
+            modelBuilder.Entity("GestorDeTareas.Models.Notificaciones", b =>
+                {
+                    b.HasOne("GestorDeTareas.Models.Usuario", "Emisor")
+                        .WithMany()
+                        .HasForeignKey("IdEmisor")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("GestorDeTareas.Models.Usuario", "Receptor")
+                        .WithMany()
+                        .HasForeignKey("IdReceptor")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Emisor");
+
+                    b.Navigation("Receptor");
+                });
+
+            modelBuilder.Entity("GestorDeTareas.Models.Solicitudes", b =>
+                {
+                    b.HasOne("GestorDeTareas.Models.Usuario", "Emisor")
+                        .WithMany()
+                        .HasForeignKey("IdEmisor")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("GestorDeTareas.Models.Usuario", "Receptor")
+                        .WithMany()
+                        .HasForeignKey("IdReceptor")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Emisor");
+
+                    b.Navigation("Receptor");
+                });
+
+            modelBuilder.Entity("Tarea", b =>
+                {
+                    b.HasOne("GestorDeTareas.Models.EspaciosDeTrabajo", "EspacioDeTrabajo")
+                        .WithMany("Tareas")
+                        .HasForeignKey("EspacioDeTrabajoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("EspacioDeTrabajo");
+                });
+
+            modelBuilder.Entity("GestorDeTareas.Models.EspaciosDeTrabajo", b =>
+                {
+                    b.Navigation("Tareas");
                 });
 #pragma warning restore 612, 618
         }

@@ -8,38 +8,40 @@ using Moq;
 [TestFixture]
 public class UsuarioServiceTests
 {
-    private Mock<IRepositorio<Usuario>> _repositorioMock;
+    private Mock<IUsuarioRepository> _usuarioRepositoryMock;
     private UsuarioService _service;
 
     [SetUp]
     public void SetUp()
     {
-        _repositorioMock = new Mock<IRepositorio<Usuario>>();
-        _service = new UsuarioService(_repositorioMock.Object);
+        _usuarioRepositoryMock = new Mock<IUsuarioRepository>();
+        _service = new UsuarioService(_usuarioRepositoryMock.Object);
     }
 
     [Test]
     public async Task CrearUsuario_CuandoYaExiste_LanzaExcepcion()
     {
-        _repositorioMock.Setup(r => r.ObtenerTodos())
-            .ReturnsAsync(new List<Usuario>
-            {
-                new Usuario {IdUsuario = 1 ,NombreUsuario = "nombre", CorreoUsuario = "correo@gmail.com", ContrasenaUsuario = "UsuarioContrasena21" }
-            });
+        _usuarioRepositoryMock.Setup(r => r.ObtenerPorCorreo("correo@gmail.com"))
+            .ReturnsAsync(new Usuario
+            { IdUsuario = 1, NombreUsuario = "nombre", CorreoUsuario = "correo@gmail.com", ContrasenaUsuario = "UsuarioContrasena21" });
 
         var dto = new UsuarioDTO { CorreoUsuario = "correo@gmail.com" };
 
-        Assert.ThrowsAsync<Exception>(async () =>
-            await _service.CrearUsuario(dto));
+        Assert.That(
+            async () => await _service.CrearUsuario(dto),
+            Throws.InstanceOf<Exception>());
     }
 
     [Test]
     public async Task CrearUsuario_CuandoNoExiste_GuardaCorrectamente()
     {
-        _repositorioMock.Setup(r => r.ObtenerTodos())
-            .ReturnsAsync(new List<Usuario>());
+        _usuarioRepositoryMock.Setup(r => r.ObtenerPorCorreo("dfdfdfdf@gmail.com"))
+            .ReturnsAsync((Usuario)null);
 
-        _repositorioMock.Setup(r => r.Guardar(It.IsAny<Usuario>()))
+        _usuarioRepositoryMock.Setup(r => r.ObtenerPorFriendTag(It.IsAny<string>()))
+            .ReturnsAsync((Usuario)null);
+
+        _usuarioRepositoryMock.Setup(r => r.Guardar(It.IsAny<Usuario>()))
             .Returns(Task.CompletedTask);
 
         var dto = new UsuarioDTO
@@ -51,78 +53,84 @@ public class UsuarioServiceTests
 
         await _service.CrearUsuario(dto);
 
-        _repositorioMock.Verify(r => r.Guardar(It.IsAny<Usuario>()), Times.Once);
+        _usuarioRepositoryMock.Verify(r => r.Guardar(It.IsAny<Usuario>()), Times.Once);
     }
 
     [Test]
     public async Task EditaUsuario_CuandoElDTOLlegaNulo_LanzaExcepcion()
     {
-        _repositorioMock.Setup(r => r.ObtenerPorId(1))
+        _usuarioRepositoryMock.Setup(r => r.ObtenerPorId(1))
             .ReturnsAsync(new Usuario
             { IdUsuario = 1, CorreoUsuario = "dfdfdfdf@gmail.com", ContrasenaUsuario = "dfdfdfdfdfdfdfdfdfdf" });
-        Assert.ThrowsAsync<Exception>(async () =>
-            await _service.EditarUsuario(null, 1));
+
+        Assert.That(
+            async () => await _service.EditarUsuario(null, 1),
+            Throws.InstanceOf<Exception>());
     }
 
     [Test]
     public async Task EditaUsuario_CuandoNoEncunetraUsuario_LanzaExcepcion()
     {
-        _repositorioMock.Setup(r => r.ObtenerPorId(1))
+        _usuarioRepositoryMock.Setup(r => r.ObtenerPorId(1))
             .ReturnsAsync(new Usuario
             { IdUsuario = 1, CorreoUsuario = "dfdfdfdf@gmail.com", ContrasenaUsuario = "dfdfdfdfdfdfdfdfdfdf" });
-        var dto = new EditarUsuarioDTO
-        {
-            NombreUsuario = "editado",
-        };
-        Assert.ThrowsAsync<Exception>(async () =>
-            await _service.EditarUsuario(dto, 2));
+
+        var dto = new EditarUsuarioDTO { NombreUsuario = "editado" };
+
+        Assert.That(
+            async () => await _service.EditarUsuario(dto, 2),
+            Throws.InstanceOf<Exception>());
     }
 
     [Test]
     public async Task EditaUsuario_PuedeEditarUsuario_Edita()
     {
-        _repositorioMock.Setup(r => r.ObtenerPorId(1))
+        _usuarioRepositoryMock.Setup(r => r.ObtenerPorId(1))
             .ReturnsAsync(new Usuario
-            { IdUsuario = 1, NombreUsuario ="Usuario", CorreoUsuario = "dfdfdfdf@gmail.com", ContrasenaUsuario = "dfdfdfdfdfdfdfdfdfdf" });
-        var dto = new EditarUsuarioDTO
-        {
-            NombreUsuario = "editado",
-        };
+            { IdUsuario = 1, NombreUsuario = "Usuario", CorreoUsuario = "dfdfdfdf@gmail.com", ContrasenaUsuario = "dfdfdfdfdfdfdfdfdfdf" });
+
+        var dto = new EditarUsuarioDTO { NombreUsuario = "editado" };
+
         await _service.EditarUsuario(dto, 1);
-        var tareaEditara = await _service.ObtenerUnUsuarioPorID(1);
-        Assert.That(tareaEditara.NombreUsuario, Is.EqualTo(dto.NombreUsuario));
+
+        var usuarioEditado = await _service.ObtenerUnUsuarioPorID(1);
+        Assert.That(usuarioEditado.NombreUsuario, Is.EqualTo(dto.NombreUsuario));
     }
 
     [Test]
     public async Task EliminaUsuario_CuandoNoEncunetraUsuario_LanzaExcepcion()
     {
-        _repositorioMock.Setup(r => r.ObtenerPorId(1))
+        _usuarioRepositoryMock.Setup(r => r.ObtenerPorId(1))
             .ReturnsAsync(new Usuario
-            { IdUsuario = 1, NombreUsuario = "Usuario", CorreoUsuario = "dfdfdfdf@gmail.com", ContrasenaUsuario = "dfdfdfdfdfdfdfdfdfdf" ,EstaEliminado = false});
+            { IdUsuario = 1, NombreUsuario = "Usuario", CorreoUsuario = "dfdfdfdf@gmail.com", ContrasenaUsuario = "dfdfdfdfdfdfdfdfdfdf", EstaEliminado = false });
 
-        Assert.ThrowsAsync<Exception>(async () =>
-            await _service.EliminarUsuario(2));
+        Assert.That(
+            async () => await _service.EliminarUsuario(2),
+            Throws.InstanceOf<Exception>());
     }
 
     [Test]
     public async Task EliminaUsuario_CuandoElUsuarioYaEstaEliminado_LanzaExcepcion()
     {
-        _repositorioMock.Setup(r => r.ObtenerPorId(1))
+        _usuarioRepositoryMock.Setup(r => r.ObtenerPorId(1))
             .ReturnsAsync(new Usuario
             { IdUsuario = 1, NombreUsuario = "Usuario", CorreoUsuario = "dfdfdfdf@gmail.com", ContrasenaUsuario = "dfdfdfdfdfdfdfdfdfdf", EstaEliminado = true });
 
-        Assert.ThrowsAsync<Exception>(async () =>
-            await _service.EliminarUsuario(1));
+        Assert.That(
+            async () => await _service.EliminarUsuario(1),
+            Throws.InstanceOf<Exception>());
     }
 
     [Test]
-    public async Task EliminaUsuario_EncuentraElUsuarioYNoEstaEliminado_EliminaTarea()
+    public async Task EliminaUsuario_EncuentraElUsuarioYNoEstaEliminado_EliminaUsuario()
     {
-        _repositorioMock.Setup(r => r.ObtenerPorId(1))
+        _usuarioRepositoryMock.Setup(r => r.ObtenerPorId(1))
             .ReturnsAsync(new Usuario
             { IdUsuario = 1, NombreUsuario = "Usuario", CorreoUsuario = "dfdfdfdf@gmail.com", ContrasenaUsuario = "dfdfdfdfdfdfdfdfdfdf", EstaEliminado = false });
+
         await _service.EliminarUsuario(1);
-        var tareaEliminada = await _service.ObtenerUnUsuarioPorID(1);
-        Assert.That(tareaEliminada.EstaEliminado, Is.EqualTo(true));
+
+        var usuarioEliminado = await _service.ObtenerUnUsuarioPorID(1);
+        Assert.That(usuarioEliminado.EstaEliminado, Is.EqualTo(true));
     }
 }

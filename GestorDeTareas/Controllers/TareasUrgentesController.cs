@@ -1,4 +1,5 @@
 ﻿using GestorDeTareas.DTOs;
+using GestorDeTareas.Interfaces;
 using GestorDeTareas.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -11,8 +12,8 @@ namespace GestorDeTareas.Controllers
     [Route("api/[controller]")]
     public class TareasUrgentesController : Controller
     {
-        private readonly TareaUrgenteService _tareaUrgenteService;
-        public TareasUrgentesController(TareaUrgenteService tareaUrgenteService)
+        private readonly ITareaUrgenteService _tareaUrgenteService;
+        public TareasUrgentesController(ITareaUrgenteService tareaUrgenteService)
         { 
             _tareaUrgenteService = tareaUrgenteService;
         }

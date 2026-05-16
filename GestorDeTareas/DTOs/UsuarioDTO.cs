@@ -14,6 +14,7 @@ namespace GestorDeTareas.DTOs
         public string NombreUsuario { get; set; }
 
         [Required]
+        [EmailAddress]
         [StringLength(100, MinimumLength = 3)]
         public string CorreoUsuario { get; set; }
 
@@ -21,5 +22,6 @@ namespace GestorDeTareas.DTOs
         [StringLength(100, MinimumLength = 15)]
         public string ContrasenaUsuario { get; set; }
         public bool? EstaEliminado {  get; set; }
+        public string? FriendTag { get; set; }
     }
 }
