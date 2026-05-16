@@ -1,4 +1,5 @@
 ﻿using GestorDeTareas.DTOs;
+using GestorDeTareas.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -10,8 +11,8 @@ namespace GestorDeTareas.Controllers
     [Route("api/[controller]")]
     public class TareasController : ControllerBase
     {
-        private readonly TareaService _tareaService;
-        public TareasController(TareaService tareaService)
+        private readonly ITareaService _tareaService;
+        public TareasController(ITareaService tareaService)
         {
             _tareaService = tareaService;
         }

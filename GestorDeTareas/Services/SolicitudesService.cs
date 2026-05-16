@@ -10,18 +10,20 @@ namespace GestorDeTareas.Services
     public class SolicitudesService : ISolicitudesService
     {
         private readonly ISolicitudesRepository _solicitudesRepository;
+        private readonly IAmigosRepository _amigosRepository;
         private readonly IAmigosService _amigosService;
         private readonly INotificacionesService _notificacionesService;
         private readonly IEspaciosDeTrabajoService _espaciosDeTrabajoService;
 
         public SolicitudesService(
-            SolicitudesRepository solicitudesRepository,
-            UsuarioRepository usuarioRepository,
-            AmigosService amigosService,
-            NotificacionesService notificacionesService,
-            EspaciosDeTrabajoService espaciosDeTrabajoService)
+            ISolicitudesRepository solicitudesRepository,
+            IAmigosRepository amigosRepository,
+            IAmigosService amigosService,
+            INotificacionesService notificacionesService,
+            IEspaciosDeTrabajoService espaciosDeTrabajoService)
         {
             _solicitudesRepository = solicitudesRepository;
+            _amigosRepository = amigosRepository;
             _amigosService = amigosService;
             _notificacionesService = notificacionesService;
             _espaciosDeTrabajoService = espaciosDeTrabajoService;
@@ -29,6 +31,34 @@ namespace GestorDeTareas.Services
 
         public async Task EnviarSolicitud(int idUsuarioEmisor, int idUsuarioReceptor, TiposSolicitudes tipoSolicitud, int? idEspacioDeTrabajoACompartir)
         {
+            if (idUsuarioEmisor == idUsuarioReceptor)
+                throw new ConflictException("No puedes enviarte una solicitud a ti mismo.");
+
+            if (tipoSolicitud == TiposSolicitudes.Amistad)
+            {
+                var amigos = await _amigosRepository.ObtenerAmigosDeUsuario(idUsuarioEmisor);
+                var yaEsAmigo = amigos.Any(a =>
+                    a.IdEmisor == idUsuarioReceptor || a.IdReceptor == idUsuarioReceptor);
+                if (yaEsAmigo)
+                    throw new ConflictException("Este usuario ya es tu amigo.");
+
+                var solicitudesPendientes = await _solicitudesRepository.ObtenerSolicitudesPendientes(idUsuarioReceptor, TiposSolicitudes.Amistad);
+                var solicitudYaExiste = solicitudesPendientes.Any(s => s.IdSolicitante == idUsuarioEmisor);
+                if (solicitudYaExiste)
+                    throw new ConflictException("Ya tienes una solicitud de amistad pendiente con este usuario.");
+            }
+
+            if (tipoSolicitud == TiposSolicitudes.EspacioDeTrabajo)
+            {
+                if (idEspacioDeTrabajoACompartir == null)
+                    throw new ConflictException("Debes indicar el espacio de trabajo a compartir.");
+
+                var espacios = await _espaciosDeTrabajoService.MostrarEspaciosDeTrabajoPorUsuario(idUsuarioReceptor);
+                var yaEstaEnElEspacio = espacios.Any(e => e.IdEspacioDeTrabajo == idEspacioDeTrabajoACompartir);
+                if (yaEstaEnElEspacio)
+                    throw new ConflictException("Este usuario ya pertenece a ese espacio de trabajo.");
+            }
+
             var envioCreado = new Solicitudes(idUsuarioEmisor, idUsuarioReceptor, tipoSolicitud, idEspacioDeTrabajoACompartir);
             await _solicitudesRepository.Guardar(envioCreado);
         }

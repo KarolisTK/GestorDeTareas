@@ -14,6 +14,7 @@ namespace GestorDeTareas.DTOs
         public string NombreUsuario { get; set; }
 
         [Required]
+        [EmailAddress]
         [StringLength(100, MinimumLength = 3)]
         public string CorreoUsuario { get; set; }
 

@@ -18,15 +18,13 @@ namespace GestorDeTareas.Controllers
         private readonly IAmigosService _amigosService;
         private readonly INotificacionesService _notificacionesService;
         private readonly ISolicitudesService _solicitudesService;
-        private readonly IEspaciosDeTrabajoService _espaciosDeTrabajoService;
 
-        public UsuariosController(UsuarioService usuarioService, AmigosService amigosService, NotificacionesService notificacionesService, SolicitudesService solicitudesService, EspaciosDeTrabajoService espaciosDeTrabajoService)
+        public UsuariosController(IUsuarioService usuarioService, IAmigosService amigosService, INotificacionesService notificacionesService, ISolicitudesService solicitudesService)
         {
             _usuarioService = usuarioService;
             _amigosService = amigosService;
             _notificacionesService = notificacionesService;
             _solicitudesService = solicitudesService;
-            _espaciosDeTrabajoService = espaciosDeTrabajoService;
         }
 
         [HttpPost("CrearUsuario")]

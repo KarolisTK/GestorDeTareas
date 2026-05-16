@@ -26,7 +26,7 @@ namespace GestorDeTareas
             var tareaFiltrada = await _tareasRepository.ObtenerPorId(idTarea);
             if(tareaFiltrada == null)
             {
-                throw new ConflictException("La tarea filtrada no existe");
+                throw new NotFoundException("La tarea filtrada no existe");
             }
             return tareaFiltrada;
         }

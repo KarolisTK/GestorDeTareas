@@ -14,10 +14,10 @@ namespace GestorDeTareas.Controllers
     [Route("api/[controller]")]
     public class AutorizacionController : Controller
     {
-        private readonly UsuarioService _usuarioservice;
+        private readonly IUsuarioService _usuarioservice;
         private readonly IConfiguration _config;
 
-        public AutorizacionController(UsuarioService usuarioService, IConfiguration config)
+        public AutorizacionController(IUsuarioService usuarioService, IConfiguration config)
         {
             _usuarioservice = usuarioService;
             _config = config;

@@ -1,5 +1,6 @@
 ﻿using GestorDeTareas.DTOs;
 using GestorDeTareas.Enums;
+using GestorDeTareas.Exceptions;
 using GestorDeTareas.Interfaces;
 using GestorDeTareas.Mapper;
 using GestorDeTareas.Models;
@@ -17,9 +18,15 @@ namespace GestorDeTareas.Services
             _amigosRepository = amigosRepository;
             _usuarioRepository = usuarioRepository;
         }
-        public async Task<ObtenerDatosDeAmigoPorFriendTagDTO> BuscarAmigosPorFriendTag( string friendTag)
+        public async Task<ObtenerDatosDeAmigoPorFriendTagDTO> BuscarAmigosPorFriendTag(string friendTag)
         {
-            var usuario =await _usuarioRepository.ObtenerPorFriendTag(friendTag);
+            if (string.IsNullOrWhiteSpace(friendTag))
+                throw new ConflictException("El FriendTag no puede estar vacío.");
+
+            var usuario = await _usuarioRepository.ObtenerPorFriendTag(friendTag);
+            if (usuario == null)
+                throw new NotFoundException("No se encontró ningún usuario con ese FriendTag.");
+
             var dto = new ObtenerDatosDeAmigoPorFriendTagDTO();
             ObtenerAmigosPorFriendTagMapper.ObtenerDatosDeAmigos(dto, usuario);
             return dto;

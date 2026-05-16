@@ -1,4 +1,5 @@
 ﻿using GestorDeTareas.DTOs;
+using GestorDeTareas.Interfaces;
 using GestorDeTareas.Models;
 using GestorDeTareas.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -12,17 +13,10 @@ namespace GestorDeTareas.Controllers
     [Route("api/[controller]")]
     public class EspaciosDeTrabajoController : Controller
     {
-        private readonly UsuarioService _usuarioService;
-        private readonly AmigosService _amigosService;
-        private readonly NotificacionesService _notificacionesService;
-        private readonly EspaciosDeTrabajoService _espaciosDeTrabajoService;
+        private readonly IEspaciosDeTrabajoService _espaciosDeTrabajoService;
 
-        public EspaciosDeTrabajoController(UsuarioService usuarioService, AmigosService amigosService
-            , NotificacionesService notifcacionesService, EspaciosDeTrabajoService espaciosDeTrabajoService)
+        public EspaciosDeTrabajoController(IEspaciosDeTrabajoService espaciosDeTrabajoService)
         {
-            _usuarioService = usuarioService;
-            _amigosService = amigosService;
-            _notificacionesService = notifcacionesService;
             _espaciosDeTrabajoService = espaciosDeTrabajoService;
         }
 
