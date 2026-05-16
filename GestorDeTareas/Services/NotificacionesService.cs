@@ -6,7 +6,7 @@ using GestorDeTareas.Models;
 
 namespace GestorDeTareas.Services
 {
-    public class NotificacionesService
+    public class NotificacionesService : INotificacionesService
     {
         private readonly INotificacionesRepository _NotificacionesRepository;
         private readonly IUsuarioRepository _UsuarioRepository;

@@ -7,23 +7,21 @@ using GestorDeTareas.Repositories;
 
 namespace GestorDeTareas.Services
 {
-    public class SolicitudesService
+    public class SolicitudesService : ISolicitudesService
     {
         private readonly ISolicitudesRepository _solicitudesRepository;
-        private readonly IUsuarioRepository _usuarioRepository;
-        private readonly AmigosService _amigosService;
-        private readonly NotificacionesService _notificacionesService;
-        private readonly EspaciosDeTrabajoService _espaciosDeTrabajoService;
+        private readonly IAmigosService _amigosService;
+        private readonly INotificacionesService _notificacionesService;
+        private readonly IEspaciosDeTrabajoService _espaciosDeTrabajoService;
 
         public SolicitudesService(
-            ISolicitudesRepository solicitudesRepository,
-            IUsuarioRepository usuarioRepository,
+            SolicitudesRepository solicitudesRepository,
+            UsuarioRepository usuarioRepository,
             AmigosService amigosService,
             NotificacionesService notificacionesService,
             EspaciosDeTrabajoService espaciosDeTrabajoService)
         {
             _solicitudesRepository = solicitudesRepository;
-            _usuarioRepository = usuarioRepository;
             _amigosService = amigosService;
             _notificacionesService = notificacionesService;
             _espaciosDeTrabajoService = espaciosDeTrabajoService;

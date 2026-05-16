@@ -6,19 +6,19 @@ using GestorDeTareas.Models;
 using GestorDeTareas.Repositories;
 namespace GestorDeTareas.Services
 {
-    public class UsuarioService
+    public class UsuarioService : IUsuarioService
     {
-        private readonly IRepositorio<Usuario> _repository;
         private readonly IUsuarioRepository _usuarioRepository;
 
-        public UsuarioService(IRepositorio<Usuario> repository, IUsuarioRepository usuarioRepository)
+        public UsuarioService(IUsuarioRepository usuarioRepository)
         {
-            _repository = repository;
             _usuarioRepository = usuarioRepository;
         }
+
+
         public async Task<Usuario> ObtenerUnUsuarioPorID(int IdUsuario)
         {
-            return await _repository.ObtenerPorId(IdUsuario);
+            return await _usuarioRepository.ObtenerPorId(IdUsuario);
         }
 
         public async Task<Usuario> ObtenerUsuarioPorCorreo(string correo)
@@ -27,36 +27,35 @@ namespace GestorDeTareas.Services
         }
         public async Task CrearUsuario(UsuarioDTO dto)
         {
-            var usuarios = await _repository.ObtenerTodos();
-            if (usuarios.Any(u => u.CorreoUsuario == dto.CorreoUsuario))
-            {
+            var usuarioExistente = await _usuarioRepository.ObtenerPorCorreo(dto.CorreoUsuario);
+            if (usuarioExistente != null)
                 throw new ConflictException("El correo ya está en uso");
-            }
+
             var friendTag = dto.NombreUsuario[..3] + Random.Shared.Next(10000, 99999);
-            if(usuarios.Any(u => u.FriendTag == friendTag))
-            {
+            var friendTagExistente = await _usuarioRepository.ObtenerPorFriendTag(friendTag);
+            if (friendTagExistente != null)
                 friendTag = friendTag + Random.Shared.Next(10000, 99999);
-            }
-            var usuario = UsuarioMapper.CrearUsuario(dto,friendTag);
-            await _repository.Guardar(usuario);
+
+            var usuario = UsuarioMapper.CrearUsuario(dto, friendTag);
+            await _usuarioRepository.Guardar(usuario);
         }
         public async Task EditarUsuario(EditarUsuarioDTO dto, int IdUsuario)
         {
             if(dto == null)
             {
-                throw new ForbiddenException("los datos para editar usuario han llegado nulos");
+                throw new NotFoundException("los datos para editar usuario han llegado nulos");
             }
-            var usuarioFiltrado = await _repository.ObtenerPorId(IdUsuario);
+            var usuarioFiltrado = await _usuarioRepository.ObtenerPorId(IdUsuario);
             if (usuarioFiltrado == null) 
             {
-                throw new ForbiddenException("El usuario filtrado para editar usuario no existe");
+                throw new NotFoundException("El usuario filtrado para editar usuario no existe");
             }
             UsuarioMapper.ModificarUsuario(usuarioFiltrado, dto);
-            await _repository.Guardar(usuarioFiltrado);
+            await _usuarioRepository.Guardar(usuarioFiltrado);
         }
         public async Task EliminarUsuario(int idUsuario)
         {
-            var usuarioFiltrado = await _repository.ObtenerPorId(idUsuario);
+            var usuarioFiltrado = await _usuarioRepository.ObtenerPorId(idUsuario);
             if (usuarioFiltrado == null)
             {
                 throw new ForbiddenException("El usuario filtrado para eliminar usuario no existe");
@@ -66,7 +65,7 @@ namespace GestorDeTareas.Services
                 throw new ConflictException("El usuario filtrado ya está eliminado");
             }
             usuarioFiltrado.EstaEliminado = true;
-            await _repository.Guardar(usuarioFiltrado);
+            await _usuarioRepository.Guardar(usuarioFiltrado);
         }
     }
 }

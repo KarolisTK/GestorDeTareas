@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace GestorDeTareas.Services
 {
-    public class AmigosService
+    public class AmigosService : IAmigosService
     {
         private readonly IAmigosRepository _amigosRepository;
         private readonly IUsuarioRepository _usuarioRepository;

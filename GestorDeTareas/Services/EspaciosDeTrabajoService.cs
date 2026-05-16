@@ -5,7 +5,7 @@ using GestorDeTareas.Repositories;
 
 namespace GestorDeTareas.Services
 {
-    public class EspaciosDeTrabajoService
+    public class EspaciosDeTrabajoService : IEspaciosDeTrabajoService
     {
         private readonly IEspaciosDeTrabajoRepository _espaciosDeTrabajorepository;
         private readonly IUsuarioRepository _usuarioRepository;

@@ -29,14 +29,13 @@ builder.Services.AddScoped<IEspaciosDeTrabajoRepository, EspaciosDeTrabajoReposi
 builder.Services.AddScoped<ISolicitudesRepository, SolicitudesRepository>();
 builder.Services.AddScoped<ITareasRepository, TareasRepository>();
 
-
-builder.Services.AddScoped<TareaService>();
-builder.Services.AddScoped<TareaUrgenteService>();
-builder.Services.AddScoped<UsuarioService>();
-builder.Services.AddScoped<AmigosService>();
-builder.Services.AddScoped<NotificacionesService>();
-builder.Services.AddScoped<EspaciosDeTrabajoService>();
-builder.Services.AddScoped<SolicitudesService>();
+builder.Services.AddScoped<IUsuarioService, UsuarioService>();
+builder.Services.AddScoped<ITareaService, TareaService>();
+builder.Services.AddScoped<ITareaUrgenteService, TareaUrgenteService>();
+builder.Services.AddScoped<IAmigosService, AmigosService>();
+builder.Services.AddScoped<INotificacionesService, NotificacionesService>();
+builder.Services.AddScoped<IEspaciosDeTrabajoService, EspaciosDeTrabajoService>();
+builder.Services.AddScoped<ISolicitudesService, SolicitudesService>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>

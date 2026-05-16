@@ -1,6 +1,7 @@
 ﻿using Azure.Messaging;
 using GestorDeTareas.DTOs;
 using GestorDeTareas.Enums;
+using GestorDeTareas.Interfaces;
 using GestorDeTareas.Models;
 using GestorDeTareas.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -13,11 +14,11 @@ namespace GestorDeTareas.Controllers
     [Route("api/[controller]")]
     public class UsuariosController : ControllerBase
     {
-        private readonly UsuarioService _usuarioService;
-        private readonly AmigosService _amigosService;
-        private readonly NotificacionesService _notificacionesService;
-        private readonly SolicitudesService _solicitudesService;
-        private readonly EspaciosDeTrabajoService _espaciosDeTrabajoService;
+        private readonly IUsuarioService _usuarioService;
+        private readonly IAmigosService _amigosService;
+        private readonly INotificacionesService _notificacionesService;
+        private readonly ISolicitudesService _solicitudesService;
+        private readonly IEspaciosDeTrabajoService _espaciosDeTrabajoService;
 
         public UsuariosController(UsuarioService usuarioService, AmigosService amigosService, NotificacionesService notificacionesService, SolicitudesService solicitudesService, EspaciosDeTrabajoService espaciosDeTrabajoService)
         {
