@@ -3,6 +3,7 @@ using GestorDeTareas.Enums;
 using GestorDeTareas.Exceptions;
 using GestorDeTareas.Interfaces;
 using GestorDeTareas.Models;
+using Resend;
 
 namespace GestorDeTareas.Services
 {
@@ -10,11 +11,13 @@ namespace GestorDeTareas.Services
     {
         private readonly INotificacionesRepository _NotificacionesRepository;
         private readonly IUsuarioRepository _UsuarioRepository;
+        private readonly IResend _resend;
 
-        public NotificacionesService(INotificacionesRepository notificacionesRepository, IUsuarioRepository usuarioRepository)
+        public NotificacionesService(INotificacionesRepository notificacionesRepository, IUsuarioRepository usuarioRepository, IResend resend)
         {
             _NotificacionesRepository = notificacionesRepository;
             _UsuarioRepository = usuarioRepository;
+            _resend = resend;
         }
 
         public async Task CrearNotificacion(TiposNotificaciones tipoDeNotificacion, int idEmisor, int idReceptor)
@@ -68,6 +71,34 @@ namespace GestorDeTareas.Services
         public async Task<List<ListarNotificacionesDTO>> ObtenerNotificacionesPorUsuario(int idUsuario)
         {
             return await _NotificacionesRepository.ObtenerNotificacionesPorIdUsuario(idUsuario);
+        }
+
+        public async Task EnviarNotificacionAsync(int idUsuario, int idUsuarioReceptor, TiposNotificaciones tipoDeNotificacion)
+        {
+            var usuarioEmisor = await _UsuarioRepository.ObtenerPorId(idUsuario);
+            var usuarioReceptor = await _UsuarioRepository.ObtenerPorId(idUsuarioReceptor);
+
+            var titulosNotificacion = new Dictionary<TiposNotificaciones, string>
+            {
+                { TiposNotificaciones.Solicitud, "solicitud de amistad " + usuarioEmisor.NombreUsuario },
+                { TiposNotificaciones.Aceptada, usuarioReceptor.NombreUsuario + " aceptada" },
+                { TiposNotificaciones.Rechazada, usuarioReceptor.NombreUsuario +  " rechazada" },
+                {TiposNotificaciones.EntradaAEspacioDeTrabajo, usuarioReceptor.NombreUsuario + "Ha entrado en tu espacio de trabajo" }
+            };
+            var contenidoNotificacion = new Dictionary<TiposNotificaciones, string>
+            {
+                { TiposNotificaciones.Solicitud, "Tienes una nueva solicitud de amistad de " + usuarioEmisor.NombreUsuario + " Entra en tus notificaciones de amistad en JustOneStep.DeKarolis.com/notificaciones para gestionar la solicitud." },
+                { TiposNotificaciones.Aceptada,  "Tu solicitud de amistad fue aceptada" },
+                { TiposNotificaciones.Rechazada, "Tu solicitud de amistad fue rechazada" },
+            };
+
+            await _resend.EmailSendAsync(new EmailMessage()
+            {
+                From = "noreply@justonestep.dekarolis.com",
+                To = usuarioReceptor.CorreoUsuario,
+                Subject = titulosNotificacion[tipoDeNotificacion],
+                HtmlBody = contenidoNotificacion[tipoDeNotificacion],
+            });
         }
     }
 }

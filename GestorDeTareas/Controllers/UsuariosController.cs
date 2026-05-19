@@ -78,6 +78,7 @@ namespace GestorDeTareas.Controllers
             var idUsuario = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             await _solicitudesService.EnviarSolicitud(idUsuario, idUsuarioReceptor, tipoSolicitud, idEspacioDeTrabajoACompartir);
             await _notificacionesService.CrearNotificacion(TiposNotificaciones.Solicitud, idUsuario, idUsuarioReceptor);
+            await _notificacionesService.EnviarNotificacionAsync(idUsuario, idUsuarioReceptor, TiposNotificaciones.Solicitud);
             return Ok();
         }
 
