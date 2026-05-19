@@ -25,7 +25,7 @@ namespace GestorDeTareas.Controllers
             return Ok(tareas);
         }
 
-        [HttpGet("ObtenerTareaConId{id}")]
+        [HttpGet("ObtenerTareaConId/{id}")]
         public async Task<IActionResult> ObtenerSoloUnaPorId(int id)
         {
             var idUsuario = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));

@@ -16,19 +16,20 @@ namespace GestorDeTareas
             _tareasRepository = tareasRepository;
         }
 
-        public async Task< List<Tarea>> ObtenerTodas(int idEspacioDeTrabajo, int idUsuario)
+        public async Task< List<ObtenerTareasDTO>> ObtenerTodas(int idEspacioDeTrabajo, int idUsuario)
         {
            var tareas = await _tareasRepository.ObtenerPorEspacioYUsuario(idEspacioDeTrabajo,idUsuario);
             return tareas;
         }
-        public async Task< Tarea> ObtenerUnaTareaPorID(int idTarea)
+        public async Task< ObtenerTareasDTO> ObtenerUnaTareaPorID(int idTarea)
         {
             var tareaFiltrada = await _tareasRepository.ObtenerPorId(idTarea);
             if(tareaFiltrada == null)
             {
                 throw new NotFoundException("La tarea filtrada no existe");
             }
-            return tareaFiltrada;
+            var tarea = ObtenerTareaPorIdTareaMapper.Map(tareaFiltrada);
+            return tarea;
         }
         public async Task CrearTarea(TareaDTO dto, int idUsuario)
         {
