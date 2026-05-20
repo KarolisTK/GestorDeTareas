@@ -48,7 +48,7 @@ public class TareaServiceTests
                 new Tarea { NombreTarea = "Tarea repetida", IdUsuarioDeLaTarea = 1 }
             });
 
-        var dto = new TareaDTO { NombreTarea = "Tarea repetida" };
+        var dto = new CrearTareaDTO { NombreTarea = "Tarea repetida" };
 
         Assert.That(
             async () => await _service.CrearTarea(dto, 1),
@@ -64,7 +64,7 @@ public class TareaServiceTests
         _tareasRepositoryMock.Setup(r => r.Guardar(It.IsAny<Tarea>()))
             .Returns(Task.CompletedTask);
 
-        var dto = new TareaDTO
+        var dto = new CrearTareaDTO
         {
             NombreTarea = "Tarea nueva",
             DescripcionTarea = "descripcion",

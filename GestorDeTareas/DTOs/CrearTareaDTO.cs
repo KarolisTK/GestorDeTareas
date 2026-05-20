@@ -6,7 +6,7 @@ using System.Text;
 
 namespace GestorDeTareas.DTOs
 {
-    public class TareaDTO
+    public class CrearTareaDTO
     {
         [Required]
         [StringLength(100, MinimumLength = 3)]

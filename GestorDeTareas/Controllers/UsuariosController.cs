@@ -29,7 +29,7 @@ namespace GestorDeTareas.Controllers
 
         [HttpPost("CrearUsuario")]
         [AllowAnonymous]
-        public async Task<IActionResult> Crear([FromBody] UsuarioDTO dto)
+        public async Task<IActionResult> Crear([FromBody] CrearUsuarioDTO dto)
         {
             await _usuarioService.CrearUsuario(dto);
             return Ok();

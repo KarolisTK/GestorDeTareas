@@ -8,7 +8,7 @@ namespace GestorDeTareas.Interfaces
     {
         Task<Usuario> ObtenerUnUsuarioPorID(int IdUsuario);
         Task<Usuario> ObtenerUsuarioPorCorreo(string correo);
-        Task CrearUsuario(UsuarioDTO dto);
+        Task CrearUsuario(CrearUsuarioDTO dto);
         Task EditarUsuario(EditarUsuarioDTO dto, int IdUsuario);
         Task EliminarUsuario(int idUsuario);
     }

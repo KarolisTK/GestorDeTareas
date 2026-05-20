@@ -36,7 +36,7 @@ namespace GestorDeTareas.Controllers
         }
 
         [HttpPost("CrearTarea")]
-        public async Task<IActionResult> Crear([FromBody] TareaDTO dto)
+        public async Task<IActionResult> Crear([FromBody] CrearTareaDTO dto)
         {
             var idUsuario = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             await _tareaService.CrearTarea(dto, idUsuario);

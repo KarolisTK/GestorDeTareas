@@ -6,7 +6,7 @@ namespace GestorDeTareas.Interfaces
     {
         Task<List<ObtenerTareasDTO>> ObtenerTodas(int idEspacioDeTrabajo, int idUsuario);
         Task<ObtenerTareasDTO> ObtenerUnaTareaPorID(int idTarea);
-        Task CrearTarea(TareaDTO dto, int idUsuario);
+        Task CrearTarea(CrearTareaDTO dto, int idUsuario);
         Task EditarTarea(int id, EditarTareaDTO dto, int idUsuario);
         Task EliminarTarea(int id);
     }

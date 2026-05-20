@@ -25,7 +25,7 @@ namespace GestorDeTareas.Services
         {
             return await _usuarioRepository.ObtenerPorCorreo(correo);
         }
-        public async Task CrearUsuario(UsuarioDTO dto)
+        public async Task CrearUsuario(CrearUsuarioDTO dto)
         {
             var usuarioExistente = await _usuarioRepository.ObtenerPorCorreo(dto.CorreoUsuario);
             if (usuarioExistente != null)

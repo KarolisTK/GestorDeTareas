@@ -98,7 +98,7 @@ public class TareaUrgenteServiceTests
             .ReturnsAsync(new TareaUrgente
             { IdTarea = 1, NombreTarea = "Tarea urgente", IdUsuarioDeLaTarea = 1 });
 
-        var dto = new TareaDTO
+        var dto = new CrearTareaDTO
         {
             NombreTarea = "Tarea nueva",
             DescripcionTarea = "descripcion",
@@ -132,7 +132,7 @@ public class TareaUrgenteServiceTests
         _repositorioMock.Setup(r => r.Guardar(It.IsAny<TareaUrgente>()))
             .Returns(Task.CompletedTask);
 
-        var dto = new TareaDTO { };
+        var dto = new CrearTareaDTO { };
         await _service.QuitarPrioridadTarea(1, dto);
 
         _tareasRepositoryMock.Verify(r => r.Guardar(It.IsAny<Tarea>()), Times.Once);

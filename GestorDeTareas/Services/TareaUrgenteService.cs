@@ -43,7 +43,7 @@ namespace GestorDeTareas.Services
             await _repository.Guardar(tareaUrgenteModificada);
         }
 
-        public async Task QuitarPrioridadTarea(int id, TareaDTO dto)
+        public async Task QuitarPrioridadTarea(int id, CrearTareaDTO dto)
         {
             if (dto == null)
                 throw new ForbiddenException("Los datos para quitar la prioridad han llegado nulos");

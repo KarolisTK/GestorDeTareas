@@ -34,7 +34,7 @@ namespace GestorDeTareas.Controllers
         }
 
         [HttpPut("quitarPrioridad{id}")]
-        public async Task<IActionResult> QuitarPrioridadTarea(int id, [FromBody] TareaDTO dto)
+        public async Task<IActionResult> QuitarPrioridadTarea(int id, [FromBody] CrearTareaDTO dto)
         {
             await _tareaUrgenteService.QuitarPrioridadTarea(id, dto);
             return Ok();

@@ -31,7 +31,7 @@ namespace GestorDeTareas
             var tarea = ObtenerTareaPorIdTareaMapper.Map(tareaFiltrada);
             return tarea;
         }
-        public async Task CrearTarea(TareaDTO dto, int idUsuario)
+        public async Task CrearTarea(CrearTareaDTO dto, int idUsuario)
         {
             var tareas = await _tareasRepository.ObtenerTodos();
             var tareaExistente = tareas.Any(t => t.NombreTarea == dto.NombreTarea && t.IdUsuarioDeLaTarea == idUsuario);
