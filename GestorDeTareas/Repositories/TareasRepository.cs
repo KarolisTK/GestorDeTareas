@@ -14,7 +14,7 @@ namespace GestorDeTareas.Repositories
         {
             return await _context.Tareas
                 .Where(t => t.EspacioDeTrabajoId == idEspacioDeTrabajo && t.EspacioDeTrabajo.Usuarios
-                .Any(u => u.IdUsuario == idUsuario))
+                .Any(u => u.IdUsuario == idUsuario) && t.EstaEliminado == false)
                 .Select(o => new ObtenerTareasDTO
                 {
                     IdTarea = o.IdTarea,

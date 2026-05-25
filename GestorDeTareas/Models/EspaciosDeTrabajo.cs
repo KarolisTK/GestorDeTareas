@@ -7,6 +7,6 @@ namespace GestorDeTareas.Models
         public int Id { get; set; }
         public string Nombre { get; set; }
         public ICollection<Usuario> Usuarios { get; set; } = new List<Usuario>();
-        public ICollection<Tarea> Tareas { get; set; } = new List<Tarea>();
+        public bool EstaEliminado { get; set; }
     }
 }
