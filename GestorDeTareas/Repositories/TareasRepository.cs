@@ -1,5 +1,6 @@
 ﻿using GestorDeTareas.DTOs;
 using GestorDeTareas.Interfaces;
+using GestorDeTareas.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace GestorDeTareas.Repositories
@@ -21,8 +22,10 @@ namespace GestorDeTareas.Repositories
                     NombreTarea = o.NombreTarea,
                     DescripcionTarea = o.DescripcionTarea,
                     FechaCreacionTarea = o.FechaCreacionTarea,
+                    FechaLimite = o is TareaUrgente ? ((TareaUrgente)o).FechaLimite : null,
                     EstadosTarea = o.EstadosTarea,
                     EstaEliminado = o.EstaEliminado,
+                    TienePrioridad = o is TareaUrgente ? ((TareaUrgente)o).TienePrioridad : null,
                     TiposTarea = o.TiposTarea,
                     IdUsuarioDeLaTarea = o.IdUsuarioDeLaTarea,
                     EspacioDeTrabajoId = o.EspacioDeTrabajoId,

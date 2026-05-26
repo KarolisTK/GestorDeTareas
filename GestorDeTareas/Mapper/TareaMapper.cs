@@ -37,6 +37,8 @@ namespace GestorDeTareas.Mapper
             tarea.FechaCreacionTarea = tareaUrgente.FechaCreacionTarea;
             tarea.EstadosTarea = dto.EstadosTarea ?? tareaUrgente.EstadosTarea;
             tarea.EstaEliminado = false;
+            tarea.IdUsuarioDeLaTarea = dto.IdUsuarioDeLaTarea;
+            tarea.EspacioDeTrabajoId = dto.IdEspacioDeTrabajo;
             tarea.TiposTarea = TiposTarea.Simple;
             tarea.IdUsuarioDeLaTarea = tareaUrgente.IdUsuarioDeLaTarea;
             return tarea;

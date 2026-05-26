@@ -26,14 +26,14 @@ namespace GestorDeTareas.Controllers
             return Ok();
         }
 
-        [HttpPut("PriorizarTarea{id}")]
+        [HttpPut("PriorizarTarea/{id}")]
         public async Task<IActionResult> PriorizarTarea(int id, [FromBody] CrearTareaUrgenteDTO dto)
         {
             await _tareaUrgenteService.PriorizarTarea(id, dto);
             return Ok();
         }
 
-        [HttpPut("quitarPrioridad{id}")]
+        [HttpPut("QuitarPrioridad/{id}")]
         public async Task<IActionResult> QuitarPrioridadTarea(int id, [FromBody] CrearTareaDTO dto)
         {
             await _tareaUrgenteService.QuitarPrioridadTarea(id, dto);
