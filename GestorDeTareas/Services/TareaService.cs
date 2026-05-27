@@ -34,7 +34,7 @@ namespace GestorDeTareas
         public async Task CrearTarea(CrearTareaDTO dto, int idUsuario)
         {
             var tareas = await _tareasRepository.ObtenerTodos();
-            var tareaExistente = tareas.Any(t => t.NombreTarea == dto.NombreTarea && t.IdUsuarioDeLaTarea == idUsuario);
+            var tareaExistente = tareas.Any(t => t.NombreTarea == dto.NombreTarea && t.IdUsuarioDeLaTarea == idUsuario && t.EspacioDeTrabajoId == dto.IdEspacioDeTrabajo);
             if (tareaExistente)
             {
                 throw new ConflictException("Esa tarea ya existe");
