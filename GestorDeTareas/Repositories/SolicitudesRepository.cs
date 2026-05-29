@@ -13,7 +13,7 @@ namespace GestorDeTareas.Repositories
         public async Task<List<SolicitudesDTO>> ObtenerSolicitudesPendientes(int id, TiposSolicitudes tiposSolicitudes)
         {
             return await _context.Solicitudes
-                .Where(a => a.TiposEstado == TipoEstadoSolicitud.Pendiente && a.IdReceptor == id && a.TiposSolicitudes == tiposSolicitudes && a.TiposEstado == TipoEstadoSolicitud.Pendiente)
+                .Where(a => a.TiposEstado == TipoEstadoSolicitud.Pendiente && a.IdReceptor == id && a.TiposEstado == TipoEstadoSolicitud.Pendiente)
                 .Select(s => new SolicitudesDTO
                 {
                     IdSolicitud = s.IdSolicitud,
@@ -21,7 +21,9 @@ namespace GestorDeTareas.Repositories
                     IdSolicitado = s.IdReceptor,
                     NombreSolicitante = s.Emisor.NombreUsuario,
                     FechaSolicitud = s.FechaSolicitud,
-                    Estado = s.TiposEstado
+                    Estado = s.TiposEstado,
+                    TiposSolicitudes = s.TiposSolicitudes
+                    
                 })
                 .ToListAsync();
         }

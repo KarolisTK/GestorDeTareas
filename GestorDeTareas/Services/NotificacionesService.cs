@@ -37,6 +37,7 @@ namespace GestorDeTareas.Services
                 { TiposNotificaciones.Solicitud, "Tienes una nueva solicitud de amistad" },
                 { TiposNotificaciones.Aceptada,  "Tu solicitud de amistad fue aceptada" },
                 { TiposNotificaciones.Rechazada, "Tu solicitud de amistad fue rechazada" },
+                { TiposNotificaciones.EntradaAEspacioDeTrabajo, "El usuario ha entrado al espacio de trabajo" },
             };
 
             if (!contenidoNotificacion.ContainsKey(tipoDeNotificacion))

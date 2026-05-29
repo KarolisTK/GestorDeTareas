@@ -30,10 +30,19 @@ namespace GestorDeTareas.Middleware
             {
                 await EscribirRespuesta(context, StatusCodes.Status409Conflict, ex.Message);
             }
+            catch(FriendException ex)
+            {
+                await EscribirRespuesta(context, 455, ex.Message);
+            }
+            catch (SolicitudPendienteException ex)
+            {
+                await EscribirRespuesta(context, 456, ex.Message);
+            }
             catch (Exception ex)
             {
                 await EscribirRespuesta(context, StatusCodes.Status500InternalServerError, "Error interno del servidor");
             }
+
         }
 
         private static async Task EscribirRespuesta(HttpContext context, int statusCode, string mensaje)

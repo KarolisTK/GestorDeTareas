@@ -54,6 +54,15 @@ namespace GestorDeTareas.Controllers
         }
 
         [Authorize]
+        [HttpGet("Obtener")]
+        public async Task<ActionResult<MostrarDatosUsuarioLogueadoDTO>> ObtenerDatosUsuarioLogueado()
+        {
+            var idUsuario = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            var usuario = await _usuarioService.ObtenerUnUsuarioPorID(idUsuario);
+            return Ok(usuario);
+        }
+
+        [Authorize]
         [HttpGet("EncontrarAmigoPorFriendTag/{friendTag}")]
         public async Task<ActionResult<Usuario>> EncontrarAmigoPorFriendTag(string friendTag)
         {
@@ -109,8 +118,8 @@ namespace GestorDeTareas.Controllers
         }
 
         [Authorize]
-        [HttpPost("MarcarNotificacionComoLeida")]
-        public async Task<IActionResult> MarcarNotificacionComoLeida([FromBody] int idNotificacion)
+        [HttpPost("MarcarNotificacionComoLeida/{idNotificacion}")]
+        public async Task<IActionResult> MarcarNotificacionComoLeida(int idNotificacion)
         {
             var idUsuario = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             await _notificacionesService.MarcarNotificacionesComoLeidas(idNotificacion, idUsuario);
