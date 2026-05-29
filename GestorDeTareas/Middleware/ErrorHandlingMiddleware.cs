@@ -38,6 +38,10 @@ namespace GestorDeTareas.Middleware
             {
                 await EscribirRespuesta(context, 456, ex.Message);
             }
+            catch (PasswordException ex)
+            {
+                await EscribirRespuesta(context, 467, ex.Message);
+            }
             catch (Exception ex)
             {
                 await EscribirRespuesta(context, StatusCodes.Status500InternalServerError, "Error interno del servidor");

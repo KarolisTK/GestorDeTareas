@@ -30,6 +30,9 @@ namespace GestorDeTareas.Services
             var usuarioExistente = await _usuarioRepository.ObtenerPorCorreo(dto.CorreoUsuario);
             if (usuarioExistente != null)
                 throw new ConflictException("El correo ya está en uso");
+            if (dto.ContrasenaUsuario.Length > 15) {
+                throw new PasswordException("la contraseña tiene que ser de 15 carácteres como mínimo");
+            }
 
             var friendTag = dto.NombreUsuario[..3] + Random.Shared.Next(10000, 99999);
             var friendTagExistente = await _usuarioRepository.ObtenerPorFriendTag(friendTag);
