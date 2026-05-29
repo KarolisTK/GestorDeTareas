@@ -30,7 +30,7 @@ namespace GestorDeTareas.Services
             var usuarioExistente = await _usuarioRepository.ObtenerPorCorreo(dto.CorreoUsuario);
             if (usuarioExistente != null)
                 throw new ConflictException("El correo ya está en uso");
-            if (dto.ContrasenaUsuario.Length > 15) {
+            if (dto.ContrasenaUsuario.Length < 15) {
                 throw new PasswordException("la contraseña tiene que ser de 15 carácteres como mínimo");
             }
 
