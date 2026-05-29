@@ -7,7 +7,7 @@ using System.Xml.Linq;
 
 namespace GestorDeTareas.DTOs
 {
-    public class UsuarioDTO
+    public class CrearUsuarioDTO
     {
         [Required]
         [StringLength(100, MinimumLength = 3)]
@@ -21,7 +21,5 @@ namespace GestorDeTareas.DTOs
         [Required]
         [StringLength(100, MinimumLength = 15)]
         public string ContrasenaUsuario { get; set; }
-        public bool? EstaEliminado {  get; set; }
-        public string? FriendTag { get; set; }
     }
 }

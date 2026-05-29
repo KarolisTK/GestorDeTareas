@@ -53,5 +53,20 @@ namespace GestorDeTareas.Services
         {
             return await _espaciosDeTrabajorepository.MostrarEspaciosDeTrabajo(idUsuario);
         }
+
+        public async Task EliminarEspacioDeTrabajoPorID(int idEspacioTrabajo)
+        {
+            var espacioTrabajo = await _espaciosDeTrabajorepository.ObtenerPorId(idEspacioTrabajo);
+            if(espacioTrabajo == null)
+            {
+                throw new NotFoundException("El espacio de trabajo a eliminr no se ha encontrado");
+            }
+            if(espacioTrabajo.EstaEliminado == true)
+            {
+                throw new ConflictException("El espacio de trabajo seleccionado ya está elimiando");
+            }
+            espacioTrabajo.EstaEliminado = true;
+            await _espaciosDeTrabajorepository.Guardar(espacioTrabajo);
+        }
     }
 }

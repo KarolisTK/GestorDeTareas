@@ -29,7 +29,7 @@ namespace GestorDeTareas.Controllers
 
         [HttpPost("CrearUsuario")]
         [AllowAnonymous]
-        public async Task<IActionResult> Crear([FromBody] UsuarioDTO dto)
+        public async Task<IActionResult> Crear([FromBody] CrearUsuarioDTO dto)
         {
             await _usuarioService.CrearUsuario(dto);
             return Ok();
@@ -51,6 +51,15 @@ namespace GestorDeTareas.Controllers
             var idUsuario = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             await _usuarioService.EliminarUsuario(idUsuario);
             return NoContent();
+        }
+
+        [Authorize]
+        [HttpGet("Obtener")]
+        public async Task<ActionResult<MostrarDatosUsuarioLogueadoDTO>> ObtenerDatosUsuarioLogueado()
+        {
+            var idUsuario = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            var usuario = await _usuarioService.ObtenerUnUsuarioPorID(idUsuario);
+            return Ok(usuario);
         }
 
         [Authorize]
@@ -78,6 +87,7 @@ namespace GestorDeTareas.Controllers
             var idUsuario = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             await _solicitudesService.EnviarSolicitud(idUsuario, idUsuarioReceptor, tipoSolicitud, idEspacioDeTrabajoACompartir);
             await _notificacionesService.CrearNotificacion(TiposNotificaciones.Solicitud, idUsuario, idUsuarioReceptor);
+            await _notificacionesService.EnviarNotificacionAsync(idUsuario, idUsuarioReceptor, TiposNotificaciones.Solicitud);
             return Ok();
         }
 
@@ -108,8 +118,8 @@ namespace GestorDeTareas.Controllers
         }
 
         [Authorize]
-        [HttpPost("MarcarNotificacionComoLeida")]
-        public async Task<IActionResult> MarcarNotificacionComoLeida([FromBody] int idNotificacion)
+        [HttpPost("MarcarNotificacionComoLeida/{idNotificacion}")]
+        public async Task<IActionResult> MarcarNotificacionComoLeida(int idNotificacion)
         {
             var idUsuario = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             await _notificacionesService.MarcarNotificacionesComoLeidas(idNotificacion, idUsuario);

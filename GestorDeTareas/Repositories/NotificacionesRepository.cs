@@ -13,7 +13,7 @@ namespace GestorDeTareas.Repositories
         public async Task<List<ListarNotificacionesDTO>> ObtenerNotificacionesPorIdUsuario(int idUsuario)
         {
             return await _context.Notificaciones
-                .Where(a => a.IdReceptor == idUsuario)
+                .Where(a => a.IdReceptor == idUsuario && a.MarcadoComoLeido == false)
                 .Select(a => new ListarNotificacionesDTO
                 {
                     IdNotificacion = a.IdNotificacion,

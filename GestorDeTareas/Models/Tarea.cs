@@ -9,7 +9,7 @@ public class Tarea : IEntidad
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int IdTarea { get; init; }
+    public int IdTarea { get; set; }
     public int Id => IdTarea;
     public string? NombreTarea { get; set; }
     public string? DescripcionTarea { get; set; }

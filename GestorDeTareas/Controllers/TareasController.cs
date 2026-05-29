@@ -25,7 +25,7 @@ namespace GestorDeTareas.Controllers
             return Ok(tareas);
         }
 
-        [HttpGet("ObtenerTareaConId{id}")]
+        [HttpGet("ObtenerTareaConId/{id}")]
         public async Task<IActionResult> ObtenerSoloUnaPorId(int id)
         {
             var idUsuario = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
@@ -36,14 +36,14 @@ namespace GestorDeTareas.Controllers
         }
 
         [HttpPost("CrearTarea")]
-        public async Task<IActionResult> Crear([FromBody] TareaDTO dto)
+        public async Task<IActionResult> Crear([FromBody] CrearTareaDTO dto)
         {
             var idUsuario = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             await _tareaService.CrearTarea(dto, idUsuario);
             return Ok();
         }
 
-        [HttpPut("EditarTarea{id}")]
+        [HttpPut("EditarTarea/{id}")]
         public async Task<IActionResult> Editar(int id, [FromBody] EditarTareaDTO dto)
         {
             var idUsuario = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
@@ -51,7 +51,7 @@ namespace GestorDeTareas.Controllers
             return NoContent();
         }
 
-        [HttpDelete("EliminarTarea{id}")]
+        [HttpDelete("EliminarTarea/{id}")]
         public async Task<IActionResult> Eliminar(int id)
         {
             await _tareaService.EliminarTarea(id);

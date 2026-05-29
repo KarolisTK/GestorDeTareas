@@ -37,6 +37,8 @@ namespace GestorDeTareas.Mapper
             tareaUrgente.IdUsuarioDeLaTarea = tarea.IdUsuarioDeLaTarea;
             tareaUrgente.FechaLimite = dto.FechaLimite;
             tareaUrgente.TienePrioridad = true;
+            tareaUrgente.IdUsuarioDeLaTarea = dto.IdUsuarioDeLaTarea;
+            tareaUrgente.EspacioDeTrabajoId = dto.IdEspacioDeTrabajo;
             return tareaUrgente;
         }
     }

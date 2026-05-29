@@ -25,7 +25,7 @@ public class UsuarioServiceTests
             .ReturnsAsync(new Usuario
             { IdUsuario = 1, NombreUsuario = "nombre", CorreoUsuario = "correo@gmail.com", ContrasenaUsuario = "UsuarioContrasena21" });
 
-        var dto = new UsuarioDTO { CorreoUsuario = "correo@gmail.com" };
+        var dto = new CrearUsuarioDTO { CorreoUsuario = "correo@gmail.com" };
 
         Assert.That(
             async () => await _service.CrearUsuario(dto),
@@ -44,7 +44,7 @@ public class UsuarioServiceTests
         _usuarioRepositoryMock.Setup(r => r.Guardar(It.IsAny<Usuario>()))
             .Returns(Task.CompletedTask);
 
-        var dto = new UsuarioDTO
+        var dto = new CrearUsuarioDTO
         {
             NombreUsuario = "Usuario",
             CorreoUsuario = "dfdfdfdf@gmail.com",

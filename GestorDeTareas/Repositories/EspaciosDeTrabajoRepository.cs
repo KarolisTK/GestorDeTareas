@@ -13,11 +13,12 @@ namespace GestorDeTareas.Repositories
         {
             return await _context.EspaciosDeTrabajo
                 .Include(e => e.Usuarios)
-                .Where(e => e.Usuarios.Any(u => u.IdUsuario == idUsuario))
+                .Where(e => e.Usuarios.Any(u => u.IdUsuario == idUsuario) && e.EstaEliminado == false)
                 .Select(a => new MostrarEspaciosDeTrabajoDTO
                 {
                     IdEspacioDeTrabajo = a.Id,
-                    NombreEspacioTrabajo = a.Nombre
+                    NombreEspacioTrabajo = a.Nombre,
+                    EstaElimiado = a.EstaEliminado
                 })
                 .ToListAsync();
         }

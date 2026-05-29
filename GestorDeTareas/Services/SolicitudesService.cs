@@ -45,7 +45,7 @@ namespace GestorDeTareas.Services
                 var solicitudesPendientes = await _solicitudesRepository.ObtenerSolicitudesPendientes(idUsuarioReceptor, TiposSolicitudes.Amistad);
                 var solicitudYaExiste = solicitudesPendientes.Any(s => s.IdSolicitante == idUsuarioEmisor);
                 if (solicitudYaExiste)
-                    throw new ConflictException("Ya tienes una solicitud de amistad pendiente con este usuario.");
+                    throw new FriendException("Ya tienes una solicitud de amistad pendiente con este usuario.", 455);
             }
 
             if (tipoSolicitud == TiposSolicitudes.EspacioDeTrabajo)
@@ -53,10 +53,19 @@ namespace GestorDeTareas.Services
                 if (idEspacioDeTrabajoACompartir == null)
                     throw new ConflictException("Debes indicar el espacio de trabajo a compartir.");
 
-                var espacios = await _espaciosDeTrabajoService.MostrarEspaciosDeTrabajoPorUsuario(idUsuarioReceptor);
-                var yaEstaEnElEspacio = espacios.Any(e => e.IdEspacioDeTrabajo == idEspacioDeTrabajoACompartir);
-                if (yaEstaEnElEspacio)
+                var yaEstaEnElEspacio = await _espaciosDeTrabajoService
+                    .MostrarEspaciosDeTrabajoPorUsuario(idUsuarioReceptor);
+
+                if (yaEstaEnElEspacio.Any(e => e.IdEspacioDeTrabajo == idEspacioDeTrabajoACompartir))
                     throw new ConflictException("Este usuario ya pertenece a ese espacio de trabajo.");
+
+                var solicitudesPendientes = await _solicitudesRepository
+                    .ObtenerSolicitudesPendientes(idUsuarioReceptor, TiposSolicitudes.EspacioDeTrabajo);
+
+                var yaInvitado = solicitudesPendientes.Any(s => s.Estado == TipoEstadoSolicitud.Pendiente);
+
+                if (yaInvitado)
+                    throw new SolicitudPendienteException("Este usuario ya ha sido invitado a ese espacio de trabajo.", 456);
             }
 
             var envioCreado = new Solicitudes(idUsuarioEmisor, idUsuarioReceptor, tipoSolicitud, idEspacioDeTrabajoACompartir);

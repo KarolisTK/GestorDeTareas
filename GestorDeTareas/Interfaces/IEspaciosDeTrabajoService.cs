@@ -7,5 +7,6 @@ namespace GestorDeTareas.Interfaces
         Task CrearEspacioDeTrabajo(int idUsuario, CrearNuevoEspacioDeTrabajoDTO dto);
         Task AniadirNuevoUsuarioAlEspacioDeTrabajo(AniadirNuevoUsuarioAlEspacioDeTrabajoDTO dto);
         Task<List<MostrarEspaciosDeTrabajoDTO>> MostrarEspaciosDeTrabajoPorUsuario(int idUsuario);
+        Task EliminarEspacioDeTrabajoPorID(int idEspacioTrabajo);
     }
 }

@@ -19,12 +19,12 @@ namespace GestorDeTareas.Models
         public string? FriendTag { get; set; }
         public ICollection<EspaciosDeTrabajo> EspaciosDeTrabajo { get; set; } = new List<EspaciosDeTrabajo>();
         public Usuario() { }
-        public Usuario( string nombreUsuario, string correoUsuario, string contrasenaUsuario, bool? estaEliminado, string? friendTag)
+        public Usuario( string nombreUsuario, string correoUsuario, string contrasenaUsuario,string? friendTag)
         {
             NombreUsuario = nombreUsuario;
             CorreoUsuario = correoUsuario;
             ContrasenaUsuario = contrasenaUsuario;
-            EstaEliminado = estaEliminado;
+            EstaEliminado = false;
             FriendTag = friendTag;
         }
     }

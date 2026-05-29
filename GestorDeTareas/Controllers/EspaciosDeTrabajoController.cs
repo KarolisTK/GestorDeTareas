@@ -36,5 +36,13 @@ namespace GestorDeTareas.Controllers
             var idUsuario = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             return await _espaciosDeTrabajoService.MostrarEspaciosDeTrabajoPorUsuario(idUsuario);
         }
+
+        [Authorize]
+        [HttpPost("Eliminar")]
+        public async Task<IActionResult> EliminarEspacioDeTrabajo(int idEspacioDeTrabajo) 
+        {
+            await _espaciosDeTrabajoService.EliminarEspacioDeTrabajoPorID(idEspacioDeTrabajo);
+            return Ok();
+        }
     }
 }
