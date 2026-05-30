@@ -88,7 +88,7 @@ namespace GestorDeTareas.Services
             };
             var contenidoNotificacion = new Dictionary<TiposNotificaciones, string>
             {
-                { TiposNotificaciones.Solicitud, "Tienes una nueva solicitud de amistad de " + usuarioEmisor.NombreUsuario + " Entra en tus notificaciones de amistad en JustOneStep.DeKarolis.com/notificaciones para gestionar la solicitud." },
+                { TiposNotificaciones.Solicitud, "Tienes una nueva solicitud de amistad de " + usuarioEmisor.NombreUsuario + " Entra en tus notificaciones de amistad en JustOneStep.DeKarolis.com para gestionar la solicitud." },
                 { TiposNotificaciones.Aceptada,  "Tu solicitud de amistad fue aceptada" },
                 { TiposNotificaciones.Rechazada, "Tu solicitud de amistad fue rechazada" },
             };
